@@ -1,20 +1,18 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
-    public class NodeAutoCheckBox : CheckBox
+    public class NodeQuestionButton : Button
     {
-        public NodeAutoCheckBox(VplElement hostNodeGroup)
+        public NodeQuestionButton(VplElement hostNodeGroup)
         {
             HostElement = hostNodeGroup;
             HostElement.HostCanvas.Children.Add(this);
 
-            IsChecked = true;
-            BorderBrush = Application.Current.Resources["BrushBlue"] as Brush;
-            Foreground = Application.Current.Resources["BrushBlue"] as Brush;
+            Style = FindResource("QuestButton20") as Style;
+
 
             HostNodeGroup_PropertyChanged(null, null);
             HostElement.PropertyChanged += HostNodeGroup_PropertyChanged;
@@ -25,8 +23,8 @@ namespace TUM.CMS.VplControl
         private void HostNodeGroup_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var hostPosition = HostElement.GetPosition();
-            Canvas.SetTop(this, hostPosition.Y - 23);
-            Canvas.SetLeft(this, hostPosition.X + HostElement.ActualWidth - 55);
+            Canvas.SetTop(this, hostPosition.Y - 30);
+            Canvas.SetLeft(this, hostPosition.X - 5);
         }
     }
 }

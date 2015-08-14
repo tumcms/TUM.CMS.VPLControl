@@ -75,10 +75,12 @@ namespace TUM.CMS.VplControl.Scripting
                 var bitmap = LoadBitmap(m.Groups[1].Value);
                 if (bitmap != null)
                 {
-                    var image = new Image();
-                    image.Source = bitmap;
-                    image.Width = bitmap.PixelWidth;
-                    image.Height = bitmap.PixelHeight;
+                    var image = new Image
+                    {
+                        Source = bitmap,
+                        Width = bitmap.PixelWidth,
+                        Height = bitmap.PixelHeight
+                    };
                     // Pass the length of the match to the 'documentLength' parameter
                     // of InlineObjectElement.
                     return new InlineObjectElement(m.Length, image);

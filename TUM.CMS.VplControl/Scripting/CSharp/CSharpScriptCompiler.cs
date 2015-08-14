@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace TUM.CMS.VplControl.Scripting
+namespace TUM.CMS.VplControl.Scripting.CSharp
 {
     public class CSharpScriptCompiler
     {

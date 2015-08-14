@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 using System.Xml;
 using TUM.CMS.VplControl.Nodes;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public class Connector
     {

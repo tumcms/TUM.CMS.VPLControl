@@ -7,7 +7,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     public class SliderNode : Node
     {
-        public SliderNode(VplControl hostCanvas) : base(hostCanvas)
+        public SliderNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             AddOutputPortToNode("Number", typeof (double));
 

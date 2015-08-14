@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Windows;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
@@ -34,12 +35,12 @@ namespace TUM.CMS.VplControl.Scripting
             var text = CurrentContext.Document.GetText(line);
             var start = 0;
             int index;
-            while ((index = text.IndexOf("AvalonEdit", start)) >= 0)
+            while ((index = text.IndexOf("AvalonEdit", start, StringComparison.Ordinal)) >= 0)
             {
                 ChangeLinePart(
                     lineStartOffset + index, // startOffset
                     lineStartOffset + index + 10, // endOffset
-                    (VisualLineElement element) =>
+                    element =>
                     {
                         // This lambda gets called once for every VisualLineElement
                         // between the specified offsets.

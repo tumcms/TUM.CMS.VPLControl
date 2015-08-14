@@ -47,7 +47,7 @@ namespace TUM.CMS.VplControl.Scripting
         {
             var dia = new OpenFileDialog
             {
-                Filter = "dll files (*.dll)|*.dll|All files (*.*)|*.*",
+                Filter = @"dll files (*.dll)|*.dll|All files (*.*)|*.*",
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
             };
 

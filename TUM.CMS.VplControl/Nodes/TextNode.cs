@@ -6,7 +6,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     public class TextNode : Node
     {
-        public TextNode(VplControl hostCanvas) : base(hostCanvas)
+        public TextNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             AddOutputPortToNode("String", typeof (string));
 

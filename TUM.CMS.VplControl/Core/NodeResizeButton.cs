@@ -2,19 +2,19 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
-    public class NodeBinButton : Button
+    public class NodeResizeButton : Button
     {
-        public NodeBinButton(VplElement hostNodeGroup)
+        public NodeResizeButton(VplElement hostElement)
         {
-            HostElement = hostNodeGroup;
-            HostElement.HostCanvas.Children.Add(this);
+            HostElement = hostElement;
+            hostElement.HostCanvas.Children.Add(this);
 
-            Style = FindResource("BinButton20") as Style;
+            Style = FindResource("PinButton20") as Style;
 
             HostNodeGroup_PropertyChanged(null, null);
-            HostElement.PropertyChanged += HostNodeGroup_PropertyChanged;
+            hostElement.PropertyChanged += HostNodeGroup_PropertyChanged;
         }
 
         public VplElement HostElement { get; set; }
@@ -23,7 +23,7 @@ namespace TUM.CMS.VplControl
         {
             var hostPosition = HostElement.GetPosition();
             Canvas.SetTop(this, hostPosition.Y - 30);
-            Canvas.SetLeft(this, hostPosition.X + HostElement.ActualWidth - 15);
+            Canvas.SetLeft(this, hostPosition.X + HostElement.ActualWidth - 40);
         }
     }
 }

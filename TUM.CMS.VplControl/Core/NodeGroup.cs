@@ -4,11 +4,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public class NodeGroup : VplElement
     {
@@ -34,7 +33,6 @@ namespace TUM.CMS.VplControl
         }
 
         public int Id { get; set; }
-        public bool IsSelected { get; set; }
 
         public TrulyObservableCollection<Node> ChildNodes
         {

@@ -21,7 +21,7 @@ namespace TUM.CMS.VplControl.Scripting
     /// </summary>
     public partial class ScriptingControl
     {
-        public static readonly DependencyProperty ScriptFileProperty =
+        public static readonly DependencyProperty scriptFileProperty =
             DependencyProperty.Register("CurrentFile", typeof (ScriptFile), typeof (ScriptingControl),
                 new PropertyMetadata(new ScriptFile(), ScriptFilePropertyChanged));
 
@@ -88,8 +88,8 @@ namespace TUM.CMS.VplControl.Scripting
 
         public ScriptFile CurrentFile
         {
-            get { return (ScriptFile) GetValue(ScriptFileProperty); }
-            set { SetValue(ScriptFileProperty, value); }
+            get { return (ScriptFile) GetValue(scriptFileProperty); }
+            set { SetValue(scriptFileProperty, value); }
         }
 
         private static void ScriptFilePropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)

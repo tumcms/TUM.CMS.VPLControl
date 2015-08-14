@@ -5,7 +5,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using TUM.CMS.VplControl.Nodes;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public sealed class Comment : Border, INotifyPropertyChanged
     {

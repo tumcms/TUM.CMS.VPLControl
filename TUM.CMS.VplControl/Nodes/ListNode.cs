@@ -8,7 +8,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     public class ListNode : Node
     {
-        public ListNode(VplControl hostCanvas) : base(hostCanvas)
+        public ListNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             var grid = new Grid();
             grid.ColumnDefinitions.Insert(0, new ColumnDefinition());

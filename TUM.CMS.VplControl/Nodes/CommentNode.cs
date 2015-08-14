@@ -6,7 +6,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     public class CommentNode : Node
     {
-        public CommentNode(VplControl hostCanvas)
+        public CommentNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             AddControlToNode(new TextBox

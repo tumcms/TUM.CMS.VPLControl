@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TUM.CMS.VplControl.Scripting
+namespace TUM.CMS.VplControl.Scripting.CSharp
 {
     public class CSharpScriptFile : ScriptFile
     {

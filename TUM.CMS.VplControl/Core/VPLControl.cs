@@ -17,7 +17,7 @@ using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     /// <summary>
     ///     Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -103,58 +103,100 @@ namespace TUM.CMS.VplControl
                     Fill = Brushes.White
                 }
             };
-            // Set Grid
-            Background = visualBrush;
 
-            Theme = new Theme(this)
+            Theme = new Theme(this) {FontFamily = TextElement.GetFontFamily(this)};
+
+            var solidColorBrush = TextElement.GetForeground(this) as SolidColorBrush;
+            if (solidColorBrush != null)
+                Theme.ForegroundColor = solidColorBrush.Color;
+
+            var colorBrush = Application.Current.Resources["BackgroundBrush"] as SolidColorBrush;
+            if (colorBrush != null)
+                Theme.BackgroundColor = colorBrush.Color;
+
+            var gridBrush = Application.Current.Resources["GridBrush"] as SolidColorBrush;
+            if (gridBrush != null)
+                Theme.GridColor = gridBrush.Color;
+
+            var connectorBrush = Application.Current.Resources["ConnectorBrush"] as SolidColorBrush;
+            if (connectorBrush != null)
+                Theme.ConnectorColor = connectorBrush.Color;
+
+            Theme.ConnectorThickness =
+                Application.Current.Resources["ConnectorThickness"] is double
+                    ? (double) Application.Current.Resources["ConnectorThickness"]
+                    : 0;
+
+
+            var toolTipBackgroundBrush = Application.Current.Resources["TooltipBackgroundBrush"] as SolidColorBrush;
+            if (toolTipBackgroundBrush != null)
             {
-                FontFamily = TextElement.GetFontFamily(this),
-                ForegroundColor = (TextElement.GetForeground(this) as SolidColorBrush).Color,
-                BackgroundColor = (Application.Current.Resources["BackgroundBrush"] as SolidColorBrush).Color,
-                ConnectorColor = (Application.Current.Resources["ConnectorBrush"] as SolidColorBrush).Color,
-                ConnectorThickness =
-                    Application.Current.Resources["ConnectorThickness"] is double
-                        ? (double) Application.Current.Resources["ConnectorThickness"]
-                        : 0,
-                TooltipBackgroundColor =
-                    (Application.Current.Resources["TooltipBackgroundBrush"] as SolidColorBrush).Color,
-                TooltipBorderColor = (Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush).Color,
-                PortFillColor = (Application.Current.Resources["PortFillBrush"] as SolidColorBrush).Color,
-                PortStrokeColor = (Application.Current.Resources["PortStrokeBrush"] as SolidColorBrush).Color,
-                PortSize =
-                    Application.Current.Resources["PortSize"] is double
-                        ? (double) Application.Current.Resources["PortSize"]
-                        : 0,
-                PortStrokeThickness =
-                    Application.Current.Resources["PortStrokeThickness"] is double
-                        ? (double) Application.Current.Resources["PortStrokeThickness"]
-                        : 0,
-                NodeBackgroundColor = Colors.White,
-                ButtonBorderColor = (Application.Current.Resources["ButtonBorderBrush"] as SolidColorBrush).Color,
-                ButtonFillColor = (Application.Current.Resources["ButtonFillBrush"] as SolidColorBrush).Color,
-                HighlightingColor = (Application.Current.Resources["BrushHighlighting"] as SolidColorBrush).Color,
-                NodeBorderColor = (Application.Current.Resources["NodeBorderBrush"] as SolidColorBrush).Color,
-                //NodeBorderThickness = Application.Current.Resources["NodeBorderThickness"] is Thickness ? (Thickness) Application.Current.Resources["NodeBorderThickness"] : new Thickness(),
+                Theme.TooltipBackgroundColor =
+                    toolTipBackgroundBrush.Color;
+            }
 
-                NodeBorderCornerRadius =
-                    Application.Current.Resources["NodeBorderCornerRadius"] is double
-                        ? (double) Application.Current.Resources["NodeBorderCornerRadius"]
-                        : 0,
-                NodeBorderColorOnMouseOver =
-                    (Application.Current.Resources["NodeBorderBrushMouseOver"] as SolidColorBrush).Color,
-                NodeBorderColorOnSelection = 
-                    (Application.Current.Resources["NodeBorderBrushSelection"] as SolidColorBrush).Color,
-                LineColor = (Application.Current.Resources["LineStrokeBrush"] as SolidColorBrush).Color,
-                LineThickness =
-                    Application.Current.Resources["LineStrokeThickness"] is double
-                        ? (double) Application.Current.Resources["LineStrokeThickness"]
-                        : 0,
-                ConnEllipseFillColor = (Application.Current.Resources["ConnEllipseFillBrush"] as SolidColorBrush).Color,
-                ConnEllipseSize =
-                    Application.Current.Resources["ConnEllipseSize"] is double
-                        ? (double) Application.Current.Resources["ConnEllipseSize"]
-                        : 0
-            };
+            var tooltipBorderBrush = Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush;
+            if (tooltipBorderBrush != null)
+            {
+                Theme.TooltipBorderColor = tooltipBorderBrush.Color;
+            }
+
+            var portFillBrush = Application.Current.Resources["PortFillBrush"] as SolidColorBrush;
+            if (portFillBrush != null)
+                Theme.PortFillColor = portFillBrush.Color;
+
+            var portStrokeBrush = Application.Current.Resources["PortStrokeBrush"] as SolidColorBrush;
+            if (portStrokeBrush != null)
+                Theme.PortStrokeColor = portStrokeBrush.Color;
+
+            Theme.PortSize =
+                Application.Current.Resources["PortSize"] is double
+                    ? (double) Application.Current.Resources["PortSize"]
+                    : 0;
+
+            Theme.PortStrokeThickness =
+                Application.Current.Resources["PortStrokeThickness"] is double
+                    ? (double) Application.Current.Resources["PortStrokeThickness"]
+                    : 0;
+
+            Theme.NodeBackgroundColor = Colors.White;
+
+            Theme.ButtonBorderColor = (Application.Current.Resources["ButtonBorderBrush"] as SolidColorBrush).Color;
+
+            Theme.ButtonFillColor = (Application.Current.Resources["ButtonFillBrush"] as SolidColorBrush).Color;
+
+            Theme.HighlightingColor = (Application.Current.Resources["BrushHighlighting"] as SolidColorBrush).Color;
+
+            Theme.NodeBorderColor = (Application.Current.Resources["NodeBorderBrush"] as SolidColorBrush).Color;
+
+            //NodeBorderThickness = Application.Current.Resources["NodeBorderThickness"] is Thickness ? (Thickness) Application.Current.Resources["NodeBorderThickness"] : new Thickness(),
+
+            Theme.NodeBorderCornerRadius =
+                Application.Current.Resources["NodeBorderCornerRadius"] is double
+                    ? (double) Application.Current.Resources["NodeBorderCornerRadius"]
+                    : 0;
+
+            Theme.NodeBorderColorOnMouseOver =
+                (Application.Current.Resources["NodeBorderBrushMouseOver"] as SolidColorBrush).Color;
+
+            Theme.NodeBorderColorOnSelection =
+                (Application.Current.Resources["NodeBorderBrushSelection"] as SolidColorBrush).Color;
+
+            Theme.LineColor = (Application.Current.Resources["LineStrokeBrush"] as SolidColorBrush).Color;
+
+            Theme.LineThickness =
+                Application.Current.Resources["LineStrokeThickness"] is double
+                    ? (double) Application.Current.Resources["LineStrokeThickness"]
+                    : 0;
+
+            Theme.ConnEllipseFillColor =
+                (Application.Current.Resources["ConnEllipseFillBrush"] as SolidColorBrush).Color;
+
+            Theme.ConnEllipseSize =
+                Application.Current.Resources["ConnEllipseSize"] is double
+                    ? (double) Application.Current.Resources["ConnEllipseSize"]
+                    : 0;
+
         }
 
         internal SplineModes SplineMode { get; set; }
@@ -182,8 +224,8 @@ namespace TUM.CMS.VplControl
         private readonly ScaleTransform scaleTransform;
         private readonly TransformGroup transformGroup;
         private readonly TranslateTransform translateTransform;
-        public int zoomIn { get; set; }
-        public int zoomOut { get; set; }
+        public int ZoomIn { get; set; }
+        public int ZoomOut { get; set; }
 
         [Category("All VPL settings")]
         [DisplayName(@"Type sensitive")]
@@ -344,18 +386,17 @@ namespace TUM.CMS.VplControl
         private void HandleMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // Zooming
-            Point mouseRelativetoCanvas;
             double scaledCanvasMouseOffsetX;
             double scaledCanvasMouseOffsetY;
 
-            mouseRelativetoCanvas = e.GetPosition(this);
+            var mouseRelativetoCanvas = e.GetPosition(this);
 
             if (e.Delta > 0)
             {
-                if (zoomIn < 10)
+                if (ZoomIn < 10)
                 {
-                    zoomIn = zoomIn + 1;
-                    zoomOut = zoomOut - 1;
+                    ZoomIn = ZoomIn + 1;
+                    ZoomOut = ZoomOut - 1;
                     scaleTransform.ScaleX += 0.1;
                     scaleTransform.ScaleY += 0.1;
 
@@ -369,10 +410,10 @@ namespace TUM.CMS.VplControl
 
             if (e.Delta < 0)
             {
-                if (zoomOut < 7)
+                if (ZoomOut < 7)
                 {
-                    zoomIn = zoomIn - 1;
-                    zoomOut = zoomOut + 1;
+                    ZoomIn = ZoomIn - 1;
+                    ZoomOut = ZoomOut + 1;
                     scaleTransform.ScaleX -= 0.1;
                     scaleTransform.ScaleY -= 0.1;
 
@@ -627,9 +668,11 @@ namespace TUM.CMS.VplControl
                 {
                     if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
                     {
-                        var saveFileDialog = new SaveFileDialog();
-                        saveFileDialog.Filter = "vplXML (.vplxml)|*.vplxml";
-                        saveFileDialog.DefaultExt = "vplxml";
+                        var saveFileDialog = new SaveFileDialog
+                        {
+                            Filter = "vplXML (.vplxml)|*.vplxml",
+                            DefaultExt = "vplxml"
+                        };
 
                         if (saveFileDialog.ShowDialog() == true)
                             SerializeNetwork(saveFileDialog.FileName);
@@ -640,8 +683,11 @@ namespace TUM.CMS.VplControl
                 {
                     if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
                     {
-                        var openFileDialog = new OpenFileDialog {Multiselect = false};
-                        openFileDialog.Filter = "vplXML (.vplxml)|*.vplxml";
+                        var openFileDialog = new OpenFileDialog
+                        {
+                            Multiselect = false,
+                            Filter = "vplXML (.vplxml)|*.vplxml"
+                        };
 
 
                         if (openFileDialog.ShowDialog() == true)

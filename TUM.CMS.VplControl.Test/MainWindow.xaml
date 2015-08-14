@@ -1,8 +1,8 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vplControl="clr-namespace:TUM.CMS.VplControl;assembly=TUM.CMS.VplControl"
     xmlns:wpfToolkit="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=Xceed.Wpf.Toolkit"
+    xmlns:core="clr-namespace:TUM.CMS.VplControl.Core;assembly=TUM.CMS.VplControl"
 
     x:Class="TUM.CMS.VplControl.Test.MainWindow"
     Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
@@ -17,6 +17,6 @@
 
         <wpfToolkit:PropertyGrid Name="VplPropertyGrid" />
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <vplControl:VplControl Name="VplControl" Grid.Column="2" />
+        <core:VplControl Name="VplControl" Grid.Column="2" />
     </Grid>
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Windows;
+using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Test

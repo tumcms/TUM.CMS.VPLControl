@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public class Theme
     {
@@ -27,6 +27,21 @@ namespace TUM.CMS.VplControl
             {
                 backgroundColor = value;
                 Application.Current.Resources["BackgroundBrush"] = new SolidColorBrush(backgroundColor);
+            }
+        }
+
+        private Color gridColor;
+
+        [Category("General style")]
+        [DisplayName(@"Grid color")]
+        [Browsable(false)]
+        public Color GridColor
+        {
+            get { return gridColor; }
+            set
+            {
+                gridColor = value;
+                Application.Current.Resources["GridBrush"] = new SolidColorBrush(gridColor);
             }
         }
 

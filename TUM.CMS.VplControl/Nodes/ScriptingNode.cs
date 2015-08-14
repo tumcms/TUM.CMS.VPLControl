@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Scripting;
+using TUM.CMS.VplControl.Scripting.CSharp;
 using TUM.CMS.VplControl.Scripting.Python;
 
 namespace TUM.CMS.VplControl.Nodes
@@ -13,9 +14,8 @@ namespace TUM.CMS.VplControl.Nodes
     {
         private readonly ScriptingControl scriptingControl;
         private string scriptContent;
-        private string scriptLanguage;
 
-        public ScriptingNode(VplControl hostCanvas)
+        public ScriptingNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             scriptingControl = new ScriptingControl();

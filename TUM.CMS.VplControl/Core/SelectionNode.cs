@@ -8,7 +8,7 @@ using System.Windows.Media;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     internal class SelectionNode : Node
     {

@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public class Port : Control
     {

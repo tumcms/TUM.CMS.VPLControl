@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32.SafeHandles;
 
-namespace TUM.CMS.VplControl
+namespace TUM.CMS.VplControl.Core
 {
     public abstract class VplElement : Grid, INotifyPropertyChanged, IDisposable
     {
@@ -30,10 +30,10 @@ namespace TUM.CMS.VplControl
 
             Border = new Border
             {
-                Style = FindResource("VplElementBorderStyle") as Style
+                Style = FindResource("VplElementBorderStyle") as Style,
+                Child = this
             };
 
-            Border.Child = this;
 
 
             // Move to WPF Style
@@ -116,7 +116,7 @@ namespace TUM.CMS.VplControl
             set { SetValue(BorderProperty, value); }
         }
 
-        private bool isSelected = false;
+        private bool isSelected;
         public bool IsSelected
         {
             get { return isSelected; }

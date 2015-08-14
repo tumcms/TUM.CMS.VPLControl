@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
+using TUM.CMS.VplControl.Core;
 
 namespace TUM.CMS.VplControl.Nodes
 {
@@ -14,10 +15,8 @@ namespace TUM.CMS.VplControl.Nodes
         private static readonly Action emptyDelegate = delegate { };
         private static int id = 3;
         private readonly int myid;
-        private bool isSelected;
-        private bool showConnHelp;
 
-        protected Node(VplControl hostCanvas) : base(hostCanvas)
+        protected Node(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             Guid = Guid.NewGuid();
 

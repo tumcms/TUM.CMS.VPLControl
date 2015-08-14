@@ -136,7 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NodeAutoCheckBox.cs" />
+    <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Nodes\ScriptingNode.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -161,12 +161,12 @@
     <Compile Include="Scripting\ScriptingControlSimple.xaml.cs">
       <DependentUpon>ScriptingControlSimple.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Theme.cs" />
-    <Compile Include="VplElement.cs" />
-    <Compile Include="NodeQuestionButton.cs" />
-    <Compile Include="NodeCaptionLabel.cs" />
-    <Compile Include="NodeResizeButton.cs" />
-    <Compile Include="NodeBinButton.cs" />
+    <Compile Include="Themes\Theme.cs" />
+    <Compile Include="Core\VplElement.cs" />
+    <Compile Include="Core\NodeQuestionButton.cs" />
+    <Compile Include="Core\NodeCaptionLabel.cs" />
+    <Compile Include="Core\NodeResizeButton.cs" />
+    <Compile Include="Core\NodeBinButton.cs" />
     <Compile Include="Nodes\ListNode.cs" />
     <Compile Include="Nodes\Node.cs" />
     <Compile Include="Nodes\SliderNode.cs" />
@@ -190,14 +190,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Comment.cs" />
-    <Compile Include="Connector.cs" />
-    <Compile Include="CopyConnection.cs" />
-    <Compile Include="NodeContent.cs" />
-    <Compile Include="NodeGroup.cs" />
-    <Compile Include="SelectionNode.cs" />
-    <Compile Include="Port.cs" />
-    <Compile Include="VPLControl.cs">
+    <Compile Include="Core\Comment.cs" />
+    <Compile Include="Core\Connector.cs" />
+    <Compile Include="Core\CopyConnection.cs" />
+    <Compile Include="Core\NodeContent.cs" />
+    <Compile Include="Core\NodeGroup.cs" />
+    <Compile Include="Core\SelectionNode.cs" />
+    <Compile Include="Core\Port.cs" />
+    <Compile Include="Core\VPLControl.cs">
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Themes\Slider.xaml">

@@ -8,7 +8,6 @@ namespace TUM.CMS.VplControl.Scripting.Python
     {
         private readonly ScriptEngine pyEngine;
         private readonly ScriptScope pyScope;
-        private ScriptRuntime pyRuntime = null;
 
         public PythonScriptCompiler()
         {
