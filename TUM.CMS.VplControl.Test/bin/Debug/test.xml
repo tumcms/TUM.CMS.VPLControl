@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Nodes>
+    <TUM.CMS.VplControl.Nodes.TemplateNode GUID="90e6df05-8675-4742-bd92-a795c821099f" TOP="301" Left="878" />
+    <TUM.CMS.VplControl.Nodes.TextNode GUID="315b9f88-1e16-4a82-9002-12e687e2fb71" TOP="293" Left="160" Text="TUM.CMS.VPLControl" />
+    <TUM.CMS.VplControl.Nodes.SliderNode GUID="7fc5dfc7-d020-45b3-b2cd-5b3053563002" TOP="369" Left="164" SliderMax="1" SliderMin="0" SliderValue="0.5" />
+    <TUM.CMS.VplControl.Nodes.ListNode GUID="938cc50c-a363-44f2-9d38-bc08e5689a9d" TOP="300" Left="453" InputPortsCount="2" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="1eed3679-70b4-4b07-95ea-fff204398ae8" TOP="317" Left="1159" />
+  </Nodes>
+  <Connectors>
+    <TUM.CMS.VplControl.Connector StartNode="315b9f88-1e16-4a82-9002-12e687e2fb71" StartIndex="0" EndNode="938cc50c-a363-44f2-9d38-bc08e5689a9d" EndIndex="0" />
+    <TUM.CMS.VplControl.Connector StartNode="7fc5dfc7-d020-45b3-b2cd-5b3053563002" StartIndex="0" EndNode="938cc50c-a363-44f2-9d38-bc08e5689a9d" EndIndex="1" />
+    <TUM.CMS.VplControl.Connector StartNode="938cc50c-a363-44f2-9d38-bc08e5689a9d" StartIndex="0" EndNode="90e6df05-8675-4742-bd92-a795c821099f" EndIndex="0" />
+    <TUM.CMS.VplControl.Connector StartNode="90e6df05-8675-4742-bd92-a795c821099f" StartIndex="0" EndNode="1eed3679-70b4-4b07-95ea-fff204398ae8" EndIndex="0" />
+  </Connectors>
+</Document>
