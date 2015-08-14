@@ -44,6 +44,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TUM.CMS.VPL.Scripting">
+      <HintPath>..\TUM.CMS.VPL.Scripting\bin\Debug\TUM.CMS.VPL.Scripting.dll</HintPath>
+    </Reference>
     <Reference Include="TUM.CMS.VplControl">
       <HintPath>..\TUM.CMS.VplControl\bin\Debug\TUM.CMS.VplControl.dll</HintPath>
     </Reference>

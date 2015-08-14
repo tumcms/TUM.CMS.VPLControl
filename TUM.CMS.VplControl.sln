@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUM.CMS.VplControl", "TUM.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUM.CMS.VplControl.Test", "TUM.CMS.VplControl.Test\TUM.CMS.VplControl.Test.csproj", "{A2AAA7E5-91CA-4349-8569-0A21037CE666}"
 	ProjectSection(ProjectDependencies) = postProject
+		{A8B4A5F8-87BB-489D-A107-F58E818AB82D} = {A8B4A5F8-87BB-489D-A107-F58E818AB82D}
+		{593E9BFD-BE78-4487-9E22-76AE7DF0B84A} = {593E9BFD-BE78-4487-9E22-76AE7DF0B84A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUM.CMS.VPL.Scripting", "TUM.CMS.VPL.Scripting\TUM.CMS.VPL.Scripting.csproj", "{A8B4A5F8-87BB-489D-A107-F58E818AB82D}"
+	ProjectSection(ProjectDependencies) = postProject
 		{593E9BFD-BE78-4487-9E22-76AE7DF0B84A} = {593E9BFD-BE78-4487-9E22-76AE7DF0B84A}
 	EndProjectSection
 EndProject
@@ -24,6 +30,10 @@ Global
 		{A2AAA7E5-91CA-4349-8569-0A21037CE666}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2AAA7E5-91CA-4349-8569-0A21037CE666}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2AAA7E5-91CA-4349-8569-0A21037CE666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B4A5F8-87BB-489D-A107-F58E818AB82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B4A5F8-87BB-489D-A107-F58E818AB82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B4A5F8-87BB-489D-A107-F58E818AB82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B4A5F8-87BB-489D-A107-F58E818AB82D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

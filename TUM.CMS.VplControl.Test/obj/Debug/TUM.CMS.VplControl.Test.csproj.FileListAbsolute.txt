@@ -96,3 +96,6 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ro
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VPL.Scripting.dll
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ICSharpCode.NRefactory.dll
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VPL.Scripting.pdb
