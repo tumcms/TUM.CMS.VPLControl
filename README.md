@@ -28,6 +28,7 @@ Give it a try:
 ### Features ###
 - Drawing nodes
 - Customize nodes
+- Resizeable nodes
 - Panning
 - Grouping
 - Hints
@@ -35,6 +36,7 @@ Give it a try:
 - Serialize/Deserialize
 - Zooming
 - Type sensetive
+- Customizable style
 
 ### ToDo ###
 - Lacing
@@ -42,10 +44,11 @@ Give it a try:
 - Aligning
 - Vertical/Horizontal flow switch
 - Animations
-- Customizable style
-- Resize node
 - Resize group node to one node
-
+- Nodes for graph plotting / sql
+- Drag&Drop nodes from toolbox
+- Performance improvement: Virtual canvas
+- Better zooming
 
 ----------
 
