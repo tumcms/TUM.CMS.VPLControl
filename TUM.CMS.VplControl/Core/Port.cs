@@ -28,8 +28,12 @@ namespace TUM.CMS.VplControl.Core
 
             MouseDown += Port_MouseDown;
             ParentNode.SizeChanged += ParentNode_SizeChanged;
+
+            ParentNode.PropertyChanged += ParentNode_PropertyChanged;
             ConnectedConnectors = new List<Connector>();
+            Origin=new BindingPoint(0,0);
         }
+
 
         public string Text
         {
@@ -57,20 +61,28 @@ namespace TUM.CMS.VplControl.Core
             }
         }
 
-        public Point Origin
-        {
-            get { return TranslatePoint(new Point(Width/2, Height/2), ParentNode.HostCanvas); }
-        }
+        public BindingPoint Origin { get; set; }
+
 
         public List<Connector> ConnectedConnectors { get; set; }
 
         private void ParentNode_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (PositionChanged != null)
-                PositionChanged(this, new EventArgs());
+            CalcOrigin();
         }
 
-        public event EventHandler PositionChanged;
+        void ParentNode_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+            CalcOrigin();
+        }
+
+        private void CalcOrigin()
+        {
+            Origin.X = TranslatePoint(new Point(Width / 2, Height / 2), ParentNode.HostCanvas).X;
+            Origin.Y = TranslatePoint(new Point(Width / 2, Height / 2), ParentNode.HostCanvas).Y;
+        }
+
 
         private void Port_MouseDown(object sender, MouseButtonEventArgs e)
         {

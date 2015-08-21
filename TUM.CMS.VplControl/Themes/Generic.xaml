@@ -79,7 +79,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="VplElementBorderStyleSelection" TargetType="Border">
+    <Style x:Key="VplElementBorderSelectionStyle" TargetType="Border">
         <Setter Property="BorderBrush" Value="{DynamicResource NodeBorderBrushSelection}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="CornerRadius" Value="10" />
@@ -87,9 +87,14 @@
         <Setter Property="Background" Value="{DynamicResource NodeBackgroundBrush}" />
     </Style>
 
+    <Style x:Key="HitTestBorderStyle" TargetType="Border">
+        <Setter Property="IsHitTestVisible" Value="true" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1"></Setter>
+    </Style>
+    
+    
 
-    
-    
     <Style x:Key="MainContentGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{DynamicResource NodeBackgroundBrush}" />
     </Style>

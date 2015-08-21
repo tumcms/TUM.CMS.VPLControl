@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\BindingPoint.cs" />
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Properties\Annotations.cs" />

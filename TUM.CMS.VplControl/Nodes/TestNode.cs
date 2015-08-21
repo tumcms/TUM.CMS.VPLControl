@@ -32,6 +32,7 @@ namespace TUM.CMS.VplControl.Nodes
             TopComment.Visibility = Visibility.Visible;
             BottomComment.Visibility = Visibility.Visible;
 
+            IsResizeable = true;
 
             Name = "Test node";
         }

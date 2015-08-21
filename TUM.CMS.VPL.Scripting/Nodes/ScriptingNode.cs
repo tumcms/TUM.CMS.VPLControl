@@ -26,10 +26,11 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
             // Create new script File
             scriptingControl.CurrentFile = new CSharpScriptFile();
-            scriptingControl.Height = 400;
-            scriptingControl.Width = 700;
-            scriptingControl.DockPanel.Height = 400;
 
+            //scriptingControl.Height = 400;
+            //scriptingControl.Width = 700;
+            //scriptingControl.DockPanel.Height = 400;
+            IsResizeable = true;
 
             scriptingControl.StartCompilingEventHandler += StartCompilingEventHandler;
 

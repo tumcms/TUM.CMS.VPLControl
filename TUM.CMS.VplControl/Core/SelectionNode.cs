@@ -66,7 +66,15 @@ namespace TUM.CMS.VplControl.Core
 
             autoCompleteComboBox.Focus();
 
+
+
             Border.MouseLeave += SelectionNode_MouseLeave;
+            MouseEnter += SelectionNode_MouseEnter;
+        }
+
+        void SelectionNode_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ControlElements[0].Focus();
         }
 
         private void AutoCompleteComboBoxOnKeyDown(object sender, KeyEventArgs keyEventArgs)
@@ -87,6 +95,7 @@ namespace TUM.CMS.VplControl.Core
 
         private void SelectionNode_MouseLeave(object sender, MouseEventArgs e)
         {
+            this.Dispose();
             HostCanvas.Children.Remove(Border);
         }
 

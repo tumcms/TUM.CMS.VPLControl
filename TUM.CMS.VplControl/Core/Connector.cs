@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
@@ -39,14 +40,21 @@ namespace TUM.CMS.VplControl.Core
             StartPort = startPort;
             EndPort = endPort;
 
+            Canvas.SetLeft(srtEllipse, StartPort.Origin.X - srtEllipse.ActualWidth / 2);
+            Canvas.SetTop(srtEllipse, StartPort.Origin.Y - srtEllipse.ActualHeight / 2);
+
+            Canvas.SetLeft(endEllipse, EndPort.Origin.X - endEllipse.ActualWidth / 2);
+            Canvas.SetTop(endEllipse, EndPort.Origin.Y - endEllipse.ActualHeight / 2);
+
+            StartBezierPoint = new BindingPoint(StartPort.Origin.X, StartPort.Origin.Y);
+            EndBezierPoint = new BindingPoint(EndPort.Origin.X, EndPort.Origin.Y);
+
             endPort.Data = startPort.Data;
             startPort.DataChanged += endPort.StartPort_DataChanged;
 
-            startPort.PositionChanged += startPort_PositionChanged;
-            startPort.ParentNode.PropertyChanged += ParentNode_PropertyChanged;
+            StartPort.Origin.PropertyChanged += Origin_PropertyChanged;
+            EndPort.Origin.PropertyChanged += Origin_PropertyChanged;
 
-            endPort.PositionChanged += endPort_PositionChanged;
-            endPort.ParentNode.PropertyChanged += ParentNode_PropertyChanged;
 
             ObserveNode(StartPort.ParentNode);
             ObserveNode(EndPort.ParentNode);
@@ -54,58 +62,87 @@ namespace TUM.CMS.VplControl.Core
             startPort.ConnectedConnectors.Add(this);
             endPort.ConnectedConnectors.Add(this);
 
-            CalcPath();
+            DefinePath();
 
             HostCanvas.Children.Add(Path);
             HostCanvas.Children.Add(srtEllipse);
             HostCanvas.Children.Add(endEllipse);
         }
 
+        void Origin_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var startBezierPoint = StartPort.Origin.Point + new Vector((StartPort.Origin.Point - EndPort.Origin.Point).Length / 2, 0);
+            var endBezierPoint = EndPort.Origin.Point + new Vector(-(StartPort.Origin.Point - EndPort.Origin.Point).Length / 2, 0);
+
+            StartBezierPoint.X = startBezierPoint.X;
+            StartBezierPoint.Y = startBezierPoint.Y;
+
+            EndBezierPoint.X = endBezierPoint.X;
+            EndBezierPoint.Y = endBezierPoint.Y;
+
+            Canvas.SetLeft(srtEllipse, StartPort.Origin.X - srtEllipse.ActualWidth / 2);
+            Canvas.SetTop(srtEllipse, StartPort.Origin.Y - srtEllipse.ActualHeight / 2);
+
+            Canvas.SetLeft(endEllipse, EndPort.Origin.X - endEllipse.ActualWidth / 2);
+            Canvas.SetTop(endEllipse, EndPort.Origin.Y - endEllipse.ActualHeight / 2);
+        }
+
         public Port StartPort { get; private set; }
         public Port EndPort { get; private set; }
+
+
         public VplControl HostCanvas { get; set; }
         public Path Path { get; set; }
 
-        public Point StartBezierPoint
-        {
-            get { return StartPort.Origin + new Vector((StartPort.Origin - EndPort.Origin).Length/2, 0); }
-        }
+        public BindingPoint StartBezierPoint { get; set; }
 
-        public Point EndBezierPoint
-        {
-            get { return EndPort.Origin + new Vector(-(StartPort.Origin - EndPort.Origin).Length/2, 0); }
-        }
+        public BindingPoint EndBezierPoint { get; set; }
 
-        private void startPort_PositionChanged(object sender, EventArgs e)
-        {
-            CalcPath();
-        }
 
-        private void endPort_PositionChanged(object sender, EventArgs e)
-        {
-            CalcPath();
-        }
 
-        private void ParentNode_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void DefinePath()
         {
-            CalcPath();
-        }
+            if(StartPort.Origin==null || EndPort.Origin==null) return;
 
-        private void CalcPath()
-        {
-            var spline = new BezierSegment(StartBezierPoint, EndBezierPoint, EndPort.Origin, true);
+            BezierSegment spline = new BezierSegment {IsStroked = true};
+
+            var b = new Binding("Point")
+            {
+                Source = StartBezierPoint,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(spline, BezierSegment.Point1Property, b);
+
+
+            b = new Binding("Point")
+            {
+                Source = EndBezierPoint,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(spline, BezierSegment.Point2Property, b);
+
+
+            b = new Binding("Point")
+            {
+                Source = EndPort.Origin,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(spline, BezierSegment.Point3Property, b);
 
             var pColl = new PathSegmentCollection {spline};
 
-            var pfColl = new PathFigureCollection {new PathFigure(StartPort.Origin, pColl, false)};
+            var pFig = new PathFigure(StartPort.Origin.Point, pColl, false);
+
+            b = new Binding("Point")
+            {
+                Source = StartPort.Origin,
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(pFig, PathFigure.StartPointProperty, b);
+            
+            var pfColl = new PathFigureCollection { pFig };
 
             Path.Data = new PathGeometry(pfColl);
-
-            Canvas.SetLeft(srtEllipse, StartPort.Origin.X - srtEllipse.ActualWidth/2);
-            Canvas.SetTop(srtEllipse, StartPort.Origin.Y - srtEllipse.ActualHeight/2);
-
-            Canvas.SetLeft(endEllipse, EndPort.Origin.X - endEllipse.ActualWidth/2);
-            Canvas.SetTop(endEllipse, EndPort.Origin.Y - endEllipse.ActualHeight/2);
         }
 
         public void RemoveFromCanvas()

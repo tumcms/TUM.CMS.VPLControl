@@ -251,10 +251,10 @@ namespace TUM.CMS.VplControl.Core
                         if (e.ClickCount == 2)
                         {
                             // double click in empty space of canvas
-                            var node = new SelectionNode(this)
+                            SelectionNode node = new SelectionNode(this)
                             {
-                                Left = Mouse.GetPosition(this).X,
-                                Top = Mouse.GetPosition(this).Y
+                                Left = Mouse.GetPosition(this).X-15,
+                                Top = Mouse.GetPosition(this).Y-20
                             };
                         }
                         else
@@ -350,7 +350,6 @@ namespace TUM.CMS.VplControl.Core
                     }
                 }
             }
-
 
             switch (SplineMode)
             {

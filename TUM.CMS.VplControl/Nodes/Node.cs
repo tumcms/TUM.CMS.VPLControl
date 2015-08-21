@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
 
@@ -15,6 +16,10 @@ namespace TUM.CMS.VplControl.Nodes
         private static readonly Action emptyDelegate = delegate { };
         private static int id = 3;
         private readonly int myid;
+        private bool isResizing;
+        private int minMainMinWidth;
+        private int minMainHeight;
+        private bool isResizeable;
 
         protected Node(Core.VplControl hostCanvas) : base(hostCanvas)
         {
@@ -32,9 +37,8 @@ namespace TUM.CMS.VplControl.Nodes
             HasError = false;
 
 
-
             SpaceCanvas = new Canvas();
-            Children.Add(ContentGrid = new Grid {Background = Brushes.Transparent});
+            Children.Add(ContentGrid = new Grid { ShowGridLines = false, Background = Brushes.Transparent });
 
             // ----------------------------------------------------------------------------------------------------------------------
             // Content Panels
@@ -53,7 +57,6 @@ namespace TUM.CMS.VplControl.Nodes
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-
             // ----------------------------------------------------------------------------------------------------------------------
             // Main content grid
             // ----------------------------------------------------------------------------------------------------------------------
@@ -66,6 +69,9 @@ namespace TUM.CMS.VplControl.Nodes
             SetColumn(MainContentGrid, 1);
             SetRow(MainContentGrid, 1);
             ContentGrid.Children.Add(MainContentGrid);
+
+
+
 
 
             // ----------------------------------------------------------------------------------------------------------------------
@@ -84,7 +90,8 @@ namespace TUM.CMS.VplControl.Nodes
             // Content
             ContentGrid.RowDefinitions.Insert(1, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Footer
-
+            ContentGrid.RowDefinitions.Insert(1, new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            // Risize area
 
             // ----------------------------------------------------------------------------------------------------------------------
             // Event delagates
@@ -130,6 +137,28 @@ namespace TUM.CMS.VplControl.Nodes
             if (AutoCheckBox != null) SetZIndex(AutoCheckBox, myid);
         }
 
+        void resizeRectangle_MouseLeave(object sender, MouseEventArgs e)
+        {
+            HostCanvas.MouseMove -= HostCanvas_MouseMove;
+            isResizing = false;
+            e.Handled = true;
+        }
+
+        void resizeRectangle_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            HostCanvas.MouseMove -= HostCanvas_MouseMove;
+            isResizing = false;
+            e.Handled = true;
+        }
+
+        void resizeRectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OldMousePosition = e.GetPosition(HostCanvas);
+            isResizing = true;
+            HostCanvas.MouseMove += HostCanvas_MouseMove;
+            e.Handled = true;
+        }
+
         public int Id
         {
             get { return myid; }
@@ -151,6 +180,38 @@ namespace TUM.CMS.VplControl.Nodes
         public List<Port> InputPorts { get; set; }
         public List<Port> OutputPorts { get; set; }
         public List<UIElement> ControlElements { get; set; }
+
+        public bool IsResizeable
+        {
+            get { return isResizeable; }
+            set
+            {
+                if (value == isResizeable) return;
+                isResizeable = value;
+
+                // ----------------------------------------------------------------------------------------------------------------------
+                // Risize button
+                // ----------------------------------------------------------------------------------------------------------------------
+                Border resizeRectangle = new Border();
+                resizeRectangle.Width = 20;
+                resizeRectangle.Height = 20;
+                resizeRectangle.BorderBrush = Brushes.LightGray;
+                resizeRectangle.BorderThickness = new Thickness(1);
+                resizeRectangle.Background = Border.Background;
+                resizeRectangle.CornerRadius = new CornerRadius(2);
+                resizeRectangle.HorizontalAlignment = HorizontalAlignment.Center;
+
+
+                resizeRectangle.MouseDown += resizeRectangle_MouseDown;
+                resizeRectangle.MouseLeave += resizeRectangle_MouseLeave;
+                resizeRectangle.MouseUp += resizeRectangle_MouseUp;
+
+                SetColumn(resizeRectangle, 2);
+                SetRow(resizeRectangle, 2);
+                ContentGrid.Children.Add(resizeRectangle);
+            }
+        }
+
 
         private void Node_Loaded(object sender, RoutedEventArgs e)
         {
@@ -308,14 +369,27 @@ namespace TUM.CMS.VplControl.Nodes
             var p = e.GetPosition(HostCanvas);
             var delta = p - OldMousePosition;
 
-            Left += delta.X;
-            Top += delta.Y;
+            if (isResizing)
+            {
+                MainContentGrid.MinWidth = MainContentGrid.ActualWidth + delta.X;
+                MainContentGrid.Height = MainContentGrid.ActualHeight + delta.Y;
+
+                HitTestBorder.Width = ActualWidth+10;
+                HitTestBorder.Height = 30;
+            }
+            else
+            {
+                Left += delta.X;
+                Top += delta.Y;
+            }
+
 
             OldMousePosition = p;
         }
 
         public void Node_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            isResizing = false;
             HostCanvas.MouseMove -= HostCanvas_MouseMove;
         }
 

@@ -20,7 +20,7 @@ namespace TUM.CMS.VplControl.Core
                 Source = this,
                 Mode = BindingMode.TwoWay
             };
-            HostElement.SetBinding(VplElement.nodeGroupNameProperty, b);
+            HostElement.SetBinding(VplElement.NameProperty, b);
 
 
             HostNodeGroup_PropertyChanged(null, null);
