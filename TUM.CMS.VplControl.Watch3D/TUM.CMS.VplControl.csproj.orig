@@ -13,15 +13,12 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,38 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BimPlus.Sdk.Data, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BimPlus.Sdk.Data">
       <HintPath>..\..\bin\Debug\BimPlus.Sdk.Data.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="BimPlus.Sdk.Utilities, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BimPlus.Sdk.Utilities">
       <HintPath>..\..\bin\Debug\BimPlus.Sdk.Utilities.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit.CodeCompletion">
       <HintPath>..\packages\SharpDevelopCodeCompletion.1.33.2.0\lib\ICSharpCode.AvalonEdit.CodeCompletion.dll</HintPath>
@@ -73,62 +47,48 @@
     </Reference>
     <Reference Include="ICSharpCode.Decompiler">
       <HintPath>..\packages\ICSharpCode.Decompiler.2.3.1\lib\Net40\ICSharpCode.Decompiler.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory, Version=5.0.0.0, Culture=neutral, PublicKeyToken=d4bfe873e7598c49, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.Cecil">
       <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.Cecil.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.CSharp">
       <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.CSharp.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory.Xml">
       <HintPath>..\packages\ICSharpCode.NRefactory.5.5.1\lib\Net40\ICSharpCode.NRefactory.Xml.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpDevelop.Dom">
       <HintPath>..\packages\SharpDevelopCodeCompletion.1.33.2.0\lib\ICSharpCode.SharpDevelop.Dom.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Iesi.Collections">
       <HintPath>..\..\bin\Debug\Iesi.Collections.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="IronPython, Version=2.7.5.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="IronPython.Modules, Version=2.7.5.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.Modules.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="IronPython.SQLite, Version=2.7.5.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.SQLite.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="IronPython.Wpf, Version=2.7.5.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.Wpf.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Dynamic.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\bin\Debug\Microsoft.Practices.Prism.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -136,7 +96,6 @@
     </Reference>
     <Reference Include="Microsoft.Scripting.AspNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Scripting.AspNet.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Scripting.Metadata, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -144,105 +103,58 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\packages\SharpDevelopCodeCompletion.1.33.2.0\lib\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb">
       <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb">
       <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="NDXBase, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NDXBase">
       <HintPath>..\..\bin\Debug\NDXBase.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\bin\Debug\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="NUtilLibrary, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="NUtilLibrary">
       <HintPath>..\..\bin\Debug\NUtilLibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="PPAttribPictureType3, Version=2011.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PPAttribPictureType3">
       <HintPath>..\..\bin\Debug\PPAttribPictureType3.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="PPDbCore, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PPDbCore">
       <HintPath>..\..\bin\Debug\PPDbCore.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="PPGraphicControls, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PPGraphicControls">
       <HintPath>..\..\bin\Debug\PPGraphicControls.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SlimDX">
       <HintPath>..\..\bin\Debug\SlimDX.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="System">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.ComponentModel.Composition">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Drawing">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="WindowsBase">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PresentationCore">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
@@ -250,23 +162,55 @@
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.DataGrid">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Xceed.Wpf.Toolkit">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BimPlus\DataController.cs" />
+    <Compile Include="BimPlus\GeometryViewerControl.xaml.cs">
+      <DependentUpon>GeometryViewerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BimPlus\RepresentationModifier.cs" />
+    <Compile Include="BimPlus\SelectionList.cs" />
+    <Compile Include="BimPlus\SelectionManager.cs" />
+    <Compile Include="ContractNames.cs" />
     <Compile Include="NodeAutoCheckBox.cs" />
+    <Compile Include="Nodes\Controls\RelationNodeControl.xaml.cs">
+      <DependentUpon>RelationNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nodes\Controls\IssueNodeControl.xaml.cs">
+      <DependentUpon>IssueNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nodes\Controls\StructureFilterNodeControl.xaml.cs">
+      <DependentUpon>StructureFilterNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Nodes\ElementContainerNode.cs" />
+    <Compile Include="Nodes\ElementFilterNode.cs" />
+    <Compile Include="Nodes\ElementMergeNode.cs" />
+    <Compile Include="Nodes\ElementTypeNode.cs" />
+    <Compile Include="Nodes\GeometryViewerNode.cs" />
+    <Compile Include="Nodes\IssueContainerNode.cs" />
+    <Compile Include="Nodes\IssueNode.cs" />
+    <Compile Include="Nodes\RelationNode.cs" />
+    <Compile Include="Nodes\ModelNode.cs" />
+    <Compile Include="Nodes\OperatorNode.cs" />
+    <Compile Include="Nodes\OperatorTestNode.cs" />
+    <Compile Include="Nodes\ProjectNode.cs" />
     <Compile Include="Nodes\ScriptingNode.cs" />
-    <Compile Include="Nodes\CommentNode.cs" />
+<<<<<<< working copy
+    <Compile Include="Nodes\StructureFilterNode.cs" />
     <Compile Include="Nodes\ViewNode.cs" />
+    <Compile Include="Nodes\WebPortalNode.cs" />
+    <Compile Include="Nodes\WebProjectSelectionNode.cs" />
+=======
+    <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
+>>>>>>> destination
     <Compile Include="Scripting\AssemblyDialog.xaml.cs">
       <DependentUpon>AssemblyDialog.xaml</DependentUpon>
     </Compile>
@@ -285,10 +229,13 @@
     <Compile Include="Scripting\ScriptingControl.xaml.cs">
       <DependentUpon>ScriptingControl.xaml</DependentUpon>
     </Compile>
+<<<<<<< working copy
+=======
     <Compile Include="Scripting\ScriptingControlSimple.xaml.cs">
       <DependentUpon>ScriptingControlSimple.xaml</DependentUpon>
     </Compile>
     <Compile Include="Theme.cs" />
+>>>>>>> destination
     <Compile Include="VplElement.cs" />
     <Compile Include="NodeQuestionButton.cs" />
     <Compile Include="NodeCaptionLabel.cs" />
@@ -301,15 +248,27 @@
     <Compile Include="Nodes\TextNode.cs" />
     <Compile Include="Nodes\WatchNode.cs" />
     <Compile Include="Utilities\Utilities.cs" />
+    <Page Include="BimPlus\GeometryViewerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Nodes\Controls\RelationNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Nodes\Controls\IssueNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Nodes\Controls\StructureFilterNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Scripting\AssemblyDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Scripting\ScriptingControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Scripting\ScriptingControlSimple.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -361,8 +320,6 @@
     <None Include="Scripting\app.config" />
     <None Include="Scripting\app.net35.config" />
     <None Include="Scripting\CustomHighlighting.xshd" />
-    <None Include="Scripting\ScriptingControl.xaml.cs.orig" />
-    <None Include="Themes\Generic.xaml.orig" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripting\article.html" />
@@ -388,25 +345,20 @@
     <ProjectReference Include="..\..\BimPlus.Explorer.Contract\BimPlus.Explorer.Contract.csproj">
       <Project>{3220112e-49bc-4e53-a5db-06ee5088d7cc}</Project>
       <Name>BimPlus.Explorer.Contract</Name>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\BimPlus.Explorer.Data\BimPlus.Explorer.Data.csproj">
       <Project>{b03aabbd-c678-4406-a2b6-7bc1a1b9758c}</Project>
       <Name>BimPlus.Explorer.Data</Name>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\BimPlus.Explorer.DXControl\BimPlus.Explorer.DXControl.csproj">
       <Project>{2389e428-a350-4508-974e-12d6a97d6bf8}</Project>
       <Name>BimPlus.Explorer.DXControl</Name>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\BimPlus.IntegrationFramework\BimPlus.IntegrationFramework.csproj">
       <Project>{38e67b6e-64c7-4898-b3db-712fc87bbf35}</Project>
       <Name>BimPlus.IntegrationFramework</Name>
-      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

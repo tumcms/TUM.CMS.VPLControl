@@ -41,44 +41,29 @@ namespace TUM.CMS.VplControl.Scripting
 			this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Display);
 			#endif
 
-            // PropertyGridComboBox.SelectedIndex = 2;
-
-
             TextEditor.TextArea.TextEntering += textEditor_TextArea_TextEntering;
             TextEditor.TextArea.TextEntered += textEditor_TextArea_TextEntered;
 
-
             ShowAssemblyManagerEventHandler += ShowAssemblyManager;
-
-            /*
-            using (var s = typeof(ScriptingControl).Assembly.GetManifestResourceStream(AppDomain.CurrentDomain.BaseDirectory + "ICSharpCode.PythonBinding.Resources.Python.xshd"))
-            {
-				if (s == null)
-					throw new InvalidOperationException("Could not find embedded resource");
-                using (XmlReader reader = new XmlTextReader(AppDomain.CurrentDomain.BaseDirectory + "ICSharpCode.PythonBinding.Resources.Python.xshd"))
-                {
-					customHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.
-						HighlightingLoader.Load(reader, HighlightingManager.Instance);
-				}
-			}
-             * */
 
             if (HighlightingManager.Instance.GetDefinition("Python") == null)
             {
                 IHighlightingDefinition customHighlighting;
 
-                using (
-                    XmlReader reader =
-                        new XmlTextReader(AppDomain.CurrentDomain.BaseDirectory +
-                                          "ICSharpCode.PythonBinding.Resources.Python.xshd"))
+                using (XmlReader reader = new XmlTextReader(AppDomain.CurrentDomain.BaseDirectory + "ICSharpCode.PythonBinding.Resources.Python.xshd"))
                 {
-                    //customHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.
-                    //HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                    try
+                    {
+                        customHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.HighlightingLoader.Load(reader,
+                            HighlightingManager.Instance);
+                        // and register it in the HighlightingManager
+                        HighlightingManager.Instance.RegisterHighlighting("Python", new[] { ".py" }, customHighlighting);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
                 }
-
-
-                // and register it in the HighlightingManager
-                //HighlightingManager.Instance.RegisterHighlighting("Python", new[] { ".py" }, customHighlighting);
             }
 
             var foldingUpdateTimer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(2)};

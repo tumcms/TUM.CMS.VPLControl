@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="TUM.CMS.VplControl.BimPlus.Controls.RelationNodeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Width="Auto">
+    <StackPanel Background="White" Orientation="Vertical">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">Relation Node</Label>
+            <Button Grid.Column="1" Name="ExpandButton" Background="White" BorderBrush="White" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ExpandButton_OnClick">
+                <Grid>
+                    <Ellipse Height="14" Width="14" Stroke="Gray" Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="+" VerticalAlignment="Center" TextAlignment="Center" Margin="0,-3,0,0" Foreground="White"/>
+                </Grid>
+            </Button> 
+            <Button Grid.Column="1" Name="ContractButton" Visibility="Collapsed" Background="White" BorderBrush="White" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ContractButton_OnClick">
+                <Grid>
+                    <Ellipse Height="14" Width="14" Stroke="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="-" VerticalAlignment="Center" TextAlignment="Center" Margin="0,-3,0,0" Foreground="Gray"/>
+                </Grid>
+            </Button>
+        </Grid>
+        <Border BorderBrush="Black" BorderThickness="0.5">
+            <ListBox Name="ListBox" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{Binding _relationElements}"  Height="150" Visibility="Collapsed">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="( " FontFamily="Consolas"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Item1}" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="2" Text=" ; " FontFamily="Consolas"/>
+                        <TextBlock Grid.Column="3" Text="{Binding Item2}" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="4" Text=" )" FontFamily="Consolas"/>
+                        </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+    </StackPanel>
+</UserControl>

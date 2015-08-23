@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="TUM.CMS.VplControl.BimPlus.Controls.ElementContainerNodeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             Width="Auto">
+    <StackPanel Background="White" Orientation="Vertical">
+        <Label Content="Element Container Node"/>
+        <Grid>
+            <Label Content="Status: Not loaded" Name="statusLabel" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Panel.ZIndex="1" />
+            <Grid Name="LoadingGrid" Visibility="Collapsed">
+                <ProgressBar Name="progressBar" Height="20" IsIndeterminate="True" Grid.ColumnSpan="2"  />
+                <Button Name="cancelBut" Content="x" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Visibility ="Visible" BorderThickness="0" BorderBrush="Transparent" Grid.Column="1" Margin="0,3" Background="Transparent" />
+            </Grid>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{990EBBEA-0005-4D43-A4FA-2606F46AD80B}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TUM.CMS.VplControl.BimPlus</RootNamespace>
+    <AssemblyName>TUM.CMS.VplControl.BimPlus</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BimPlus.Sdk.Data, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\BimPlus.Sdk.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BimPlus.Sdk.Utilities, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\BimPlus.Sdk.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\Microsoft.Practices.Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NDXBase, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\NDXBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NUtilLibrary, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\NUtilLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PPAttribPictureType3, Version=2011.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\PPAttribPictureType3.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PPDbCore, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\PPDbCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PPGraphicControls, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\PPGraphicControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Debug\SlimDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ContractNames.cs" />
+    <Compile Include="Controls\GeometryViewerControl.xaml.cs">
+      <DependentUpon>GeometryViewerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IssueNodeControl.xaml.cs">
+      <DependentUpon>IssueNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ElementContainerNodeControl.xaml.cs">
+      <DependentUpon>ElementContainerNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RelationNodeControl.xaml.cs">
+      <DependentUpon>RelationNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StructureFilterNodeControl.xaml.cs">
+      <DependentUpon>StructureFilterNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WebBrowserControl.xaml.cs">
+      <DependentUpon>WebBrowserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataController.cs" />
+    <Compile Include="Nodes\ElementContainerNode.cs" />
+    <Compile Include="Nodes\ElementFilterNode.cs" />
+    <Compile Include="Nodes\ElementMergeNode.cs" />
+    <Compile Include="Nodes\ElementTypeNode.cs" />
+    <Compile Include="Nodes\GeometryViewerNode.cs" />
+    <Compile Include="Nodes\IssueContainerNode.cs" />
+    <Compile Include="Nodes\IssueNode.cs" />
+    <Compile Include="Nodes\ModelNode.cs" />
+    <Compile Include="Nodes\StructureFilterNode.cs" />
+    <Compile Include="OperatorNode.cs" />
+    <Compile Include="Nodes\OperatorTestNode.cs" />
+    <Compile Include="Nodes\ProjectNode.cs" />
+    <Compile Include="Nodes\RelationCreatorNode.cs" />
+    <Compile Include="Nodes\RelationNode.cs" />
+    <Compile Include="Nodes\WebBrowserNode.cs" />
+    <Compile Include="Nodes\WebPortalNode.cs" />
+    <Compile Include="Nodes\WebProjectSelectionNode.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="RepresentationModifier.cs" />
+    <Compile Include="SelectionList.cs" />
+    <Compile Include="SelectionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BimPlus.Core.Data\BimPlus.Core.Data.csproj">
+      <Project>{f223201b-afe8-4612-a91d-d9877cee1651}</Project>
+      <Name>BimPlus.Core.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.Explorer.Contract\BimPlus.Explorer.Contract.csproj">
+      <Project>{3220112e-49bc-4e53-a5db-06ee5088d7cc}</Project>
+      <Name>BimPlus.Explorer.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.Explorer.Data\BimPlus.Explorer.Data.csproj">
+      <Project>{b03aabbd-c678-4406-a2b6-7bc1a1b9758c}</Project>
+      <Name>BimPlus.Explorer.Data</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.Explorer.DXControl\BimPlus.Explorer.DXControl.csproj">
+      <Project>{2389e428-a350-4508-974e-12d6a97d6bf8}</Project>
+      <Name>BimPlus.Explorer.DXControl</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.IntegrationFramework\BimPlus.IntegrationFramework.csproj">
+      <Project>{38e67b6e-64c7-4898-b3db-712fc87bbf35}</Project>
+      <Name>BimPlus.IntegrationFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TUM.CMS.VplControl\TUM.CMS.VplControl.csproj">
+      <Project>{593e9bfd-be78-4487-9e22-76ae7df0b84a}</Project>
+      <Name>TUM.CMS.VplControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\GeometryViewerControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\IssueNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ElementContainerNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\RelationNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StructureFilterNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WebBrowserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

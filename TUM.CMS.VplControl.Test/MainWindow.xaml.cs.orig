@@ -1,0 +1,34 @@
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Windows;
+using TUM.CMS.VplControl.Utilities;
+using TUM.CMS.VplControl;
+
+namespace TUM.CMS.VplControl.Test
+{
+    /// <summary>
+    ///     Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            var rDictionary = new ResourceDictionary { Source = new Uri("/TUM.CMS.VplControl;component/Themes/Generic.xaml", UriKind.Relative) };
+            Application.Current.Resources.MergedDictionaries.Add(rDictionary);
+
+            KeyDown += VplControl.VplControl_KeyDown;
+            KeyUp += VplControl.VplControl_KeyUp;
+
+            VplControl.ExternalNodeTypes.AddRange(
+                ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
+                    .ToList());
+
+            VplControl.NodeTypeMode = NodeTypeModes.All;
+
+            VplPropertyGrid.SelectedObject = VplControl.Theme;
+        }
+    }
+}

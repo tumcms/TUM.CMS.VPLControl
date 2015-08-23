@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Specialized;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using TUM.CMS.VplControl.Nodes;
+using TUM.CMS.VplControl.Utilities;
+
+namespace TUM.CMS.VplControl
+{
+    public class NodeGroup : Border
+    {
+        private static int _counter;
+        private TrulyObservableCollection<Node> _childNodes;
+
+        public NodeGroup(VplControl hostCanvas)
+        {
+            Id = Interlocked.Increment(ref _counter);
+            HostCanvas = hostCanvas;
+
+            Background = Brushes.Transparent;
+            BorderBrush = Application.Current.Resources["BrushBlue"] as Brush;
+            CornerRadius = new CornerRadius(5);
+            BorderThickness = new Thickness(1);
+
+            MouseDown += NodeGroup_MouseDown;
+
+            HostCanvas.Children.Add(this);
+        }
+
+        public int Id { get; set; }
+        public bool IsSelected { get; set; }
+
+        public TrulyObservableCollection<Node> ChildNodes
+        {
+            get { return _childNodes; }
+            set
+            {
+                _childNodes = value;
+                _childNodes.CollectionChanged += childNodes_CollectionChanged;
+                ObserveAllChildNode();
+                CalculateBorder();
+            }
+        }
+
+        public VplControl HostCanvas { get; set; }
+
+        private void NodeGroup_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Subsribe all child nodes to hostCanvas MouseMove event
+            foreach (var node in ChildNodes)
+            {
+                HostCanvas.MouseMove += node.HostCanvas_MouseMove;
+                HostCanvas.MouseUp += node.Node_MouseUp;
+
+                node.OldMousePosition = e.GetPosition(HostCanvas);
+                node.IsSelected = true;
+                HostCanvas.SelectedNodes.Add(node);
+            }
+
+            // this.IsSelected = true;
+        }
+
+        private void childNodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (_childNodes.Count <= 1)
+                HostCanvas.Children.Remove(this);
+            else
+                CalculateBorder();
+        }
+
+        private void ObserveAllChildNode()
+        {
+            foreach (var node in ChildNodes)
+                node.DeletedInNodeCollection += node_DeletedInNodeCollection;
+        }
+
+        private void node_DeletedInNodeCollection(object sender, EventArgs e)
+        {
+            var node = sender as Node;
+            if (node == null) return;
+
+            ChildNodes.Remove(node);
+        }
+
+        private void CalculateBorder()
+        {
+            if (ChildNodes.Count == 0) return;
+
+            var minTop = double.MaxValue;
+            var maxTop = double.MinValue;
+            var minLeft = double.MaxValue;
+            var maxLeft = double.MinValue;
+
+
+            foreach (var node in ChildNodes)
+            {
+                if (node.Left < minLeft) minLeft = node.Left;
+                if (node.Top < minTop) minTop = node.Top;
+
+                if (node.Left + node.Width > maxLeft) maxLeft = node.Left + node.Width;
+                if (node.Top + node.Height > maxTop) maxTop = node.Top + node.Height;
+            }
+
+            double offset = 30;
+
+            minLeft -= offset;
+            minTop -= offset;
+            maxLeft += offset;
+            maxTop += offset;
+
+            Width = maxLeft - minLeft;
+            Height = maxTop - minTop;
+
+
+            Canvas.SetLeft(this, minLeft);
+            Canvas.SetTop(this, minTop);
+        }
+    }
+}

@@ -46,6 +46,7 @@ namespace TUM.CMS.VplControl
         private TrulyObservableCollection<Node> tempCollection;
         public Line TempLine;
         internal Port TempStartPort;
+        private MatrixTransform matrixTrans;
 
         public VplControl()
         {
@@ -308,7 +309,6 @@ namespace TUM.CMS.VplControl
                     }
                 }
             }
-
 
             switch (SplineMode)
             {

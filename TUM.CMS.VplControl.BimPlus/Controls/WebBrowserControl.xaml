@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="TUM.CMS.VplControl.BimPlus.Controls.WebBrowserControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="Auto" Width="Auto">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="NavigationCommands.BrowseBack" CanExecute="BrowseBack_CanExecute" Executed="BrowseBack_Executed" />
+        <CommandBinding Command="NavigationCommands.BrowseForward" CanExecute="BrowseForward_CanExecute" Executed="BrowseForward_Executed" />
+        <CommandBinding Command="NavigationCommands.GoToPage" CanExecute="GoToPage_CanExecute" Executed="GoToPage_Executed" />
+    </UserControl.CommandBindings>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Command="NavigationCommands.BrowseBack" Content="\------">
+                <!-- <Image Source="/WpfTutorialSamples;component/Images/arrow_left.png" Width="16" Height="16" /> --> 
+            </Button>
+            <Button Command="NavigationCommands.BrowseForward" Content="------\">
+                <!-- <Image Source="/WpfTutorialSamples;component/Images/arrow_right.png" Width="16" Height="16" /> --> 
+            </Button>
+            <Separator />
+            <TextBox Name="txtUrl" Width="300" KeyUp="txtUrl_KeyUp" />
+            <Button Command="NavigationCommands.GoToPage" Content="Go to">
+                <!-- <Image Source="/WpfTutorialSamples;component/Images/world_go.png" Width="16" Height="16" /> -->
+            </Button>
+        </ToolBar>
+        <WebBrowser Name="WebBrowser" Navigating="wbSample_Navigating"></WebBrowser>
+    </DockPanel>
+</UserControl>

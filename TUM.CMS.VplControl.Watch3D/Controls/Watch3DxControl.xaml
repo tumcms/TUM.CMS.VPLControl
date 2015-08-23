@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="TUM.CMS.VplControl.Watch3D.Controls.Watch3DxControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:helixToolkit="clr-namespace:HelixToolkit.Wpf.SharpDX;assembly=HelixToolkit.Wpf.SharpDX"
+        Height="350" Width="525">
+    <Grid>
+        <helixToolkit:Viewport3DX ZoomExtentsWhenLoaded="True" x:Name="ViewPort3D">
+            <helixToolkit:Viewport3DX.InputBindings>
+                <KeyBinding Key="B" Command="helixToolkit:ViewportCommands.BackView"/>
+                <KeyBinding Key="F" Command="helixToolkit:ViewportCommands.FrontView"/>
+                <KeyBinding Key="U" Command="helixToolkit:ViewportCommands.TopView"/>
+                <KeyBinding Key="D" Command="helixToolkit:ViewportCommands.BottomView"/>
+                <KeyBinding Key="L" Command="helixToolkit:ViewportCommands.LeftView"/>
+                <KeyBinding Key="R" Command="helixToolkit:ViewportCommands.RightView"/>
+                <KeyBinding Gesture="Control+E" Command="helixToolkit:ViewportCommands.ZoomExtents"/>
+                <MouseBinding Gesture="RightClick" Command="helixToolkit:ViewportCommands.Rotate"/>
+                <MouseBinding Gesture="MiddleClick" Command="helixToolkit:ViewportCommands.Zoom"/>
+                <MouseBinding Gesture="Shift+RightClick" Command="helixToolkit:ViewportCommands.Pan"/>
+            </helixToolkit:Viewport3DX.InputBindings>
+            <helixToolkit:GroupModel3D x:Name="groupModel"/>
+            <!-- <helixToolkit:MeshGeometryModel3D x:Name="meshModel"/> --> 
+            <helixToolkit:AmbientLight3D Name="AmbientLight3D" />
+        </helixToolkit:Viewport3DX>
+    </Grid>
+</UserControl>

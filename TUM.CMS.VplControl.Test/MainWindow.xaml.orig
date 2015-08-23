@@ -1,0 +1,19 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vplControl="clr-namespace:TUM.CMS.VplControl;assembly=TUM.CMS.VplControl"
+    xmlns:wpfToolkit="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=Xceed.Wpf.Toolkit"
+    x:Class="TUM.CMS.VplControl.Test.MainWindow"
+    Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <wpfToolkit:PropertyGrid Name="VplPropertyGrid" />
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <vplControl:VplControl Name="VplControl" Grid.Column="2" />
+    </Grid>
+</Window>

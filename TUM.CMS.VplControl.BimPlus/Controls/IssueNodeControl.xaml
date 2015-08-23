@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TUM.CMS.VplControl.BimPlus.Controls.IssueNodeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="175"
+             Width="250">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/BimPlus.Explorer.WpfLibrary;component/BimPlusExplorerResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Background="White" Orientation="Vertical">
+        <Label   HorizontalAlignment="Center" Height="25">Issue Node</Label>
+        <TextBox Name="DescriptionTextBox" Height="100"></TextBox>
+        <ComboBox Name="ResponsibleUserComboBox" Height="25"></ComboBox>
+        <Button Click="ButtonBase_OnClick" Content="Create the Issue on bim+" Height="25"></Button>
+    </StackPanel>
+</UserControl>

@@ -40,7 +40,7 @@ namespace TUM.CMS.VplControl
 
             foreach (var type in typeList)
             {
-                if (!type.IsAbstract)
+                if (!type.IsAbstract && type.ToString().Contains("DisplayClass") != true)
                     listBox.Items.Add(type);
                 listBox.DisplayMemberPath = "Name";
             }
@@ -54,6 +54,7 @@ namespace TUM.CMS.VplControl
             var autoCompleteComboBox = new ComboBox
             {
                 ItemsSource = typeList,
+                Width = 150,
                 DisplayMemberPath = "Name",
                 IsEditable = true,
                 IsTextSearchEnabled = true
@@ -62,7 +63,7 @@ namespace TUM.CMS.VplControl
             // autoCompleteComboBox.Enter
             AddControlToNode(autoCompleteComboBox);
 
-            AddControlToNode(listBox);
+            // AddControlToNode(listBox);
 
             autoCompleteComboBox.Focus();
 
