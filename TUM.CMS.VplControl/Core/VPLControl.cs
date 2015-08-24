@@ -45,6 +45,8 @@ namespace TUM.CMS.VplControl.Core
         private Point startSelectionPoint;
         private TrulyObservableCollection<Node> tempCollection;
         public Line TempLine;
+        public GraphFlowDirections ImportFlowDirection;
+
         internal Port TempStartPort;
 
         public VplControl()
@@ -60,6 +62,8 @@ namespace TUM.CMS.VplControl.Core
             }
 
             Style = FindResource("VplControlStyle") as Style;
+            GraphFlowDirection = GraphFlowDirections.Vertical;
+
 
             MouseDown += HandleMouseDown;
             MouseMove += HandleMouseMove;
@@ -217,6 +221,8 @@ namespace TUM.CMS.VplControl.Core
         public List<Type> ExternalNodeTypes { get; set; }
 
 
+
+
         [Browsable(false)]
         public NodeTypeModes NodeTypeMode { get; set; }
 
@@ -224,6 +230,7 @@ namespace TUM.CMS.VplControl.Core
         private readonly ScaleTransform scaleTransform;
         private readonly TransformGroup transformGroup;
         private readonly TranslateTransform translateTransform;
+        private GraphFlowDirections graphFlowDirection;
         public int ZoomIn { get; set; }
         public int ZoomOut { get; set; }
 
@@ -233,7 +240,23 @@ namespace TUM.CMS.VplControl.Core
 
         [Category("All VPL settings")]
         [DisplayName(@"Graph flow firection")]
-        public GraphFlowDirections GraphFlowDirection { get; set; }
+        public GraphFlowDirections GraphFlowDirection
+        {
+            get { return graphFlowDirection; }
+            set
+            {
+                if (graphFlowDirection == value ) return;
+
+                if (NodeCollection != null)
+                {
+                    Guid guid= new Guid();
+                    SerializeNetwork(guid + ".vplxml");
+                    graphFlowDirection = value;
+                    DeserializeNetwork(guid + ".vplxml");
+                    File.Delete(guid + ".vplxml");
+                }
+            }
+        }
 
         [Category("All VPL settings")]
         [DisplayName(@"Graph flow firection")]
@@ -766,6 +789,10 @@ namespace TUM.CMS.VplControl.Core
 
                 xmlWriter.WriteStartElement("Document");
 
+                xmlWriter.WriteStartAttribute("GraphFlowDirection");
+                xmlWriter.WriteValue(GraphFlowDirection.ToString());
+                xmlWriter.WriteEndAttribute();
+
                 xmlWriter.WriteStartElement("Nodes");
 
                 foreach (var node in NodeCollection)
@@ -804,6 +831,15 @@ namespace TUM.CMS.VplControl.Core
             using (var reader = new XmlTextReader(filePath))
             {
                 reader.MoveToContent();
+
+                string enumString = reader.GetAttribute("GraphFlowDirection");
+
+                if (enumString != null)
+                {
+                    ImportFlowDirection = (GraphFlowDirections)Enum.Parse(typeof(GraphFlowDirections),enumString, ignoreCase: true);
+                }
+
+
                 reader.ReadToDescendant("Nodes");
 
                 while (reader.Read())

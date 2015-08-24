@@ -69,10 +69,20 @@ namespace TUM.CMS.VplControl.Core
             HostCanvas.Children.Add(endEllipse);
         }
 
-        void Origin_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Origin_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var startBezierPoint = StartPort.Origin.Point + new Vector((StartPort.Origin.Point - EndPort.Origin.Point).Length / 2, 0);
-            var endBezierPoint = EndPort.Origin.Point + new Vector(-(StartPort.Origin.Point - EndPort.Origin.Point).Length / 2, 0);
+            Point startBezierPoint, endBezierPoint;
+
+            if (HostCanvas.GraphFlowDirection == GraphFlowDirections.Horizontal)
+            {
+                startBezierPoint = StartPort.Origin.Point + new Vector((StartPort.Origin.Point - EndPort.Origin.Point).Length/2, 0);
+                endBezierPoint = EndPort.Origin.Point + new Vector(-(StartPort.Origin.Point - EndPort.Origin.Point).Length/2, 0);
+            }
+            else
+            {
+                startBezierPoint = StartPort.Origin.Point + new Vector(0, (StartPort.Origin.Point - EndPort.Origin.Point).Length / 2);
+                endBezierPoint = EndPort.Origin.Point + new Vector(0, -(StartPort.Origin.Point - EndPort.Origin.Point).Length / 2);
+            }
 
             StartBezierPoint.X = startBezierPoint.X;
             StartBezierPoint.Y = startBezierPoint.Y;

@@ -37,12 +37,12 @@ Give it a try:
 - Zooming
 - Type sensetive
 - Customizable style
+- Vertical/Horizontal flow switch
 
 ### ToDo ###
 - Lacing
 - ZoomToFit
 - Aligning
-- Vertical/Horizontal flow switch
 - Animations
 - Resize group node to one node
 - Nodes for graph plotting / sql
