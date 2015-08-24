@@ -21,7 +21,7 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
     {
         private Watch3DxControl _control;
 
-        public Watch3DNodeDx(VplControl hostCanvas): base(hostCanvas)
+        public Watch3DNodeDx(Core.VplControl hostCanvas): base(hostCanvas)
         {
             // Add Control s
             _control = new Watch3DxControl();

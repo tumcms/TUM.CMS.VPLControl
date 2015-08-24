@@ -1,0 +1,17 @@
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\TUM.CMS.VplControl.BimPlus.csprojResolveAssemblyReference.cache
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\GeometryViewerControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\IssueNodeControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\ElementContainerNodeControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\RelationNodeControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\StructureFilterNodeControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\WebBrowserControl.baml
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\GeometryViewerControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\IssueNodeControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\ElementContainerNodeControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\RelationNodeControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\StructureFilterNodeControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\Controls\WebBrowserControl.g.cs
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\TUM.CMS.VplControl.BimPlus_MarkupCompile.cache
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\TUM.CMS.VplControl.BimPlus.g.resources
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\TUM.CMS.VplControl.BimPlus.Properties.Resources.resources
+C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.BimPlus\obj\Debug\TUM.CMS.VplControl.BimPlus.csproj.GenerateResource.Cache

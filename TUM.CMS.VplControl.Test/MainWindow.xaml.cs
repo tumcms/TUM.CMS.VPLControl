@@ -2,15 +2,12 @@
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-<<<<<<< HEAD
 using System.Windows.Input;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.Zoombox;
-=======
 using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Utilities;
 using TUM.CMS.VPL.Scripting.Nodes;
->>>>>>> tumcms/master
 
 namespace TUM.CMS.VplControl.Test
 {
@@ -35,12 +32,12 @@ namespace TUM.CMS.VplControl.Test
 
             VplControl.NodeTypeMode = NodeTypeModes.All;
 
+            /*
 <<<<<<< HEAD
             VplPropertyGrid.SelectedObject = VplControl.Theme;
 =======
-
+*/
             VplPropertyGrid.SelectedObject = VplControl;
->>>>>>> tumcms/master
         }
 
         /// <summary>
@@ -52,11 +49,11 @@ namespace TUM.CMS.VplControl.Test
         {
             if (e.Delta > 0)
             {
-                Zoombox.Zoom(0.1);
+                // Zoombox.Zoom(0.1);
             }
             else
             {
-                Zoombox.Zoom(-0.1);
+                // Zoombox.Zoom(-0.1);
             }
         }
 

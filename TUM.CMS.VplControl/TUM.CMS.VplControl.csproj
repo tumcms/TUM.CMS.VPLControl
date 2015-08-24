@@ -53,7 +53,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Reference Include="BimPlus.Sdk.Data, Version=2014.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\Debug\BimPlus.Sdk.Data.dll</HintPath>
@@ -224,7 +223,6 @@
     <Reference Include="System.Data.DataSetExtensions">
       <Private>True</Private>
     </Reference>
-=======
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -233,7 +231,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
->>>>>>> tumcms/master
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
       <Private>True</Private>
@@ -277,7 +274,6 @@
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Core\SearchTextBox.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
-    <Compile Include="Nodes\ViewNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="Core\VplElement.cs" />
@@ -335,40 +331,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-<<<<<<< HEAD
-    <None Include="Scripting\app.config" />
-    <None Include="Scripting\app.net35.config" />
-    <None Include="Scripting\CustomHighlighting.xshd" />
-    <None Include="Scripting\ScriptingControl.xaml.cs.orig" />
     <None Include="Themes\Generic.xaml.orig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripting\article.html" />
-    <Resource Include="Scripting\AvalonEdit\dependencies.png" />
-    <Resource Include="Scripting\AvalonEdit\folding.png" />
-    <Resource Include="Scripting\AvalonEdit\renderingPipeline.png" />
-    <Resource Include="Scripting\AvalonEdit\screenshot.png" />
-    <Resource Include="Scripting\AvalonEdit\snoop.png" />
-    <Content Include="Scripting\document.html" />
-    <Resource Include="Scripting\Images\Copy.png" />
-    <Resource Include="Scripting\Images\Cut.png" />
-    <Resource Include="Scripting\Images\Delete.png" />
-    <Resource Include="Scripting\Images\Open.png" />
-    <Resource Include="Scripting\Images\Paste.png" />
-    <Resource Include="Scripting\Images\Play.png" />
-    <Resource Include="Scripting\Images\Redo.png" />
-    <Resource Include="Scripting\Images\Save.png" />
-    <Resource Include="Scripting\Images\Undo.png" />
-    <Resource Include="Scripting\Images\WordWrap.png" />
-    <Content Include="Scripting\rendering.html" />
-=======
->>>>>>> tumcms/master
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BimPlus.Explorer.Contract\BimPlus.Explorer.Contract.csproj">
