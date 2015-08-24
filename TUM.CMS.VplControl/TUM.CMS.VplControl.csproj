@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Core\BindingPoint.cs" />
     <Compile Include="Core\NodeAutoCheckBox.cs" />
+    <Compile Include="Core\SearchTextBox.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Themes\Theme.cs" />
@@ -98,6 +99,10 @@
     <Compile Include="Core\VPLControl.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\SearchTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Slider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

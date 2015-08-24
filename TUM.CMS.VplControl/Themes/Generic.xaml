@@ -4,6 +4,9 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:core="clr-namespace:TUM.CMS.VplControl.Core">
 
+
+
+    
     <Color x:Key="ColorBlue" R="99" G="133" B="199" A="255"></Color>
     <Color x:Key="ColorRed" R="211" G="95" B="95" A="255"></Color>
     <Color x:Key="ColorYellow" R="255" G="221" B="85" A="255"></Color>
@@ -242,21 +245,26 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="2" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
+                    <StackPanel>
                     <Border Name="Bd"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Padding="{TemplateBinding Padding}"
-                            SnapsToDevicePixels="true">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            SnapsToDevicePixels="true"
+                            Height="35">
+                        <ContentPresenter Margin="10 0 10 0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
+                    </StackPanel>
+                    
+                    
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource BrushHighlighting}" />
@@ -269,6 +277,13 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{DynamicResource BrushGray}" />
+                        </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                        </Trigger>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="White"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -284,6 +299,7 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource FlatListBoxItem}" />
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
+        <Setter Property="AlternationCount" Value="2"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">

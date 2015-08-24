@@ -71,8 +71,8 @@ namespace TUM.CMS.VplControl.Nodes
             ContentGrid.Children.Add(MainContentGrid);
 
 
-
-
+            KeyUp += Node_KeyUp;
+            KeyDown += Node_KeyDown;
 
             // ----------------------------------------------------------------------------------------------------------------------
             // Content grid row and column definitions
@@ -135,6 +135,16 @@ namespace TUM.CMS.VplControl.Nodes
             if (QuestButton != null) SetZIndex(QuestButton, myid);
             if (CaptionLabel != null) SetZIndex(CaptionLabel, myid);
             if (AutoCheckBox != null) SetZIndex(AutoCheckBox, myid);
+        }
+
+        void Node_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = false;
+        }
+
+        void Node_KeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = false;
         }
 
         void resizeRectangle_MouseLeave(object sender, MouseEventArgs e)

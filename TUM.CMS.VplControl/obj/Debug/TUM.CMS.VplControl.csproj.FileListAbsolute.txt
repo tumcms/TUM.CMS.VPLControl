@@ -94,3 +94,4 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\bin\Debug\sv\Xcee
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\TUM.CMS.VplControl.csprojResolveAssemblyReference.cache
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\SearchTextBoxStyle.baml
