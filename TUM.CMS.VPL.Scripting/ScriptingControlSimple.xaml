@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TUM.CMS.VPL.Scripting.ScriptingControlSimple"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:codeCompletion="clr-namespace:ICSharpCode.AvalonEdit.CodeCompletion;assembly=ICSharpCode.AvalonEdit.CodeCompletion"
+             Height="250" Width="500">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Width="Auto" Click="OpenFileClick" Content="Open" Margin="2" />
+            <Button Width="Auto" Click="SaveFileClick" Content="Save" Margin="2" />
+            <Button Width="Auto" Click="ButtonBase_OnClick" Content="Load Assembly" Margin="2" />
+            <!-- ReferencedAssemblies -->
+        </StackPanel>
+        <avalonEdit:TextEditor
+            Margin="0,25,0,0"
+            Name="TextEditor"
+            FontFamily="Consolas"
+            FontSize="10pt"
+            SyntaxHighlighting="C#" />
+    </Grid>
+</UserControl>

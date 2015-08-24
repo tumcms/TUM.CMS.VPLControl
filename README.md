@@ -5,7 +5,7 @@
 ----------
 
 
-![test.PNG](https://bitbucket.org/repo/j5nqjg/images/2120661561-test.PNG)
+![overview.PNG](2120661561.PNG)
 
 
 ----------
@@ -28,6 +28,7 @@ Give it a try:
 ### Features ###
 - Drawing nodes
 - Customize nodes
+- Resizeable nodes
 - Panning
 - Grouping
 - Hints
@@ -35,17 +36,19 @@ Give it a try:
 - Serialize/Deserialize
 - Zooming
 - Type sensetive
+- Customizable style
+- Vertical/Horizontal flow switch
 
 ### ToDo ###
 - Lacing
 - ZoomToFit
 - Aligning
-- Vertical/Horizontal flow switch
 - Animations
-- Customizable style
-- Resize node
 - Resize group node to one node
-
+- Nodes for graph plotting / sql
+- Drag&Drop nodes from toolbox
+- Performance improvement: Virtual canvas
+- Better zooming
 
 ----------
 

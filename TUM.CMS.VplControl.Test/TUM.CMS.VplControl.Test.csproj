@@ -85,8 +85,16 @@
     <Reference Include="PresentationCore">
       <Private>True</Private>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="PresentationFramework">
       <Private>True</Private>
+=======
+    <Reference Include="TUM.CMS.VPL.Scripting">
+      <HintPath>..\TUM.CMS.VPL.Scripting\bin\Debug\TUM.CMS.VPL.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="TUM.CMS.VplControl">
+      <HintPath>..\TUM.CMS.VplControl\bin\Debug\TUM.CMS.VplControl.dll</HintPath>
+>>>>>>> tumcms/master
     </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>

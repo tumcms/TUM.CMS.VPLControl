@@ -7,7 +7,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     public class WatchNode : Node
     {
-        public WatchNode(VplControl hostCanvas) : base(hostCanvas)
+        public WatchNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             AddInputPortToNode("Object", typeof (object));
 

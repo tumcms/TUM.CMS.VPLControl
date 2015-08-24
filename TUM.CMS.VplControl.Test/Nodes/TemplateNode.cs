@@ -6,7 +6,7 @@ namespace TUM.CMS.VplControl.Test.Nodes
 {
     public class TemplateNode : Node
     {
-        public TemplateNode(VplControl hostCanvas)
+        public TemplateNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             AddInputPortToNode("Test", typeof (object));

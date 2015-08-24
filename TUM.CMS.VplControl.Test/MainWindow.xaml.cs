@@ -2,9 +2,15 @@
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+<<<<<<< HEAD
 using System.Windows.Input;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.Zoombox;
+=======
+using TUM.CMS.VplControl.Core;
+using TUM.CMS.VplControl.Utilities;
+using TUM.CMS.VPL.Scripting.Nodes;
+>>>>>>> tumcms/master
 
 namespace TUM.CMS.VplControl.Test
 {
@@ -24,9 +30,17 @@ namespace TUM.CMS.VplControl.Test
                 ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
                     .ToList());
 
+            VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
+                    
+
             VplControl.NodeTypeMode = NodeTypeModes.All;
 
+<<<<<<< HEAD
             VplPropertyGrid.SelectedObject = VplControl.Theme;
+=======
+
+            VplPropertyGrid.SelectedObject = VplControl;
+>>>>>>> tumcms/master
         }
 
         /// <summary>

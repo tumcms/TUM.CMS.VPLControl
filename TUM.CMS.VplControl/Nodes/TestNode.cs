@@ -8,7 +8,7 @@ namespace TUM.CMS.VplControl.Nodes
 {
     internal class TestNode : Node
     {
-        public TestNode(VplControl hostCanvas) : base(hostCanvas)
+        public TestNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             AddControlToNode(new TextBox());
             AddControlToNode(new Button {Content = "test", Width = 120});
@@ -32,6 +32,7 @@ namespace TUM.CMS.VplControl.Nodes
             TopComment.Visibility = Visibility.Visible;
             BottomComment.Visibility = Visibility.Visible;
 
+            IsResizeable = true;
 
             Name = "Test node";
         }
