@@ -5,12 +5,10 @@
     xmlns:core="clr-namespace:TUM.CMS.VplControl.Core">
 
 
-
-    
-    <Color x:Key="ColorBlue" R="99" G="133" B="199" A="255"></Color>
-    <Color x:Key="ColorRed" R="211" G="95" B="95" A="255"></Color>
-    <Color x:Key="ColorYellow" R="255" G="221" B="85" A="255"></Color>
-    <Color x:Key="ColorOker" R="219" G="198" B="165" A="255"></Color>
+    <Color x:Key="ColorBlue" R="99" G="133" B="199" A="255" />
+    <Color x:Key="ColorRed" R="211" G="95" B="95" A="255" />
+    <Color x:Key="ColorYellow" R="255" G="221" B="85" A="255" />
+    <Color x:Key="ColorOker" R="219" G="198" B="165" A="255" />
 
     <SolidColorBrush x:Key="BrushOker" Color="{StaticResource ColorOker}" />
 
@@ -18,18 +16,20 @@
     <!-- Dynamic resources -->
     <SolidColorBrush x:Key="BackgroundBrush" Color="White" />
     <SolidColorBrush x:Key="GridBrush" Color="DarkGray" />
-    
+
     <FontFamily x:Key="FontFamily" />
     <SolidColorBrush x:Key="BrushHighlighting" Color="{StaticResource ColorYellow}" />
 
-    <VisualBrush x:Key="VplGridBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,50,50" ViewboxUnits="Absolute" Viewbox="0,0,50,50"> 
+    <VisualBrush x:Key="VplGridBrush" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,50,50"
+                 ViewboxUnits="Absolute" Viewbox="0,0,50,50">
         <VisualBrush.Visual>
-            <Rectangle Stroke="{DynamicResource GridBrush}" StrokeThickness="0.1" Height="1000" Width="1000" Fill="{DynamicResource BackgroundBrush}"></Rectangle>
+            <Rectangle Stroke="{DynamicResource GridBrush}" StrokeThickness="0.1" Height="1000" Width="1000"
+                       Fill="{DynamicResource BackgroundBrush}" />
         </VisualBrush.Visual>
     </VisualBrush>
 
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource ColorBlue}" />
-    <SolidColorBrush x:Key="ButtonFillBrush" Color="White" /> 
+    <SolidColorBrush x:Key="ButtonFillBrush" Color="White" />
 
     <SolidColorBrush x:Key="NodeBorderBrush" Color="LightGray" />
 
@@ -93,10 +93,9 @@
     <Style x:Key="HitTestBorderStyle" TargetType="Border">
         <Setter Property="IsHitTestVisible" Value="true" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
-    
-    
+
 
     <Style x:Key="MainContentGridStyle" TargetType="Grid">
         <Setter Property="Background" Value="{DynamicResource NodeBackgroundBrush}" />
@@ -230,14 +229,6 @@
     </Style>
 
 
-
-
-
-    
-
-
-
-
     <Style x:Key="FlatListBoxItem" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource ItemText}" />
@@ -251,20 +242,21 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <StackPanel>
-                    <Border Name="Bd"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Padding="{TemplateBinding Padding}"
-                            SnapsToDevicePixels="true"
-                            Height="35">
-                        <ContentPresenter Margin="10 0 10 0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                    </Border>
+                        <Border Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="true"
+                                Height="35">
+                            <ContentPresenter Margin="10 0 10 0"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
                     </StackPanel>
-                    
-                    
+
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource BrushHighlighting}" />
@@ -280,10 +272,10 @@
                         </Trigger>
 
                         <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                            <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                            <Setter Property="Background" Value="WhiteSmoke" />
                         </Trigger>
                         <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                            <Setter Property="Background" Value="White"></Setter>
+                            <Setter Property="Background" Value="White" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -299,7 +291,7 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource FlatListBoxItem}" />
         <Setter Property="FontFamily" Value="{DynamicResource FontFamily}" />
-        <Setter Property="AlternationCount" Value="2"></Setter>
+        <Setter Property="AlternationCount" Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">

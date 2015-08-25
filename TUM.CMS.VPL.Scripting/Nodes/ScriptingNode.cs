@@ -12,13 +12,13 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 {
     public class ScriptingNode : Node
     {
-        private readonly Scripting.ScriptingControl scriptingControl;
+        private readonly ScriptingControl scriptingControl;
         private string scriptContent;
 
         public ScriptingNode(VplControl.Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
-            scriptingControl = new Scripting.ScriptingControl();
+            scriptingControl = new ScriptingControl();
 
 
             scriptingControl.HighlightingComboBox.SelectionChanged += HighlightingComboBoxOnSelectionChanged;

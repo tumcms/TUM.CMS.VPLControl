@@ -6,7 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/SearchTextBoxStyle.xaml"/>
+                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/SearchTextBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

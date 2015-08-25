@@ -19,34 +19,20 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TUM.CMS.VplControl.Core
 {
-    /// <summary>
-    ///     Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///     Step 1a) Using this custom control in a XAML file that exists in the current project.
-    ///     Add this XmlNamespace attribute to the root element of the markup file where it is
-    ///     to be used:
-    ///     xmlns:MyNamespace="clr-namespace:TUM.CMS.VplControl"
-    ///     Step 1b) Using this custom control in a XAML file that exists in a different project.
-    ///     Add this XmlNamespace attribute to the root element of the markup file where it is
-    ///     to be used:
-    ///     xmlns:MyNamespace="clr-namespace:TUM.CMS.VplControl;assembly=TUM.CMS.VplControl"
-    ///     You will also need to add a project reference from the project where the XAML file lives
-    ///     to this project and Rebuild to avoid compilation errors:
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Select this project]
-    ///     Step 2)
-    ///     Go ahead and use your control in the XAML file.
-    ///     <MyNamespace:CustomControl1 />
-    /// </summary>
     public class VplControl : Canvas
     {
+        // Zoom Utilities
+        private readonly ScaleTransform scaleTransform;
+        private readonly TransformGroup transformGroup;
+        private readonly TranslateTransform translateTransform;
+        private GraphFlowDirections graphFlowDirection;
+        public GraphFlowDirections ImportFlowDirection;
         public MouseModes MouseMode = MouseModes.Nothing;
         private ScaleTransform scaleTransformZooming;
         private Border selectionRectangle;
         private Point startSelectionPoint;
         private TrulyObservableCollection<Node> tempCollection;
         public Line TempLine;
-        public GraphFlowDirections ImportFlowDirection;
-
         internal Port TempStartPort;
 
         public VplControl()
@@ -91,7 +77,7 @@ namespace TUM.CMS.VplControl.Core
             LayoutTransform = transformGroup;
 
             // Init Grid for the background
-            var visualBrush = new VisualBrush()
+            var visualBrush = new VisualBrush
             {
                 TileMode = TileMode.Tile,
                 Viewport = new Rect(0, 0, 50, 50),
@@ -141,9 +127,7 @@ namespace TUM.CMS.VplControl.Core
 
             var tooltipBorderBrush = Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush;
             if (tooltipBorderBrush != null)
-            {
                 Theme.TooltipBorderColor = tooltipBorderBrush.Color;
-            }
 
             var portFillBrush = Application.Current.Resources["PortFillBrush"] as SolidColorBrush;
             if (portFillBrush != null)
@@ -200,7 +184,6 @@ namespace TUM.CMS.VplControl.Core
                 Application.Current.Resources["ConnEllipseSize"] is double
                     ? (double) Application.Current.Resources["ConnEllipseSize"]
                     : 0;
-
         }
 
         internal SplineModes SplineMode { get; set; }
@@ -220,17 +203,9 @@ namespace TUM.CMS.VplControl.Core
         [Browsable(false)]
         public List<Type> ExternalNodeTypes { get; set; }
 
-
-
-
         [Browsable(false)]
         public NodeTypeModes NodeTypeMode { get; set; }
 
-        // Zoom Utilities
-        private readonly ScaleTransform scaleTransform;
-        private readonly TransformGroup transformGroup;
-        private readonly TranslateTransform translateTransform;
-        private GraphFlowDirections graphFlowDirection;
         public int ZoomIn { get; set; }
         public int ZoomOut { get; set; }
 
@@ -245,11 +220,11 @@ namespace TUM.CMS.VplControl.Core
             get { return graphFlowDirection; }
             set
             {
-                if (graphFlowDirection == value ) return;
+                if (graphFlowDirection == value) return;
 
                 if (NodeCollection != null)
                 {
-                    Guid guid= new Guid();
+                    var guid = new Guid();
                     SerializeNetwork(guid + ".vplxml");
                     graphFlowDirection = value;
                     DeserializeNetwork(guid + ".vplxml");
@@ -274,10 +249,10 @@ namespace TUM.CMS.VplControl.Core
                         if (e.ClickCount == 2)
                         {
                             // double click in empty space of canvas
-                            SelectionNode node = new SelectionNode(this)
+                            var node = new SelectionNode(this)
                             {
-                                Left = Mouse.GetPosition(this).X-15,
-                                Top = Mouse.GetPosition(this).Y-20
+                                Left = Mouse.GetPosition(this).X - 15,
+                                Top = Mouse.GetPosition(this).Y - 20
                             };
                         }
                         else
@@ -332,7 +307,10 @@ namespace TUM.CMS.VplControl.Core
                         {
                             // Move to WPF style
                             Background = Brushes.Transparent,
-                            BorderBrush = new SolidColorBrush(Application.Current.Resources["ColorBlue"] is Color ? (Color) Application.Current.Resources["ColorBlue"] : new Color()),
+                            BorderBrush =
+                                new SolidColorBrush(Application.Current.Resources["ColorBlue"] is Color
+                                    ? (Color) Application.Current.Resources["ColorBlue"]
+                                    : new Color()),
                             CornerRadius = new CornerRadius(5),
                             BorderThickness = new Thickness(2)
                         };
@@ -422,8 +400,8 @@ namespace TUM.CMS.VplControl.Core
                     scaleTransform.ScaleX += 0.1;
                     scaleTransform.ScaleY += 0.1;
 
-                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X * scaleTransform.ScaleX;
-                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y * scaleTransform.ScaleY;
+                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
+                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
 
                     translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
                     translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
@@ -439,8 +417,8 @@ namespace TUM.CMS.VplControl.Core
                     scaleTransform.ScaleX -= 0.1;
                     scaleTransform.ScaleY -= 0.1;
 
-                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X * scaleTransform.ScaleX;
-                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y * scaleTransform.ScaleY;
+                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
+                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
 
                     translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
                     translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
@@ -832,11 +810,12 @@ namespace TUM.CMS.VplControl.Core
             {
                 reader.MoveToContent();
 
-                string enumString = reader.GetAttribute("GraphFlowDirection");
+                var enumString = reader.GetAttribute("GraphFlowDirection");
 
                 if (enumString != null)
                 {
-                    ImportFlowDirection = (GraphFlowDirections)Enum.Parse(typeof(GraphFlowDirections),enumString, ignoreCase: true);
+                    ImportFlowDirection =
+                        (GraphFlowDirections) Enum.Parse(typeof (GraphFlowDirections), enumString, true);
                 }
 
 

@@ -24,7 +24,7 @@ namespace TUM.CMS.VplControl.Test
                     .ToList());
 
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
-                    
+
 
             VplControl.NodeTypeMode = NodeTypeModes.All;
 

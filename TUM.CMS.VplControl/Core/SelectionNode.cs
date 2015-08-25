@@ -12,17 +12,16 @@ namespace TUM.CMS.VplControl.Core
 {
     internal class SelectionNode : Node
     {
-
-        List<Type> typeList = new List<Type>();
-        ListBox listBox = new ListBox();
-        private SearchTextBox searchTextBox;
+        private readonly ListBox listBox = new ListBox();
+        private readonly SearchTextBox searchTextBox;
+        private readonly List<Type> typeList = new List<Type>();
 
         public SelectionNode(VplControl hostCanvas) : base(hostCanvas)
         {
             searchTextBox = new SearchTextBox();
             searchTextBox.OnSearch += searchTextBox_OnSearch;
 
-            List<Type> tempTypeList = new List<Type>();
+            var tempTypeList = new List<Type>();
             AddControlToNode(searchTextBox);
 
             listBox.DisplayMemberPath = "Name";
@@ -52,37 +51,33 @@ namespace TUM.CMS.VplControl.Core
             tempTypeList = tempTypeList.OrderBy(x => x.Name).ToList();
 
 
-
             foreach (var type in tempTypeList.Where(type => !type.IsAbstract))
-            {
                 typeList.Add(type);
-            }
 
             listBox.ItemsSource = typeList;
             searchTextBox.PreviewKeyDown += searchTextBox_KeyDown;
             listBox.PreviewMouseLeftButtonUp += listBox_PreviewMouseLeftButtonUp;
-            
-            listBox.SelectionMode= SelectionMode.Single;
+
+            listBox.SelectionMode = SelectionMode.Single;
 
 
             Border.MouseLeave += SelectionNode_MouseLeave;
             MouseEnter += SelectionNode_MouseEnter;
         }
 
-        void listBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void listBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             CreateNode();
         }
 
-
-
-        void searchTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            SearchTextBox textBox=sender as SearchTextBox;
-           
-            if (e.Key == Key.Enter && listBox.Items.Count>0)
+            var textBox = sender as SearchTextBox;
+
+            if (e.Key == Key.Enter && listBox.Items.Count > 0)
+            {
                 if ((textBox != null && textBox.Text != "") ||
-                    (listBox.SelectedIndex > -1 && listBox.SelectedIndex < listBox.Items.Count+1)
+                    (listBox.SelectedIndex > -1 && listBox.SelectedIndex < listBox.Items.Count + 1)
                     )
                     CreateNode();
                 else
@@ -90,23 +85,27 @@ namespace TUM.CMS.VplControl.Core
                     Dispose();
                     HostCanvas.Children.Remove(Border);
                 }
-            else switch (e.Key)
+            }
+            else
             {
-                case Key.Down:
-                    if (listBox.SelectedIndex < listBox.Items.Count)
-                    {
-                        listBox.SelectedIndex += 1;
+                switch (e.Key)
+                {
+                    case Key.Down:
+                        if (listBox.SelectedIndex < listBox.Items.Count)
+                        {
+                            listBox.SelectedIndex += 1;
+                            e.Handled = true;
+                        }
+                        break;
+                    case Key.Up:
+                        if (listBox.SelectedIndex > 0) listBox.SelectedIndex -= 1;
                         e.Handled = true;
-                    }
-                    break;
-                case Key.Up:
-                    if (listBox.SelectedIndex > 0) listBox.SelectedIndex -= 1;
-                    e.Handled = true;
-                    break;
-            } 
+                        break;
+                }
+            }
         }
 
-        void SelectionNode_MouseEnter(object sender, MouseEventArgs e)
+        private void SelectionNode_MouseEnter(object sender, MouseEventArgs e)
         {
             ControlElements[0].Focus();
         }
@@ -117,10 +116,9 @@ namespace TUM.CMS.VplControl.Core
             HostCanvas.Children.Remove(Border);
         }
 
-
-        void searchTextBox_OnSearch(object sender, RoutedEventArgs e)
+        private void searchTextBox_OnSearch(object sender, RoutedEventArgs e)
         {
-            SearchEventArgs searchArgs = e as SearchEventArgs;
+            var searchArgs = e as SearchEventArgs;
 
             if (searchArgs == null) return;
 
@@ -133,20 +131,18 @@ namespace TUM.CMS.VplControl.Core
             else
             {
                 listBox.ItemsSource = typeList
-                    .Where(x=> x.Name.StartsWith(searchArgs.Keyword, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Name.StartsWith(searchArgs.Keyword, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 listBox.SelectedIndex = 0;
-
             }
         }
-
 
         private void CreateNode()
         {
             var selectedType = listBox.SelectedItem as Type;
             if (selectedType == null) return;
 
-            var node = (Node)Activator.CreateInstance(selectedType, HostCanvas);
+            var node = (Node) Activator.CreateInstance(selectedType, HostCanvas);
 
             node.Left = Left;
             node.Top = Top;
@@ -154,7 +150,6 @@ namespace TUM.CMS.VplControl.Core
             HostCanvas.Children.Remove(Border);
             HostCanvas.NodeCollection.Add(node);
         }
-
 
         public override void Calculate()
         {
