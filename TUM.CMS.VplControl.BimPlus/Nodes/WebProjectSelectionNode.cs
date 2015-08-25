@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using BimPlus.IntegrationFramework.ViewModels;
+using BimPlus.IntegrationFramework.WebControls.ViewModels;
 using TUM.CMS.VplControl.Nodes;
 
 namespace TUM.CMS.VplControl.BimPlus.Nodes
@@ -10,30 +10,30 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         // DataController
         private readonly DataController _controller;
 
-        public WebProjectSelectionNode(VplControl hostCanvas)
+        public WebProjectSelectionNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;
 
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel
             _controller = DataController.Instance;
-            
-            QuestButton.Visibility = Visibility.Visible;
-            BinButton.Visibility = Visibility.Visible;
+
+            IsResizeable = true;
 
             var vm = new ProjectSelectionViewModel(_controller.DataContainer)
             {
                 Visibility = Visibility.Visible
             };
 
-            // vm.RefreshCommand.Execute();
+            vm.RefreshCommand.Execute();
 
             var pr = new ContentPresenter
             {
                 Content = vm,
-                Width = 600,
-                Height = 450
+                MinWidth = 600,
+                MinHeight = 600
             };
+
             AddControlToNode(pr);
         }
 

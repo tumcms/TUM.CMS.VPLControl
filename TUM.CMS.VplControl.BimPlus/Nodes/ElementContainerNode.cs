@@ -26,7 +26,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
 
         private ElementContainerNodeControl _control;
 
-        public ElementContainerNode(VplControl hostCanvas)
+        public ElementContainerNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel

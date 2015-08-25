@@ -15,9 +15,9 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
     {
         private readonly DataController _controller;
         private readonly IssueNodeControl _issueControl;
-        private List<BaseElement> _elements;
+        // private List<BaseElement> _elements;
 
-        public IssueNode(VplControl hostCanvas)
+        public IssueNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             _issueControl = new IssueNodeControl();

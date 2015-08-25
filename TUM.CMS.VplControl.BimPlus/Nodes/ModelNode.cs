@@ -18,7 +18,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         private Division _selectedModel;
         private List<Division> _models;
 
-        public ModelNode(VplControl hostCanvas)
+        public ModelNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;

@@ -11,7 +11,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
     {
         private readonly DataController _controller;
 
-        public ElementFilterNode(VplControl hostCanvas)
+        public ElementFilterNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel

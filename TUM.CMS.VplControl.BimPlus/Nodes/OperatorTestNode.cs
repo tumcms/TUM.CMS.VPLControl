@@ -7,7 +7,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         // DataController for the connection to the BimPlus Framework
         private DataController _controller;
 
-        public OperatorTestNode(VplControl hostCanvas) : base(hostCanvas)
+        public OperatorTestNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel
             _controller = DataController.Instance;

@@ -12,7 +12,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         private readonly DataController _controller;
         private readonly ComboBox _typeComboBox;
 
-        public ElementTypeNode(VplControl hostCanvas)
+        public ElementTypeNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;

@@ -109,6 +109,9 @@ namespace TUM.CMS.VplControl.Core
                 }
             };
 
+            // Set Grid
+            Background = visualBrush;
+
             Theme = new Theme(this) {FontFamily = TextElement.GetFontFamily(this)};
 
             var solidColorBrush = TextElement.GetForeground(this) as SolidColorBrush;

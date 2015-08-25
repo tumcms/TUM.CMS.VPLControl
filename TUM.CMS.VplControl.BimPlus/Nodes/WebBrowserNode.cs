@@ -8,9 +8,9 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
     public class WebBrowserNode : Node
     {
         // DataController
-        private DataController _controller;
+        // private DataController _controller;
 
-        public WebBrowserNode(VplControl hostCanvas)
+        public WebBrowserNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;
@@ -39,7 +39,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
 
         public override Node Clone()
         {
-            return new WebPortalNode(HostCanvas)
+            return new WebBrowserNode(HostCanvas)
             {
                 Top = Top,
                 Left = Left

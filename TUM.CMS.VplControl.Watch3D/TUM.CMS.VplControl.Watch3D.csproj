@@ -69,11 +69,6 @@
       <HintPath>..\..\packages\HelixToolkit.Wpf.SharpDX.2015.1.558\lib\net45\HelixToolkit.Wpf.SharpDX.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Debug\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SharpDX.2.5.0\lib\net40\SharpDX.dll</HintPath>
       <Private>True</Private>
@@ -158,7 +153,6 @@
     <Compile Include="Controls\Watch3DControl.xaml.cs">
       <DependentUpon>Watch3DControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MeshIdandGeometry.cs" />
     <Compile Include="Nodes\Watch3DNodeDX.cs" />
     <Compile Include="Nodes\Watch3DNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -199,22 +193,18 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BimPlus.Explorer.Contract\BimPlus.Explorer.Contract.csproj">
-      <Project>{3220112e-49bc-4e53-a5db-06ee5088d7cc}</Project>
-      <Name>BimPlus.Explorer.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BimPlus.Explorer.Data\BimPlus.Explorer.Data.csproj">
-      <Project>{b03aabbd-c678-4406-a2b6-7bc1a1b9758c}</Project>
-      <Name>BimPlus.Explorer.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TUM.CMS.VplControl\TUM.CMS.VplControl.csproj">
       <Project>{593e9bfd-be78-4487-9e22-76ae7df0b84a}</Project>
       <Name>TUM.CMS.VplControl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sharpdx_direct3d11_effects_x64.dll" />
-    <Content Include="sharpdx_direct3d11_effects_x86.dll" />
+    <Content Include="sharpdx_direct3d11_effects_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sharpdx_direct3d11_effects_x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

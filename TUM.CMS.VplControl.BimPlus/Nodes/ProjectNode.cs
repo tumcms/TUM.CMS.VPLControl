@@ -13,7 +13,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         private readonly ComboBox _projectComboBox;
         private Project _selectedProject;
 
-        public ProjectNode(VplControl hostCanvas)
+        public ProjectNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;
