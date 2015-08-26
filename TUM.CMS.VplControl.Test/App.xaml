@@ -3,13 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/SearchTextBoxStyle.xaml" />
-                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/RadialMenu.xaml" />
-                <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Icons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Generic.xaml" />
     </Application.Resources>
 </Application>

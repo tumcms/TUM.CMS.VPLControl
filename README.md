@@ -24,6 +24,7 @@ Give it a try:
 - Open from .xml file (`Ctrl+O`)
 - Save to .xml file (`Ctrl+S`)
 - Delete nodes (`DEL`)
+- Context menu (`right click`)
 
 ### Features ###
 - Drawing nodes
