@@ -1,0 +1,258 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:radialMenu="clr-namespace:RadialMenu.Controls;assembly=RadialMenu">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="FancyRadialMenuCentralItem" TargetType="radialMenu:RadialMenuCentralItem"
+           BasedOn="{StaticResource {x:Type radialMenu:RadialMenuCentralItem}}">
+
+        <Setter Property="Background" Value="LightCoral" />
+        <Setter Property="BorderBrush" Value="LightCoral" />
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="Width" Value="64" />
+        <Setter Property="Height" Value="64" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="LightGray" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FancyRadialMenuItem" TargetType="radialMenu:RadialMenuItem"
+           BasedOn="{StaticResource {x:Type radialMenu:RadialMenuItem}}">
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="InnerRadius" Value="40" />
+        <Setter Property="OuterRadius" Value="140" />
+        <Setter Property="ContentRadius" Value="100" />
+
+        <Setter Property="EdgeBackground" Value="LightGray" />
+
+        <Setter Property="EdgeInnerRadius" Value="140" />
+        <Setter Property="EdgeOuterRadius" Value="151" />
+
+        <Setter Property="ArrowBackground" Value="Transparent" />
+        <Setter Property="ArrowRadius" Value="146" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightGray" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <radialMenu:RadialMenuCentralItem x:Key="MyRadialMenuCentralItem"
+                                      Style="{StaticResource FancyRadialMenuCentralItem}">
+        <Rectangle Width="25" Height="25">
+            <Rectangle.Fill>
+                <VisualBrush Visual="{StaticResource appbar_close}" />
+            </Rectangle.Fill>
+        </Rectangle>
+    </radialMenu:RadialMenuCentralItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemNew" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_page}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">New</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemOpen" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_disk_upload}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Open</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemSave" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_disk_download}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Save</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemSettings" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_cog}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Settings</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemZoomToFit" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource     appbar_image_redeye}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">ZoomToFit</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemAlign" Style="{StaticResource FancyRadialMenuItem}"
+                               ArrowBackground="White">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource     appbar_align_left}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Align</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemGroup" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_vector_group}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Group</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemHelp" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_question}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Help</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemLeft" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_left}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Left</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemHCenter" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_center}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Center</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemRight" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_right}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Right</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemTop" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_left}" />
+                </Rectangle.Fill>
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Top</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemVCenter" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_center}" />
+                </Rectangle.Fill>
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Center</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemBottom" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_right}" />
+                </Rectangle.Fill>
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Bottom</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemArrangeH" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_left}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Arrange H</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemArrangeV" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_align_center}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Arrange V</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+
+
+    <radialMenu:RadialMenuItem x:Key="RadialMenuItemBack" Style="{StaticResource FancyRadialMenuItem}">
+        <WrapPanel Orientation="Vertical">
+            <Rectangle Width="25" Height="25">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{StaticResource appbar_arrow_left}" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock FontSize="14" TextAlignment="Center">Back</TextBlock>
+        </WrapPanel>
+    </radialMenu:RadialMenuItem>
+</ResourceDictionary>

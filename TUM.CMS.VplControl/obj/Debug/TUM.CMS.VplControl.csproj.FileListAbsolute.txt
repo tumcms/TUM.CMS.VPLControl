@@ -95,3 +95,8 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\bin\Debug\zh-Hans
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\TUM.CMS.VplControl.csprojResolveAssemblyReference.cache
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\SearchTextBoxStyle.baml
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\bin\Debug\RadialMenu.dll
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\RadialMenu.baml
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\ContentMenu\Settings.baml
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\ContentMenu\Settings.g.cs
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\Icons.baml

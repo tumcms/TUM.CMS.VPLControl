@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace TUM.CMS.VplControl.Utilities
 {
@@ -319,6 +320,16 @@ namespace TUM.CMS.VplControl.Utilities
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
             return source.IndexOf(toCheck, comp) >= 0;
+        }
+    }
+
+    public static class ExtensionMethods
+    {
+        private static readonly Action EmptyDelegate = delegate { };
+
+        public static void Refresh(this UIElement uiElement)
+        {
+            uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
     }
 }

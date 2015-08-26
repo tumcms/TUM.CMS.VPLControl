@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32.SafeHandles;
 using TUM.CMS.VplControl.Annotations;
+using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
 {
@@ -187,6 +188,7 @@ namespace TUM.CMS.VplControl.Core
                     Canvas.SetTop(HitTestBorder, Top - 30);
                 }
 
+                HostCanvas.Refresh();
                 OnPropertyChanged();
             }
         }
@@ -207,6 +209,7 @@ namespace TUM.CMS.VplControl.Core
                     Canvas.SetLeft(HitTestBorder, Left - 10);
                 }
 
+                HostCanvas.Refresh();
                 OnPropertyChanged();
             }
         }

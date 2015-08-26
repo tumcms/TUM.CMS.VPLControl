@@ -55,6 +55,8 @@ namespace TUM.CMS.VplControl.Core
             StartPort.Origin.PropertyChanged += Origin_PropertyChanged;
             EndPort.Origin.PropertyChanged += Origin_PropertyChanged;
 
+            StartPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
+            EndPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
 
             ObserveNode(StartPort.ParentNode);
             ObserveNode(EndPort.ParentNode);

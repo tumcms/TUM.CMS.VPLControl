@@ -58,3 +58,4 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\zh-H
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\obj\Debug\TUM.CMS.VPL.Scripting.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\obj\Debug\TUM.CMS.VPL.Scripting.pdb
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\RadialMenu.dll

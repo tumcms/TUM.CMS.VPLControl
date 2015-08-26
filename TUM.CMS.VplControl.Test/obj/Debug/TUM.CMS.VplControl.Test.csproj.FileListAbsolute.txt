@@ -99,3 +99,4 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\zh
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VPL.Scripting.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ICSharpCode.NRefactory.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VPL.Scripting.pdb
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\RadialMenu.dll

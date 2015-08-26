@@ -38,17 +38,22 @@ Give it a try:
 - Type sensetive
 - Customizable style
 - Vertical/Horizontal flow switch
+- ZoomToFit
+- Aligning
+- Radial context menu
 
 ### ToDo ###
 - Lacing
-- ZoomToFit
-- Aligning
 - Animations
 - Resize group node to one node
 - Nodes for graph plotting / sql
 - Drag&Drop nodes from toolbox
 - Performance improvement: Virtual canvas
 - Better zooming
+- Node preview at port
+- Calculation progress bar
+- Connector remove
+
 
 ----------
 

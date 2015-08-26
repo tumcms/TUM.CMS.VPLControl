@@ -473,5 +473,26 @@ namespace TUM.CMS.VplControl.Nodes
         }
 
         public abstract Node Clone();
+
+        public static Rect GetBoundingBoxOfNodes(List<Node> nodes)
+        {
+            if (nodes.Count == 0) return new Rect();
+
+            var minLeft = double.MaxValue;
+            var minTop = double.MaxValue;
+            var maxLeft = double.MinValue;
+            var maxTop = double.MinValue;
+
+            foreach (var node in nodes)
+            {
+                if (node.Left < minLeft) minLeft = node.Left;
+                if (node.Top < minTop) minTop = node.Top;
+
+                if ((node.Left + node.ActualWidth) > maxLeft) maxLeft = node.Left + node.ActualWidth;
+                if ((node.Top + node.ActualHeight) > maxTop) maxTop = node.Top + node.ActualHeight;
+            }
+
+            return new Rect(new Point(minLeft, minTop), new Size(maxLeft - minLeft, maxTop - minTop));
+        }
     }
 }
