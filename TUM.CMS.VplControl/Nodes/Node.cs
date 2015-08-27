@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
 
@@ -16,10 +15,10 @@ namespace TUM.CMS.VplControl.Nodes
         private static readonly Action emptyDelegate = delegate { };
         private static int id = 3;
         private readonly int myid;
-        private bool isResizing;
-        private int minMainMinWidth;
-        private int minMainHeight;
         private bool isResizeable;
+        private bool isResizing;
+        private int minMainHeight;
+        private int minMainMinWidth;
 
         protected Node(Core.VplControl hostCanvas) : base(hostCanvas)
         {
@@ -39,7 +38,6 @@ namespace TUM.CMS.VplControl.Nodes
 
             SpaceCanvas = new Canvas();
             Children.Add(ContentGrid = new Grid {ShowGridLines = false, Background = Brushes.Transparent});
-
 
 
             if (hostCanvas.GraphFlowDirection == GraphFlowDirections.Horizontal)
@@ -69,8 +67,8 @@ namespace TUM.CMS.VplControl.Nodes
                 // ----------------------------------------------------------------------------------------------------------------------
                 // Content Panels
                 // ----------------------------------------------------------------------------------------------------------------------
-                InputPortPanel = new DockPanel()
-               {
+                InputPortPanel = new DockPanel
+                {
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
 
@@ -92,22 +90,22 @@ namespace TUM.CMS.VplControl.Nodes
             // Content grid row and column definitions
             // ----------------------------------------------------------------------------------------------------------------------
             ContentGrid.ColumnDefinitions.Insert(0,
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                new ColumnDefinition {Width = new GridLength(1, GridUnitType.Auto)});
             // Input
             ContentGrid.ColumnDefinitions.Insert(0,
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
             // Content
             ContentGrid.ColumnDefinitions.Insert(0,
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                new ColumnDefinition {Width = new GridLength(1, GridUnitType.Auto)});
             // Output
 
-            ContentGrid.RowDefinitions.Insert(0, new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            ContentGrid.RowDefinitions.Insert(0, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Header
-            ContentGrid.RowDefinitions.Insert(1, new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            ContentGrid.RowDefinitions.Insert(1, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Content
-            ContentGrid.RowDefinitions.Insert(1, new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            ContentGrid.RowDefinitions.Insert(1, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Footer
-            ContentGrid.RowDefinitions.Insert(1, new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+            ContentGrid.RowDefinitions.Insert(1, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Risize area
 
             // ----------------------------------------------------------------------------------------------------------------------
@@ -170,38 +168,6 @@ namespace TUM.CMS.VplControl.Nodes
             if (AutoCheckBox != null) SetZIndex(AutoCheckBox, myid);
         }
 
-        void Node_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.Handled = false;
-        }
-
-        void Node_KeyUp(object sender, KeyEventArgs e)
-        {
-            e.Handled = false;
-        }
-
-        void resizeRectangle_MouseLeave(object sender, MouseEventArgs e)
-        {
-            HostCanvas.MouseMove -= HostCanvas_MouseMove;
-            isResizing = false;
-            e.Handled = true;
-        }
-
-        void resizeRectangle_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            HostCanvas.MouseMove -= HostCanvas_MouseMove;
-            isResizing = false;
-            e.Handled = true;
-        }
-
-        void resizeRectangle_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            OldMousePosition = e.GetPosition(HostCanvas);
-            isResizing = true;
-            HostCanvas.MouseMove += HostCanvas_MouseMove;
-            e.Handled = true;
-        }
-
         public int Id
         {
             get { return myid; }
@@ -218,7 +184,6 @@ namespace TUM.CMS.VplControl.Nodes
         public Comment TopComment { get; set; }
         public Comment BottomComment { get; set; }
         public bool ShowHelpOnMouseOver { get; set; }
-
         public Point OldMousePosition { get; set; }
         public List<Port> InputPorts { get; set; }
         public List<Port> OutputPorts { get; set; }
@@ -235,7 +200,7 @@ namespace TUM.CMS.VplControl.Nodes
                 // ----------------------------------------------------------------------------------------------------------------------
                 // Risize button
                 // ----------------------------------------------------------------------------------------------------------------------
-                Border resizeRectangle = new Border();
+                var resizeRectangle = new Border();
                 resizeRectangle.Width = 20;
                 resizeRectangle.Height = 20;
                 resizeRectangle.BorderBrush = Brushes.LightGray;
@@ -255,6 +220,37 @@ namespace TUM.CMS.VplControl.Nodes
             }
         }
 
+        private void Node_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = false;
+        }
+
+        private void Node_KeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = false;
+        }
+
+        private void resizeRectangle_MouseLeave(object sender, MouseEventArgs e)
+        {
+            HostCanvas.MouseMove -= HostCanvas_MouseMove;
+            isResizing = false;
+            e.Handled = true;
+        }
+
+        private void resizeRectangle_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            HostCanvas.MouseMove -= HostCanvas_MouseMove;
+            isResizing = false;
+            e.Handled = true;
+        }
+
+        private void resizeRectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            OldMousePosition = e.GetPosition(HostCanvas);
+            isResizing = true;
+            HostCanvas.MouseMove += HostCanvas_MouseMove;
+            e.Handled = true;
+        }
 
         private void Node_Loaded(object sender, RoutedEventArgs e)
         {
@@ -345,7 +341,6 @@ namespace TUM.CMS.VplControl.Nodes
             Delete();
         }
 
-
         private void AddChildControlToMainContentGrid(UIElement control)
         {
             MainContentGrid.RowDefinitions.Insert(MainContentGrid.Children.Count, new RowDefinition());
@@ -417,7 +412,7 @@ namespace TUM.CMS.VplControl.Nodes
                 MainContentGrid.MinWidth = MainContentGrid.ActualWidth + delta.X;
                 MainContentGrid.Height = MainContentGrid.ActualHeight + delta.Y;
 
-                HitTestBorder.Width = ActualWidth+10;
+                HitTestBorder.Width = ActualWidth + 10;
                 HitTestBorder.Height = 30;
             }
             else
@@ -478,5 +473,26 @@ namespace TUM.CMS.VplControl.Nodes
         }
 
         public abstract Node Clone();
+
+        public static Rect GetBoundingBoxOfNodes(List<Node> nodes)
+        {
+            if (nodes.Count == 0) return new Rect();
+
+            var minLeft = double.MaxValue;
+            var minTop = double.MaxValue;
+            var maxLeft = double.MinValue;
+            var maxTop = double.MinValue;
+
+            foreach (var node in nodes)
+            {
+                if (node.Left < minLeft) minLeft = node.Left;
+                if (node.Top < minTop) minTop = node.Top;
+
+                if ((node.Left + node.ActualWidth) > maxLeft) maxLeft = node.Left + node.ActualWidth;
+                if ((node.Top + node.ActualHeight) > maxTop) maxTop = node.Top + node.ActualHeight;
+            }
+
+            return new Rect(new Point(minLeft, minTop), new Size(maxLeft - minLeft, maxTop - minTop));
+        }
     }
 }

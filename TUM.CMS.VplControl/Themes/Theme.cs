@@ -395,7 +395,8 @@ namespace TUM.CMS.VplControl.Core
             set
             {
                 nodeBorderColorOnSelection = value;
-                Application.Current.Resources["NodeBorderBrushSelection"] = new SolidColorBrush(nodeBorderColorOnSelection);
+                Application.Current.Resources["NodeBorderBrushSelection"] =
+                    new SolidColorBrush(nodeBorderColorOnSelection);
             }
         }
 

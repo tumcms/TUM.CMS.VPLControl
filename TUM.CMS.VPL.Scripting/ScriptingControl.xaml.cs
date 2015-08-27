@@ -14,7 +14,6 @@ using ICSharpCode.AvalonEdit.Indentation;
 using ICSharpCode.AvalonEdit.Indentation.CSharp;
 using Microsoft.Win32;
 
-
 namespace TUM.CMS.VPL.Scripting
 {
     /// <summary>

@@ -28,8 +28,8 @@ namespace TUM.CMS.VplControl.Test
 
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
             VplControl.NodeTypeMode = NodeTypeModes.All;
-            VplPropertyGrid.SelectedObject = VplControl.Theme;
-            VplPropertyGrid.SelectedObject = VplControl;
+            // VplPropertyGrid.SelectedObject = VplControl.Theme;
+            // VplPropertyGrid.SelectedObject = VplControl;
         }
 
         /// <summary>
@@ -66,6 +66,7 @@ namespace TUM.CMS.VplControl.Test
                 if (VplControl.MouseMode != MouseModes.Panning)
                     MouseMove += node.HostCanvas_MouseMove;
             }
+            //VplPropertyGrid.SelectedObject = VplControl;
         }
     }
 }
