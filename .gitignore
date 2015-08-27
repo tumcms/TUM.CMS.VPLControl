@@ -8,3 +8,4 @@
 /TUM.CMS.VplControl.Test/obj
 /TUM.CMS.VPL.Scripting/bin/Debug
 /TUM.CMS.VPL.Scripting/bin/Release
+*.suo

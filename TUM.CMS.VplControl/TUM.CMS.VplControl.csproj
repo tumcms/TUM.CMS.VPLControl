@@ -221,12 +221,37 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Themes\Generic.xaml.orig" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BimPlus.Explorer.Contract\BimPlus.Explorer.Contract.csproj">
+      <Project>{3220112e-49bc-4e53-a5db-06ee5088d7cc}</Project>
+      <Name>BimPlus.Explorer.Contract</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.Explorer.Data\BimPlus.Explorer.Data.csproj">
+      <Project>{b03aabbd-c678-4406-a2b6-7bc1a1b9758c}</Project>
+      <Name>BimPlus.Explorer.Data</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.Explorer.DXControl\BimPlus.Explorer.DXControl.csproj">
+      <Project>{2389e428-a350-4508-974e-12d6a97d6bf8}</Project>
+      <Name>BimPlus.Explorer.DXControl</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.IntegrationFramework\BimPlus.IntegrationFramework.csproj">
+      <Project>{38e67b6e-64c7-4898-b3db-712fc87bbf35}</Project>
+      <Name>BimPlus.IntegrationFramework</Name>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

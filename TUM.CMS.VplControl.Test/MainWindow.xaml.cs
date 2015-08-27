@@ -27,9 +27,8 @@ namespace TUM.CMS.VplControl.Test
                     .ToList());
 
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
-                    
             VplControl.NodeTypeMode = NodeTypeModes.All;
-
+            VplPropertyGrid.SelectedObject = VplControl.Theme;
             VplPropertyGrid.SelectedObject = VplControl;
         }
 
@@ -42,11 +41,11 @@ namespace TUM.CMS.VplControl.Test
         {
             if (e.Delta > 0)
             {
-                Zoombox.Zoom(0.1);
+                // Zoombox.Zoom(0.1);
             }
             else
             {
-                Zoombox.Zoom(-0.1);
+                // Zoombox.Zoom(-0.1);
             }
         }
 

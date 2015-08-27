@@ -142,7 +142,6 @@ namespace TUM.CMS.VplControl.Core
             }
         }
 
-
         private void CreateNode()
         {
             var selectedType = listBox.SelectedItem as Type;

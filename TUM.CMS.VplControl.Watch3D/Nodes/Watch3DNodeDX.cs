@@ -23,10 +23,12 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
     {
         public Watch3DxControl _control;
 
-        public Viewport3DX ViewPort3D;
-
-        public Watch3DNodeDx(Core.VplControl hostCanvas) : base(hostCanvas)
+        public Watch3DNodeDx(Core.VplControl hostCanvas): base(hostCanvas)
         {
+            // Add Control s
+            _control = new Watch3DxControl();
+            AddControlToNode(_control);
+
             // Set Node resizable ...
             IsResizeable = true;
 

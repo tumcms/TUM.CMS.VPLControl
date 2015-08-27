@@ -18,11 +18,9 @@
         </Grid.RowDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Content="Zoom to Fit" Height="25"></Button>
         <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch"/>
-        <!-- <vplControl:VplControl Name="VplControl" Grid.Column="2"/> -->
+        <!-- <core:VplControl Name="VplControl" Grid.Column="2"/> -->
         <zoomBox:Zoombox  Name="Zoombox" Grid.Column="2" Grid.Row="1" ClipToBounds="True" MinScale="1" MaxScale="50" ViewStackMode="Auto" ZoomPercentage="5" MouseWheel="Zoombox_OnMouseWheel" MouseDown="Zoombox_OnMouseDown">
             <core:VplControl Name="VplControl" Visibility="Visible" Height="2500" Width="2500"/>
         </zoomBox:Zoombox>
-        <wpfToolkit:PropertyGrid Name="VplPropertyGrid" />
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
     </Grid>
 </Window>
