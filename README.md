@@ -24,6 +24,7 @@ Give it a try:
 - Open from .xml file (`Ctrl+O`)
 - Save to .xml file (`Ctrl+S`)
 - Delete nodes (`DEL`)
+- Context menu (`right click`)
 
 ### Features ###
 - Drawing nodes
@@ -38,17 +39,22 @@ Give it a try:
 - Type sensetive
 - Customizable style
 - Vertical/Horizontal flow switch
+- ZoomToFit
+- Aligning
+- Radial context menu
 
 ### ToDo ###
 - Lacing
-- ZoomToFit
-- Aligning
 - Animations
 - Resize group node to one node
 - Nodes for graph plotting / sql
 - Drag&Drop nodes from toolbox
 - Performance improvement: Virtual canvas
 - Better zooming
+- Node preview at port
+- Calculation progress bar
+- Connector remove
+
 
 ----------
 

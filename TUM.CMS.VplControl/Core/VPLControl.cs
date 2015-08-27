@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -13,40 +14,28 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
 using Microsoft.Win32;
+using TUM.CMS.VplControl.ContentMenu;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace TUM.CMS.VplControl.Core
 {
-    /// <summary>
-    ///     Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///     Step 1a) Using this custom control in a XAML file that exists in the current project.
-    ///     Add this XmlNamespace attribute to the root element of the markup file where it is
-    ///     to be used:
-    ///     xmlns:MyNamespace="clr-namespace:TUM.CMS.VplControl"
-    ///     Step 1b) Using this custom control in a XAML file that exists in a different project.
-    ///     Add this XmlNamespace attribute to the root element of the markup file where it is
-    ///     to be used:
-    ///     xmlns:MyNamespace="clr-namespace:TUM.CMS.VplControl;assembly=TUM.CMS.VplControl"
-    ///     You will also need to add a project reference from the project where the XAML file lives
-    ///     to this project and Rebuild to avoid compilation errors:
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Select this project]
-    ///     Step 2)
-    ///     Go ahead and use your control in the XAML file.
-    ///     <MyNamespace:CustomControl1 />
-    /// </summary>
     public class VplControl : Canvas
     {
+        // Zoom Utilities
+        private readonly ScaleTransform scaleTransform;
+        private readonly TransformGroup transformGroup;
+        private readonly TranslateTransform translateTransform;
+        private GraphFlowDirections graphFlowDirection;
+        public GraphFlowDirections ImportFlowDirection;
         public MouseModes MouseMode = MouseModes.Nothing;
+        private RadialContentMenu radialMenu;
         private ScaleTransform scaleTransformZooming;
         private Border selectionRectangle;
         private Point startSelectionPoint;
         private TrulyObservableCollection<Node> tempCollection;
         public Line TempLine;
-        public GraphFlowDirections ImportFlowDirection;
-
         internal Port TempStartPort;
         private MatrixTransform matrixTrans;
 
@@ -92,7 +81,7 @@ namespace TUM.CMS.VplControl.Core
             LayoutTransform = transformGroup;
 
             // Init Grid for the background
-            var visualBrush = new VisualBrush()
+            var visualBrush = new VisualBrush
             {
                 TileMode = TileMode.Tile,
                 Viewport = new Rect(0, 0, 50, 50),
@@ -145,9 +134,7 @@ namespace TUM.CMS.VplControl.Core
 
             var tooltipBorderBrush = Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush;
             if (tooltipBorderBrush != null)
-            {
                 Theme.TooltipBorderColor = tooltipBorderBrush.Color;
-            }
 
             var portFillBrush = Application.Current.Resources["PortFillBrush"] as SolidColorBrush;
             if (portFillBrush != null)
@@ -204,7 +191,6 @@ namespace TUM.CMS.VplControl.Core
                 Application.Current.Resources["ConnEllipseSize"] is double
                     ? (double) Application.Current.Resources["ConnEllipseSize"]
                     : 0;
-
         }
 
         internal SplineModes SplineMode { get; set; }
@@ -224,17 +210,9 @@ namespace TUM.CMS.VplControl.Core
         [Browsable(false)]
         public List<Type> ExternalNodeTypes { get; set; }
 
-
-
-
         [Browsable(false)]
         public NodeTypeModes NodeTypeMode { get; set; }
 
-        // Zoom Utilities
-        private readonly ScaleTransform scaleTransform;
-        private readonly TransformGroup transformGroup;
-        private readonly TranslateTransform translateTransform;
-        private GraphFlowDirections graphFlowDirection;
         public int ZoomIn { get; set; }
         public int ZoomOut { get; set; }
 
@@ -249,11 +227,11 @@ namespace TUM.CMS.VplControl.Core
             get { return graphFlowDirection; }
             set
             {
-                if (graphFlowDirection == value ) return;
+                if (graphFlowDirection == value) return;
 
                 if (NodeCollection != null)
                 {
-                    Guid guid= new Guid();
+                    var guid = new Guid();
                     SerializeNetwork(guid + ".vplxml");
                     graphFlowDirection = value;
                     DeserializeNetwork(guid + ".vplxml");
@@ -267,7 +245,7 @@ namespace TUM.CMS.VplControl.Core
         [ExpandableObject]
         public Theme Theme { get; set; }
 
-        private void HandleMouseDown(object sender, MouseButtonEventArgs e)
+        private async void HandleMouseDown(object sender, MouseButtonEventArgs e)
         {
             switch (MouseMode)
             {
@@ -278,10 +256,10 @@ namespace TUM.CMS.VplControl.Core
                         if (e.ClickCount == 2)
                         {
                             // double click in empty space of canvas
-                            SelectionNode node = new SelectionNode(this)
+                            var node = new SelectionNode(this)
                             {
-                                Left = Mouse.GetPosition(this).X-15,
-                                Top = Mouse.GetPosition(this).Y-20
+                                Left = Mouse.GetPosition(this).X - 15,
+                                Top = Mouse.GetPosition(this).Y - 20
                             };
                         }
                         else
@@ -300,6 +278,13 @@ namespace TUM.CMS.VplControl.Core
                                 startSelectionPoint = Mouse.GetPosition(this);
                                 MouseMode = MouseModes.Selection;
                                 SplineMode = SplineModes.Nothing;
+
+                                if (radialMenu != null)
+                                {
+                                    radialMenu.IsOpen = false;
+                                    radialMenu.Dispose();
+                                    radialMenu = null;
+                                }
                             }
                         }
                     }
@@ -318,6 +303,21 @@ namespace TUM.CMS.VplControl.Core
                     }
                     else if (e.RightButton == MouseButtonState.Pressed)
                     {
+                        if (radialMenu == null)
+                        {
+                            radialMenu = new RadialContentMenu(this);
+                            Children.Add(radialMenu);
+                        }
+
+                        if (radialMenu.IsOpen)
+                        {
+                            radialMenu.IsOpen = false;
+                            await Task.Delay(400);
+                        }
+                        radialMenu.SetValue(LeftProperty, Mouse.GetPosition(this).X - 150);
+                        radialMenu.SetValue(TopProperty, Mouse.GetPosition(this).Y - 150);
+
+                        radialMenu.IsOpen = true;
                     }
 
                     break;
@@ -336,7 +336,10 @@ namespace TUM.CMS.VplControl.Core
                         {
                             // Move to WPF style
                             Background = Brushes.Transparent,
-                            BorderBrush = new SolidColorBrush(Application.Current.Resources["ColorBlue"] is Color ? (Color) Application.Current.Resources["ColorBlue"] : new Color()),
+                            BorderBrush =
+                                new SolidColorBrush(Application.Current.Resources["ColorBlue"] is Color
+                                    ? (Color) Application.Current.Resources["ColorBlue"]
+                                    : new Color()),
                             CornerRadius = new CornerRadius(5),
                             BorderThickness = new Thickness(2)
                         };
@@ -412,43 +415,47 @@ namespace TUM.CMS.VplControl.Core
         private void HandleMouseWheel(object sender, MouseWheelEventArgs e)
         {
             // Zooming
-            double scaledCanvasMouseOffsetX;
-            double scaledCanvasMouseOffsetY;
 
             var mouseRelativetoCanvas = e.GetPosition(this);
 
             if (e.Delta > 0)
-            {
-                if (ZoomIn < 10)
-                {
-                    ZoomIn = ZoomIn + 1;
-                    ZoomOut = ZoomOut - 1;
-                    scaleTransform.ScaleX += 0.1;
-                    scaleTransform.ScaleY += 0.1;
-
-                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X * scaleTransform.ScaleX;
-                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y * scaleTransform.ScaleY;
-
-                    translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
-                    translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
-                }
-            }
+                DoZoomIn(mouseRelativetoCanvas);
 
             if (e.Delta < 0)
+                DoZoomOut(mouseRelativetoCanvas);
+        }
+
+        public void DoZoomIn(Point mouseRelativetoCanvas, double scaleStep = 0.1)
+        {
+            if (ZoomIn < 10)
             {
-                if (ZoomOut < 7)
-                {
-                    ZoomIn = ZoomIn - 1;
-                    ZoomOut = ZoomOut + 1;
-                    scaleTransform.ScaleX -= 0.1;
-                    scaleTransform.ScaleY -= 0.1;
+                ZoomIn = ZoomIn + (int) (scaleStep*10);
+                ZoomOut = ZoomOut - (int) (scaleStep*10);
+                scaleTransform.ScaleX += scaleStep;
+                scaleTransform.ScaleY += scaleStep;
 
-                    scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X * scaleTransform.ScaleX;
-                    scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y * scaleTransform.ScaleY;
+                var scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
+                var scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
 
-                    translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
-                    translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
-                }
+                translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
+                translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
+            }
+        }
+
+        public void DoZoomOut(Point mouseRelativetoCanvas, double scaleStep = 0.1)
+        {
+            if (ZoomOut < 7)
+            {
+                ZoomIn = ZoomIn - (int) (scaleStep*10);
+                ZoomOut = ZoomOut + (int) (scaleStep*10);
+                scaleTransform.ScaleX -= scaleStep;
+                scaleTransform.ScaleY -= scaleStep;
+
+                var scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
+                var scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
+
+                translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
+                translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
             }
         }
 
@@ -468,7 +475,7 @@ namespace TUM.CMS.VplControl.Core
 
 
                     // if mouse up in empty space unselect all nodes
-                    if (!mouseUpOnNode)
+                    if (!mouseUpOnNode && e.ChangedButton != MouseButton.Right)
                     {
                         foreach (var node in SelectedNodes)
                             node.IsSelected = false;
@@ -591,21 +598,9 @@ namespace TUM.CMS.VplControl.Core
                         if (tempCollection == null) return;
                         if (tempCollection.Count == 0) return;
 
-                        var minLeft = double.MaxValue;
-                        var minTop = double.MaxValue;
-                        var maxLeft = double.MinValue;
-                        var maxTop = double.MinValue;
+                        var bBox = Node.GetBoundingBoxOfNodes(tempCollection.ToList());
 
-                        foreach (var node in tempCollection)
-                        {
-                            if (node.Left < minLeft) minLeft = node.Left;
-                            if (node.Top < minTop) minTop = node.Top;
-
-                            if ((node.Left + node.ActualWidth) > maxLeft) maxLeft = node.Left + node.ActualWidth;
-                            if ((node.Top + node.ActualHeight) > maxTop) maxTop = node.Top + node.ActualHeight;
-                        }
-
-                        var copyPoint = new Point(minLeft + (maxLeft - minLeft)/2, minTop + (maxTop - minTop)/2);
+                        var copyPoint = new Point(bBox.Left + bBox.Size.Width/2, bBox.Top + bBox.Size.Height/2);
                         var pastePoint = Mouse.GetPosition(this);
 
                         var delta = Point.Subtract(pastePoint, copyPoint);
@@ -679,46 +674,19 @@ namespace TUM.CMS.VplControl.Core
                 case Key.G:
                 {
                     if (Keyboard.Modifiers == ModifierKeys.Control)
-                    {
-                        if (SelectedNodes.Count <= 1) return;
-
-                        var nodeGroup = new NodeGroup(this)
-                        {
-                            ChildNodes =
-                                NodeCollection.Where(node => SelectedNodes.Contains(node)).ToTrulyObservableCollection()
-                        };
-                    }
+                        GroupNodes();
                 }
                     break;
                 case Key.S:
                 {
                     if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-                    {
-                        var saveFileDialog = new SaveFileDialog
-                        {
-                            Filter = "vplXML (.vplxml)|*.vplxml",
-                            DefaultExt = "vplxml"
-                        };
-
-                        if (saveFileDialog.ShowDialog() == true)
-                            SerializeNetwork(saveFileDialog.FileName);
-                    }
+                        SaveFile();
                 }
                     break;
                 case Key.O:
                 {
                     if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-                    {
-                        var openFileDialog = new OpenFileDialog
-                        {
-                            Multiselect = false,
-                            Filter = "vplXML (.vplxml)|*.vplxml"
-                        };
-
-
-                        if (openFileDialog.ShowDialog() == true)
-                            DeserializeNetwork(openFileDialog.FileName);
-                    }
+                        OpenFile();
                 }
                     break;
                 case Key.A:
@@ -736,6 +704,51 @@ namespace TUM.CMS.VplControl.Core
                 }
                     break;
             }
+        }
+
+        public void NewFile()
+        {
+            NodeCollection.Clear();
+            ConnectorCollection.Clear();
+            Children.Clear();
+            radialMenu.Dispose();
+            radialMenu = null;
+        }
+
+        public void OpenFile()
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Multiselect = false,
+                Filter = "vplXML (.vplxml)|*.vplxml"
+            };
+
+
+            if (openFileDialog.ShowDialog() == true)
+                DeserializeNetwork(openFileDialog.FileName);
+        }
+
+        public void SaveFile()
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "vplXML (.vplxml)|*.vplxml",
+                DefaultExt = "vplxml"
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+                SerializeNetwork(saveFileDialog.FileName);
+        }
+
+        public void GroupNodes()
+        {
+            if (SelectedNodes.Count <= 1) return;
+
+            var nodeGroup = new NodeGroup(this)
+            {
+                ChildNodes =
+                    NodeCollection.Where(node => SelectedNodes.Contains(node)).ToTrulyObservableCollection()
+            };
         }
 
         public void VplControl_KeyDown(object sender, KeyEventArgs e)
@@ -826,21 +839,19 @@ namespace TUM.CMS.VplControl.Core
 
         internal void DeserializeNetwork(string filePath)
         {
-            NodeCollection.Clear();
-            ConnectorCollection.Clear();
-            Children.Clear();
-
+            NewFile();
 
             // Create an reader
             using (var reader = new XmlTextReader(filePath))
             {
                 reader.MoveToContent();
 
-                string enumString = reader.GetAttribute("GraphFlowDirection");
+                var enumString = reader.GetAttribute("GraphFlowDirection");
 
                 if (enumString != null)
                 {
-                    ImportFlowDirection = (GraphFlowDirections)Enum.Parse(typeof(GraphFlowDirections),enumString, ignoreCase: true);
+                    ImportFlowDirection =
+                        (GraphFlowDirections) Enum.Parse(typeof (GraphFlowDirections), enumString, true);
                 }
 
 

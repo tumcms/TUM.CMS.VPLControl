@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -9,11 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32.SafeHandles;
 using TUM.CMS.VplControl.Annotations;
+using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
 {
     /// <summary>
-    /// The superclass for all node types within VplControl.
+    ///     The superclass for all node types within VplControl.
     /// </summary>
     public abstract class VplElement : Grid, INotifyPropertyChanged, IDisposable
     {
@@ -27,7 +27,7 @@ namespace TUM.CMS.VplControl.Core
         public Button ResizeButton;
 
         /// <summary>
-        /// Initializes a new instance of VplElement class.
+        ///     Initializes a new instance of VplElement class.
         /// </summary>
         /// <param name="hostCanvas">The host VplControl in which the VplElement will be rendered.</param>
         protected VplElement(VplControl hostCanvas)
@@ -41,7 +41,8 @@ namespace TUM.CMS.VplControl.Core
                 Child = this,
                 Style = FindResource("VplElementBorderStyle") as Style
             };
-            DependencyPropertyDescriptor.FromProperty(IsSelectedProperty, typeof (VplElement)).AddValueChanged(this, OnSelectionChanged);
+            DependencyPropertyDescriptor.FromProperty(IsSelectedProperty, typeof (VplElement))
+                .AddValueChanged(this, OnSelectionChanged);
             HostCanvas.Children.Add(Border);
 
             // ----------------------------------------------------------------------------------------------------------------------
@@ -75,113 +76,13 @@ namespace TUM.CMS.VplControl.Core
             AutoCheckBox.Visibility = Visibility.Collapsed;
         }
 
-
-
-        #region Properties
-
-        /// <summary>
-        /// The host VplControl in which the VplElement is rendered.
-        /// </summary>
-        public VplControl HostCanvas { get; set; }
-
-        /// <summary>
-        /// The top coordinate of this element with respect to the host canvas.
-        /// </summary>
-        public double Top
-        {
-            get { return (double) Border.GetValue(Canvas.TopProperty); }
-            set
-            {
-                Border.SetValue(Canvas.TopProperty,value);
-
-                if (HitTestBorder != null)
-                {
-                    HitTestBorder.Height = 30;
-                    Canvas.SetTop(HitTestBorder, Top - 30);
-                }
-
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// The left coordinate of this element with respect to the host canvas.
-        /// </summary>
-        public double Left
-        {
-            get { return (double) Border.GetValue(Canvas.LeftProperty); }
-            set
-            {
-                Border.SetValue(Canvas.LeftProperty, value);
-
-                if (HitTestBorder != null)
-                {
-                    HitTestBorder.Width = ActualWidth + 20;
-                    Canvas.SetLeft(HitTestBorder, Left-10);  
-                }
-
-                OnPropertyChanged();
-            }
-        }
-
-
-
-        public new double Width { get; set; }
-
-
-
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof (string), typeof (VplElement),
-                new UIPropertyMetadata(string.Empty));
-
-        public new string Name
-        {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty BorderProperty =
-            DependencyProperty.Register("Border", typeof(Border), typeof(VplElement));
-
-        public Border Border
-        {
-            get { return (Border)GetValue(BorderProperty); }
-            set { SetValue(BorderProperty, value); }
-        }
-
-
-
-        public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof (bool), typeof (VplElement));
-
-        public bool IsSelected
-        {
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
-        }
-
-        private void OnSelectionChanged(object sender, EventArgs e)
-        {
-            if (IsSelected)
-                Border.Style = FindResource("VplElementBorderSelectionStyle") as Style;
-            else
-                Border.Style = FindResource("VplElementBorderStyle") as Style;
-        }
-
-      
-
-#endregion
-
-
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public virtual void binButton_Click(object sender, RoutedEventArgs e)
         {
@@ -224,10 +125,6 @@ namespace TUM.CMS.VplControl.Core
             return new Point(Left, Top);
         }
 
-
-
-
-
         // Protected implementation of Dispose pattern. 
         protected virtual void Dispose(bool disposing)
         {
@@ -261,13 +158,104 @@ namespace TUM.CMS.VplControl.Core
             disposed = true;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region Properties
+
+        /// <summary>
+        ///     The host VplControl in which the VplElement is rendered.
+        /// </summary>
+        public VplControl HostCanvas { get; set; }
+
+        /// <summary>
+        ///     The top coordinate of this element with respect to the host canvas.
+        /// </summary>
+        public double Top
+        {
+            get { return (double) Border.GetValue(Canvas.TopProperty); }
+            set
+            {
+                Border.SetValue(Canvas.TopProperty, value);
+
+                if (HitTestBorder != null)
+                {
+                    HitTestBorder.Height = 30;
+                    Canvas.SetTop(HitTestBorder, Top - 30);
+                }
+
+                HostCanvas.Refresh();
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     The left coordinate of this element with respect to the host canvas.
+        /// </summary>
+        public double Left
+        {
+            get { return (double) Border.GetValue(Canvas.LeftProperty); }
+            set
+            {
+                Border.SetValue(Canvas.LeftProperty, value);
+
+                if (HitTestBorder != null)
+                {
+                    HitTestBorder.Width = ActualWidth + 20;
+                    Canvas.SetLeft(HitTestBorder, Left - 10);
+                }
+
+                HostCanvas.Refresh();
+                OnPropertyChanged();
+            }
+        }
+
+
+        public new double Width { get; set; }
+
+
+        public static readonly DependencyProperty NameProperty =
+            DependencyProperty.Register("Name", typeof (string), typeof (VplElement),
+                new UIPropertyMetadata(string.Empty));
+
+        public new string Name
+        {
+            get { return (string) GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty BorderProperty =
+            DependencyProperty.Register("Border", typeof (Border), typeof (VplElement));
+
+        public Border Border
+        {
+            get { return (Border) GetValue(BorderProperty); }
+            set { SetValue(BorderProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register("IsSelected", typeof (bool), typeof (VplElement));
+
+        public bool IsSelected
+        {
+            get { return (bool) GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+
+        private void OnSelectionChanged(object sender, EventArgs e)
+        {
+            if (IsSelected)
+                Border.Style = FindResource("VplElementBorderSelectionStyle") as Style;
+            else
+                Border.Style = FindResource("VplElementBorderStyle") as Style;
+        }
+
+        #endregion
     }
 }

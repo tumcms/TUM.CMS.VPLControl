@@ -113,7 +113,7 @@ namespace TUM.CMS.VplControl.Core
             ChildNodes.Remove(node);
         }
 
-        private new void CalculateBorder()
+        private void CalculateBorder()
         {
             if (ChildNodes.Count == 0) return;
             if (Border == null) return;

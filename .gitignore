@@ -9,3 +9,8 @@
 /TUM.CMS.VPL.Scripting/bin/Debug
 /TUM.CMS.VPL.Scripting/bin/Release
 *.suo
+*.cache
+*.resources
+*.dll
+*.md
+*.baml
