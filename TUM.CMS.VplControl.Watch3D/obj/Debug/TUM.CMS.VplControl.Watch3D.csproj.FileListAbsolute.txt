@@ -1,9 +1,0 @@
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\TUM.CMS.VplControl.Watch3D.csprojResolveAssemblyReference.cache
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\TUM.CMS.VplControl.Watch3D_MarkupCompile.cache
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\Controls\Watch3DxControl.baml
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\Controls\Watch3DControl.baml
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\Controls\Watch3DxControl.g.cs
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\Controls\Watch3DControl.g.cs
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\TUM.CMS.VplControl.Watch3D.g.resources
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\TUM.CMS.VplControl.Watch3D.Properties.Resources.resources
-C:\Users\Cornelius\Documents\GitHub\TUM.CMS.VPLControl\TUM.CMS.VplControl.Watch3D\obj\Debug\TUM.CMS.VplControl.Watch3D.csproj.GenerateResource.Cache
