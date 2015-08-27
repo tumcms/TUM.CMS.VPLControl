@@ -34,7 +34,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             if (InputPorts[0].Data == null || InputPorts[1].Data == null)
                 return;
 
-            var filters = _controller.IntBase.GetFilters();
+            var filters = _controller.IntBase.APICore.GetFilters();
 
             if (_control.FilterStringTextBox.Text != "")
             {

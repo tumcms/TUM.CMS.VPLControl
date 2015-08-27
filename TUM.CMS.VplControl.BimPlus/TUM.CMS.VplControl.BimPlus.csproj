@@ -236,13 +236,13 @@
     <Compile Include="Nodes\IssueNode.cs" />
     <Compile Include="Nodes\ModelNode.cs" />
     <Compile Include="Nodes\StructureFilterNode.cs" />
+    <Compile Include="Nodes\WebProjectSelectionNode.cs" />
     <Compile Include="OperatorNode.cs" />
     <Compile Include="Nodes\OperatorTestNode.cs" />
     <Compile Include="Nodes\ProjectNode.cs" />
     <Compile Include="Nodes\RelationCreatorNode.cs" />
     <Compile Include="Nodes\RelationNode.cs" />
     <Compile Include="Nodes\WebBrowserNode.cs" />
-    <Compile Include="Nodes\WebProjectSelectionNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RepresentationModifier.cs" />
     <Compile Include="SelectionList.cs" />
@@ -294,6 +294,14 @@
       <Project>{2389e428-a350-4508-974e-12d6a97d6bf8}</Project>
       <Name>BimPlus.Explorer.DXControl</Name>
       <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.IntegrationFramework.Core\BimPlus.IntegrationFramework.Core.csproj">
+      <Project>{0023CDB3-E7CE-496F-8F39-3C8D7F8DFAC3}</Project>
+      <Name>BimPlus.IntegrationFramework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BimPlus.IntegrationFramework.WebControls\BimPlus.IntegrationFramework.WebControls.csproj">
+      <Project>{26bb5b0d-6e23-4b7d-b19d-a0401e65008d}</Project>
+      <Name>BimPlus.IntegrationFramework.WebControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\BimPlus.IntegrationFramework\BimPlus.IntegrationFramework.csproj">
       <Project>{38e67b6e-64c7-4898-b3db-712fc87bbf35}</Project>

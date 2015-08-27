@@ -30,8 +30,9 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             AddInputPortToNode("LinkedElements", typeof (object));
             AddInputPortToNode("GeometryView", typeof (object));
 
-            // Is this correct? There can be different members in different projects ... 
-            _issueControl.ResponsibleUserComboBox.ItemsSource = _controller.DataContainer.GetTeamMembers();
+            // Is this correct? There can be different members in different projects ...
+            // _controller.IntBase.APICore.GetTea
+            _issueControl.ResponsibleUserComboBox.ItemsSource = _controller.IntBase.APICore.GetTeamMembers();
             _issueControl.ResponsibleUserComboBox.DisplayMemberPath = "User";
 
             AddControlToNode(_issueControl);
@@ -49,7 +50,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             if (InputPorts[0].Data == null || InputPorts[1].Data == null || InputPorts[2].Data == null) return;
             // Common Information
             issue.CreatedAt = DateTime.Now;
-            issue.Author = _controller.DataContainer.GetCurrentUserName();
+            issue.Author = _controller.IntBase.APICore.UserName;
             issue.Id = Guid.NewGuid();
 
             // User Control Stuff
@@ -64,7 +65,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             if (project != null)
             {
                 issue.ProjectId = project.Id;
-                _controller.IntBase.CreateIssue(issue, issue.Id, project.Id);
+                _controller.IntBase.APICore.CreateIssue(issue, issue.Id, project.Id);
             }
                
             Issue createdIssue = null;
@@ -72,7 +73,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             // Download the Issue
             if (project == null) return;
 
-            foreach (var item in _controller.IntBase.GetIssues(project.Id).Where(item => item.Id == issue.Id))
+            foreach (var item in _controller.IntBase.APICore.GetIssues(project.Id).Where(item => item.Id == issue.Id))
             {
                 createdIssue = item;
             }

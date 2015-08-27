@@ -91,7 +91,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             {
                 var project = InputPorts[0].Data as Project;
                 if (project != null)
-                    _elements = _controller.IntBase.GetElementsFromTopologyId(project.Id);
+                    _elements = _controller.IntBase.APICore.GetElementsFromTopologyId(project.Id);
                 // OutputPorts[0].Data = _elements;
             }
 
@@ -99,7 +99,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             {
                 var dtoDivision = InputPorts[0].Data as DtoDivision;
                 if (dtoDivision?.TopologyDivisionId != null)
-                    _elements = _controller.IntBase.GetElementsFromTopologyId((Guid)dtoDivision.TopologyDivisionId);
+                    _elements = _controller.IntBase.APICore.GetElementsFromTopologyId((Guid)dtoDivision.TopologyDivisionId);
             }
 
             doWorkEventArgs.Result = _elements;
@@ -136,7 +136,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
                 foreach (var baseElem in elements)
                 {
                     if(baseElem.Id != Guid.Empty)
-                        _controller.IntBase.GetObjectGeometryAsThreeJs(baseElem.Id);
+                        _controller.IntBase.APICore.GetObjectGeometryAsThreeJs(baseElem.Id);
 
                     if (baseElem.Id == Guid.Empty)
                         baseElem.Id = Guid.NewGuid();

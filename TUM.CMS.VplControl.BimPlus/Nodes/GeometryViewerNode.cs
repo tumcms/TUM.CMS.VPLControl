@@ -141,7 +141,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             // Finally pass over all the selectedElements
             if (OutputPorts[0].ConnectedConnectors.Count != 0)
                 OutputPorts[0].Data =
-                    _controller.IntBase.GetElementsById(MSelectionManager.GetDefaultSelectionList().GetSelection());
+                    _controller.IntBase.APICore.GetElementsById(MSelectionManager.GetDefaultSelectionList().GetSelection());
         }
 
         public override Node Clone()

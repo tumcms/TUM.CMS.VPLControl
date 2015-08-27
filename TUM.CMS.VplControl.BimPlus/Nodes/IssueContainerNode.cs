@@ -30,7 +30,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             var project = InputPorts[0].Data as Project;
             if (project == null) return;
 
-            _issues = _controller.IntBase.GetIssues(project.Id);
+            _issues = _controller.IntBase.APICore.GetIssues(project.Id);
             OutputPorts[0].Data = _issues;
         }
 
