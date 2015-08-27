@@ -10,7 +10,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         private readonly DataController _controller;
 
         private ObservableCollection<Issue> _issues;  
-        public IssueContainerNode(VplControl hostCanvas)
+        public IssueContainerNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel

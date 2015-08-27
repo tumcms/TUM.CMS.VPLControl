@@ -6,7 +6,7 @@ namespace TUM.CMS.VplControl.BimPlus
 { 
     public abstract class OperatorNode : Node
     {
-        protected OperatorNode(VplControl hostCanvas)
+        protected OperatorNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             /*

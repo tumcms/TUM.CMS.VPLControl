@@ -10,7 +10,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
     {
         private readonly DataController _controller;
 
-        public ElementMergeNode(VplControl hostCanvas)
+        public ElementMergeNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel

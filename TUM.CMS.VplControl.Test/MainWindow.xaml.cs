@@ -6,7 +6,6 @@ using System.Windows.Input;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.Zoombox;
 using TUM.CMS.VplControl.Core;
-using TUM.CMS.VplControl.Utilities;
 using TUM.CMS.VPL.Scripting.Nodes;
 
 namespace TUM.CMS.VplControl.Test
@@ -28,15 +27,8 @@ namespace TUM.CMS.VplControl.Test
                     .ToList());
 
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
-                    
-
             VplControl.NodeTypeMode = NodeTypeModes.All;
-
-            /*
-<<<<<<< HEAD
             VplPropertyGrid.SelectedObject = VplControl.Theme;
-=======
-*/
             VplPropertyGrid.SelectedObject = VplControl;
         }
 

@@ -63,6 +63,22 @@
       <HintPath>..\..\bin\Debug\BimPlus.Sdk.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Cyotek.Drawing.BitmapFont, Version=1.0.2.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cyotek.Drawing.BitmapFont.1.0.2.0\lib\net20\Cyotek.Drawing.BitmapFont.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HelixToolkit, Version=2015.1.558.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HelixToolkit.2015.1.558\lib\portable-net4+sl4+wp71+win8\HelixToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HelixToolkit.Wpf, Version=2015.1.558.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HelixToolkit.Wpf.2015.1.558\lib\net45\HelixToolkit.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HelixToolkit.Wpf.SharpDX, Version=2015.1.558.0, Culture=neutral, PublicKeyToken=52aa3500039caf0d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HelixToolkit.Wpf.SharpDX.2015.1.558\lib\net45\HelixToolkit.Wpf.SharpDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\Debug\Iesi.Collections.dll</HintPath>
@@ -101,6 +117,42 @@
     <Reference Include="PPGraphicControls, Version=2011.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\bin\Debug\PPGraphicControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.2.5.0\lib\net40\SharpDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.D3DCompiler, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.D3DCompiler.2.5.0\lib\net40\SharpDX.D3DCompiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Direct2D1.2.5.0\lib\net40\SharpDX.Direct2D1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Direct3D11.2.5.0\lib\net40\SharpDX.Direct3D11.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D11.Effects, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Direct3D11.Effects.2.5.0\lib\net40\SharpDX.Direct3D11.Effects.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Direct3D9.2.5.0\lib\net40\SharpDX.Direct3D9.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.DXGI.2.5.0\lib\net40\SharpDX.DXGI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Toolkit.2.5.0\lib\net40\SharpDX.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit.Graphics, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpDX.Toolkit.Graphics.2.5.0\lib\net40\SharpDX.Toolkit.Graphics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=AMD64">
@@ -173,10 +225,12 @@
       <DependentUpon>WebBrowserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataController.cs" />
+    <Compile Include="Nodes\BimPlusWatch3DDxNode.cs" />
     <Compile Include="Nodes\ElementContainerNode.cs" />
     <Compile Include="Nodes\ElementFilterNode.cs" />
     <Compile Include="Nodes\ElementMergeNode.cs" />
     <Compile Include="Nodes\ElementTypeNode.cs" />
+    <Compile Include="Nodes\BimPlusWatch3DNode.cs" />
     <Compile Include="Nodes\GeometryViewerNode.cs" />
     <Compile Include="Nodes\IssueContainerNode.cs" />
     <Compile Include="Nodes\IssueNode.cs" />
@@ -188,12 +242,12 @@
     <Compile Include="Nodes\RelationCreatorNode.cs" />
     <Compile Include="Nodes\RelationNode.cs" />
     <Compile Include="Nodes\WebBrowserNode.cs" />
-    <Compile Include="Nodes\WebPortalNode.cs" />
     <Compile Include="Nodes\WebProjectSelectionNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RepresentationModifier.cs" />
     <Compile Include="SelectionList.cs" />
     <Compile Include="SelectionManager.cs" />
+    <Compile Include="Utilities\MeshIdandGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -215,6 +269,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -243,6 +298,10 @@
     <ProjectReference Include="..\..\BimPlus.IntegrationFramework\BimPlus.IntegrationFramework.csproj">
       <Project>{38e67b6e-64c7-4898-b3db-712fc87bbf35}</Project>
       <Name>BimPlus.IntegrationFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TUM.CMS.VplControl.Watch3D\TUM.CMS.VplControl.Watch3D.csproj">
+      <Project>{39C73FB5-D284-409D-835A-803090E867C9}</Project>
+      <Name>TUM.CMS.VplControl.Watch3D</Name>
     </ProjectReference>
     <ProjectReference Include="..\TUM.CMS.VplControl\TUM.CMS.VplControl.csproj">
       <Project>{593e9bfd-be78-4487-9e22-76ae7df0b84a}</Project>
@@ -275,7 +334,10 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="sharpdx_direct3d11_effects_x64.dll" />
+    <Content Include="sharpdx_direct3d11_effects_x86.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

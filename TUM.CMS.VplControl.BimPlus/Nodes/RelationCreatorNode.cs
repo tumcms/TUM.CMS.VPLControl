@@ -10,11 +10,11 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
 {
     public class RelationCreatorNode : Node
     {
-        private ObservableCollection<Tuple<object, object>> _relationElements;
+        // private ObservableCollection<Tuple<object, object>> _relationElements;
 
         private DataController _controller;
 
-        public RelationCreatorNode(VplControl hostCanvas)
+        public RelationCreatorNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel

@@ -21,7 +21,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         public SelectionManager MSelectionManager;
         public GeometryViewerControl Viewer;
 
-        public GeometryViewerNode(VplControl hostCanvas)
+        public GeometryViewerNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             MSelectionManager = new SelectionManager();

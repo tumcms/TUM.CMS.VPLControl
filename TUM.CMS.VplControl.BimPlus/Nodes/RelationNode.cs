@@ -12,7 +12,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
     {
         private ObservableCollection<Tuple<object, object>> _relationElements;
 
-        public RelationNode(VplControl hostCanvas)
+        public RelationNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             DataContext = this;

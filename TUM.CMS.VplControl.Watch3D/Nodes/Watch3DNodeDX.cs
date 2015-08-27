@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using BimPlus.Explorer.Contract.Model;
 using HelixToolkit.Wpf;
 using HelixToolkit.Wpf.SharpDX;
-using HelixToolkit.Wpf.SharpDX.Core;
 using SharpDX;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Watch3D.Controls;
-using GeometryModel3D = HelixToolkit.Wpf.SharpDX.GeometryModel3D;
-using Material = HelixToolkit.Wpf.SharpDX.Material;
+using Color = System.Windows.Media.Color;
+using ColorConverter = HelixToolkit.Wpf.SharpDX.ColorConverter;
 using MeshBuilder = HelixToolkit.Wpf.SharpDX.MeshBuilder;
-using Point3D = System.Windows.Media.Media3D.Point3D;
-using Vector3D = BimPlus.Explorer.Contract.Model.Vector3D;
+using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
+using ObjReader = HelixToolkit.Wpf.SharpDX.ObjReader;
+using PerspectiveCamera = HelixToolkit.Wpf.SharpDX.PerspectiveCamera;
 
 namespace TUM.CMS.VplControl.Watch3D.Nodes
 {
     public class Watch3DNodeDx : Node
     {
-        private Watch3DxControl _control;
+        public Watch3DxControl _control;
 
         public Watch3DNodeDx(Core.VplControl hostCanvas): base(hostCanvas)
         {
@@ -27,100 +29,105 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
             _control = new Watch3DxControl();
             AddControlToNode(_control);
 
-            _control.ViewPort3D.ShowFrameRate = true;
-            _control.ViewPort3D.ZoomExtents();
+            // Set Node resizable ...
+            IsResizeable = true;
 
-            _control.AmbientLight3D = new AmbientLight3D()
+            // Add Control s
+            _control = new Watch3DxControl
             {
-                Color =  new Color4(0.1f, 0.1f, 0.1f, 1.0f)
+                ViewPort3D =
+                {
+                    Background = new SolidColorBrush(Colors.Transparent),
+                    Camera =
+                        new PerspectiveCamera
+                        {
+                            Position = new Point3D(3, 3, 5),
+                            NearPlaneDistance = 0.1,
+                            FarPlaneDistance = double.PositiveInfinity,
+                            LookDirection = new Vector3D(-3, -3, -5),
+                            UpDirection = new Vector3D(0, 1, 0)
+                        },
+                    RenderTechnique = Techniques.RenderBlinn,
+                    MaximumFieldOfView = 45,
+                    MinimumFieldOfView = 20
+                }
             };
 
-            AddInputPortToNode("Object", typeof (object));
+            ViewPort3D = _control.ViewPort3D;
+
+            var mb = new MeshBuilder();
+            for (var i = 0; i < 1000; i++)
+            {
+                mb.AddBox(new Vector3(i + 15, i + 15, i + 15), 100, 100, 100, BoxFaces.All);
+            }
+
+            // _control.meshModel.Material = PhongMaterials.Orange;
+            // _control.meshModel.Geometry = mb.ToMeshGeometry3D();
+            //_control.meshModel.Visibility = Visibility.Visible;
+            
+            var model = new MeshGeometryModel3D()
+            {Geometry = mb.ToMeshGeometry3D(), Material = PhongMaterials.Orange, Visibility = Visibility.Visible};
+            _control.ViewPort3D.Items.Add(model);
+
+            _control.ViewPort3D.Items.Add(new AmbientLight3D() {Color = Color4.White});
+            _control.ViewPort3D.Items.Add(new DirectionalLight3D() { Color = Color4.White , Direction = new Vector3(0,0,1)});
+
+            // _control.ViewPort3D.ShowTriangleCountInfo = true;
+            // _control.ViewPort3D.ShowFieldOfView = true;
+
+            AddControlToNode(_control);
+
+            AddInputPortToNode("Elements", typeof(object));
         }
 
         public override void Calculate()
         {
-            Visualize();
-        }
+            if (InputPorts[0].Data == null) return;
 
-        public void Visualize()
-        {
-            // Get Geometry of n object if possible
-            if (InputPorts[0].Data.GetType() != typeof (List<GenericElement>)) return;
-
-            var myModels = new List<MeshGeometryModel3D>();
-            var mesh = new MeshGeometryModel3D();
-
-            var meshBuilder = new MeshBuilder(false, false);
-
-            foreach (var item in (List<GenericElement>) InputPorts[0].Data)
+            if (InputPorts[0].Data is string)
             {
-                var points = item.AttributeGroups["geometry"].Attributes["threejspoints"] as IList<Point3D>;
+                var extension = Path.GetExtension(InputPorts[0].Data as string);
 
-                var vecs = new List<Vector3>();
+                var flag = false;
 
-                vecs.AddRange(points.Select(pt => new Vector3() { X = Convert.ToSingle(pt.X), Y = Convert.ToSingle(pt.Y), Z = Convert.ToSingle(pt.Z) }));
-
-                var triangleindices = item.AttributeGroups["geometry"].Attributes["geometryindices"];
-
-                var indices = (from index in triangleindices as IList<uint> select Convert.ToInt32(index)).ToList();
-
-                for (var i = 0; i < indices.Count; i++)
+                switch (extension)
                 {
-                    if (indices[i] == 0)
-                    {
-                        meshBuilder.AddTriangle(vecs[indices[i + 1]], vecs[indices[i + 2]], vecs[indices[i + 3]]);
-                        i = i + 3;
-                    }
-                    else if (indices[i] == 1)
-                    {
-                        meshBuilder.AddQuad(vecs[indices[i + 1]], vecs[indices[i + 2]], vecs[indices[i + 3]], vecs[indices[i + 4]]);
-                        i = i + 4;
-                    }
+                    case ".obj":
+                        var currentHelixObjReader = new ObjReader();
+                        try
+                        {
+                            var objModel = currentHelixObjReader.Read((string)InputPorts[0].Data);
+                            var modelGroup = new GroupModel3D();
+                            var modelGeometry = new Element3DCollection();
+                            modelGeometry.AddRange(objModel.Select(x => new MeshGeometryModel3D() { Geometry = x.Geometry as MeshGeometry3D, Material = x.Material, }));
+
+                            modelGroup.Children = modelGeometry;
+
+                            Dispatcher.BeginInvoke((Action)delegate ()
+                            {
+                                _control.ViewPort3D.Items.Add(modelGroup);
+                            });
+                          
+                        }
+                        catch (Exception)
+                        {
+                            // ignore
+                        }
+                        break;
+                    case ".stl":
+                        var currentHelixStlReader = new StLReader();
+                        try
+                        {
+                            var myModel = currentHelixStlReader.Read((string)InputPorts[0].Data);
+                            // _control.ViewPort3D.Items.Add(myModel);
+                        }
+                        catch (Exception)
+                        {
+                            // ignore
+                        }
+                        break;
                 }
-
-                // Get the color of each representation group
-                var color = Convert.ToInt64(item.AttributeGroups["geometry"].Attributes["color"]);
-                var tempcolor = System.Drawing.Color.FromArgb((int)color);
-
-                var mod = new MeshGeometryModel3D
-                {
-                    Geometry = meshBuilder.ToMeshGeometry3D(),
-                    // Material = PhongMaterials.Bronze
-                    Material = new PhongMaterial() { DiffuseColor = new Color(tempcolor.R, tempcolor.G, tempcolor.B, tempcolor.A) }
-                };
-
-                myModels.Add(mod);
-
-                // Refresh the Mesh Builder
-                meshBuilder = new MeshBuilder();
             }
-
-            // var meshGeometry = meshBuilder.ToMeshGeometry3D();
-
-            var comp = new GroupModel3D();
-
-            foreach (var item in myModels)
-            {
-                comp.Children.Add(item);
-                // _control.meshModel.Geometry = item.Geometry;
-                // _control.ViewPort3D = new Viewport3DX()
-            }
-                // Set the Geometry Model
-            _control.groupModel = comp;
-            
-
-            // _control.groupModel.Render(new RenderContext(_control.ViewPort3D, ));
-            // _control.groupModel.Render(null, null);
-            // _control.meshModel.Geometry = comp.R;
-
-            // _control.ViewPort3D.SetValue();
-            //_control.ViewPort3D.
-
-            // _control.model1.Material = PhongMaterials.Red;
-
-            _control.ViewPort3D.ShowTriangleCountInfo = true;
-            _control.ViewPort3D.ZoomExtents();
         }
 
         public override Node Clone()

@@ -1,9 +1,7 @@
-﻿
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
-using HelixToolkit.Wpf;
+﻿using System;
+using System.Threading;
+using System.Windows.Controls;
 using HelixToolkit.Wpf.SharpDX;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
 
 namespace TUM.CMS.VplControl.Watch3D.Controls
 {
@@ -15,6 +13,16 @@ namespace TUM.CMS.VplControl.Watch3D.Controls
         public Watch3DxControl()
         {
             InitializeComponent();
+        }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(RenderTechnqiueComboBox.Items.CurrentItem is RenderTechnique)) return;
+            
+            // Detouch Renderer
+            ViewPort3D.RenderTechnique = null;
+            // Attach
+            ViewPort3D.RenderTechnique = (RenderTechnique) RenderTechnqiueComboBox.Items.CurrentItem;
         }
     }
 }

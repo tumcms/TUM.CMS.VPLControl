@@ -2,9 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:helixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
-        Height="350" Width="525">
+        MinHeight="350" MinWidth="525">
     <Grid>
-        <helixToolkit:HelixViewport3D ZoomExtentsWhenLoaded="True" x:Name="ViewPort3D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <helixToolkit:HelixViewport3D Grid.Row="1" ZoomExtentsWhenLoaded="True" x:Name="ViewPort3D" ShowTriangleCountInfo="True" ShowFieldOfView="True" ShowCameraInfo="True" ShowCoordinateSystem="True">
             <helixToolkit:SunLight />
             <ModelVisual3D Content="{Binding Model}"/>
         </helixToolkit:HelixViewport3D>

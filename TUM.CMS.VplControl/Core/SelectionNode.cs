@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,6 +29,9 @@ namespace TUM.CMS.VplControl.Core
             listBox.DisplayMemberPath = "Name";
             listBox.MaxHeight = 140;
 
+            // Mine
+            listBox.MinWidth = 150;
+
             AddControlToNode(listBox);
 
 
@@ -51,9 +55,7 @@ namespace TUM.CMS.VplControl.Core
 
             tempTypeList = tempTypeList.OrderBy(x => x.Name).ToList();
 
-
-
-            foreach (var type in tempTypeList.Where(type => !type.IsAbstract))
+            foreach (var type in tempTypeList.Where(type => !type.IsAbstract && !type.IsDefined(typeof(CompilerGeneratedAttribute), true)))
             {
                 typeList.Add(type);
             }
