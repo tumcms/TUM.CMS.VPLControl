@@ -6,12 +6,12 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/SearchTextBoxStyle.xaml" />
-        <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Slider.xaml"/>
+        <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/Slider.xaml" />
         <ResourceDictionary Source="/TUM.CMS.VplControl;component/Themes/RadialMenu.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
-<Color x:Key="ColorBlue" R="99" G="133" B="199" A="255" />
+    <Color x:Key="ColorBlue" R="99" G="133" B="199" A="255" />
     <Color x:Key="ColorRed" R="211" G="95" B="95" A="255" />
     <Color x:Key="ColorYellow" R="255" G="221" B="85" A="255" />
     <Color x:Key="ColorOker" R="219" G="198" B="165" A="255" />

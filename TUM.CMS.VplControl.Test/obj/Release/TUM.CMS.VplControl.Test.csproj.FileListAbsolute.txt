@@ -67,3 +67,4 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Release\
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Release\TUM.CMS.VplControl.Test.g.resources
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Release\TUM.CMS.VplControl.Test.Properties.Resources.resources
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Release\TUM.CMS.VplControl.Test.csproj.GenerateResource.Cache
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Release\RadialMenu.dll

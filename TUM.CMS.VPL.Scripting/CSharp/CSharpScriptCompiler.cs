@@ -22,6 +22,7 @@ namespace TUM.CMS.VPL.Scripting.CSharp
                 compilerParameters);
         }
 
+        public MethodInfo ScriptMethod { get; set; }
         // ***********
         // Old Version
         // ***********
@@ -29,6 +30,7 @@ namespace TUM.CMS.VPL.Scripting.CSharp
         ///     Compiles given source file.
         /// </summary>
         /// <param name="mCurrentFile">The source file to be compiled.</param>
+        /// <param name="methodParameters">The method parameters.</param>
         /// public Action Compile(CSharpScriptFile mCurrentFile)
 
         // OutputAssembly = "ScriptedAssembly"
@@ -41,6 +43,7 @@ namespace TUM.CMS.VPL.Scripting.CSharp
                 GenerateInMemory = true,
                 OutputAssembly = AppDomain.CurrentDomain.BaseDirectory + "ScriptedAssembly.dll"
             };
+
             compilerParameters.ReferencedAssemblies.AddRange(
                 mCurrentFile.ReferencedAssemblies.ToArray());
 
@@ -70,22 +73,20 @@ namespace TUM.CMS.VPL.Scripting.CSharp
             }
 
             //Try to get main method
-            var scriptMethod = scriptClass.GetMethod(
-                "Execute",
-                BindingFlags.Static | BindingFlags.Public);
-            if (scriptMethod == null)
+            ScriptMethod = scriptClass.GetMethod("Execute", BindingFlags.Static | BindingFlags.Public);
+            if (ScriptMethod == null)
             {
                 throw new InvalidOperationException(
                     "Unable to compile scripts: " +
                     "method Execute not found within class ScriptedClass!");
             }
 
-            // ***********
-            // Old Version
-            // ***********
-            // return () => scriptMethod.Invoke(null, null);
-            var a = scriptMethod.Invoke(scriptMethod.ReturnParameter, null);
-            return a;
+            return true;
+        }
+
+        public object Run(object[] methodParameters = null)
+        {
+            return ScriptMethod.Invoke(ScriptMethod.ReturnParameter, methodParameters);
         }
     }
 }

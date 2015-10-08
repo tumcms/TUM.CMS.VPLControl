@@ -707,7 +707,7 @@ namespace TUM.CMS.VplControl.Core
             NodeCollection.Clear();
             ConnectorCollection.Clear();
             Children.Clear();
-            radialMenu.Dispose();
+            if (radialMenu != null) radialMenu.Dispose();
             radialMenu = null;
         }
 
@@ -863,15 +863,25 @@ namespace TUM.CMS.VplControl.Core
                             {
                                 var type = Type.GetType(reader.Name);
 
-                                if (type == null) // try to find type in entry assembly
+                                if (type == null)
                                 {
-                                    try
+                                    try // try to find type in entry assembly
                                     {
                                         var assembly = Assembly.GetEntryAssembly();
                                         type = assembly.GetTypes().First(t => t.FullName == reader.Name);
                                     }
-                                    catch (Exception)
+                                    catch (Exception ex)
                                     {
+                                        Console.WriteLine(ex);
+                                    }
+
+                                    try // try to find type in ExternalNodeTypes
+                                    {
+                                        type = ExternalNodeTypes.ToArray().First(t => t.FullName == reader.Name);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex);
                                     }
                                 }
 
