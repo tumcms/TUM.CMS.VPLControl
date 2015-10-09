@@ -444,11 +444,11 @@ namespace TUM.CMS.VplControl.Nodes
             xmlWriter.WriteEndAttribute();
 
             xmlWriter.WriteStartAttribute("TOP");
-            xmlWriter.WriteValue(Top);
+            xmlWriter.WriteValue((int)Top);
             xmlWriter.WriteEndAttribute();
 
             xmlWriter.WriteStartAttribute("Left");
-            xmlWriter.WriteValue(Left);
+            xmlWriter.WriteValue((int)Left);
             xmlWriter.WriteEndAttribute();
         }
 

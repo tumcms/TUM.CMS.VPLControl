@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using Microsoft.Win32;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Watch3D.Controls;
 
@@ -52,8 +55,17 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
             HelixViewport3D = Control.ViewPort3D;
             HelixViewport3D.Title = "Watch3D";
 
+            // Against Z Fighting ... 
+            // HelixViewport3D.Camera = new OrthographicCamera();
+            // HelixViewport3D.Camera.NearPlaneDistance = 100;
+            // HelixViewport3D.Camera.FarPlaneDistance = 0.00000001;
+            
             // Refresh the selected Models
             SelectedModels = new List<GeometryModel3D>();
+
+            // EventHandler
+            Control.Export3DViewMenuItem.Click += Export3DViewMenuItemOnClick;
+            Control.ExportModelMenuItem.Click += ExportModelMenuItemOnClick;
         }
 
         // Viewport
@@ -172,7 +184,7 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
         protected void OnElementMouseDown(object sender, MouseButtonEventArgs e, Watch3DNode watch3DNode)
         {
             // Check null expression
-            if (e == null) throw new ArgumentNullException(nameof(e));
+            // if (e == null) throw new ArgumentNullException(nameof(e));
 
             // 1-CLick event
             if (e.LeftButton != MouseButtonState.Pressed)
@@ -180,23 +192,26 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
 
             // Get sender
             var element = sender as ModelUIElement3D;
-
+            
             // Check Type
-            var geometryModel3D = element?.Model as GeometryModel3D;
-            if (geometryModel3D == null)
-                return;
+            if (element != null)
+            {
+                var geometryModel3D = element.Model as GeometryModel3D;
+                if (geometryModel3D == null)
+                    return;
 
-            // If it is already selected ... Deselect
-            if (SelectedModels.Contains(geometryModel3D))
-            {
-                geometryModel3D.Material = geometryModel3D.BackMaterial;
-                SelectedModels.Remove(geometryModel3D);
-            }
-            // If not ... Select!
-            else
-            {
-                SelectedModels.Add(geometryModel3D);
-                geometryModel3D.Material = _selectionMaterial;
+                // If it is already selected ... Deselect
+                if (SelectedModels.Contains(geometryModel3D))
+                {
+                    geometryModel3D.Material = geometryModel3D.BackMaterial;
+                    SelectedModels.Remove(geometryModel3D);
+                }
+                // If not ... Select!
+                else
+                {
+                    SelectedModels.Add(geometryModel3D);
+                    geometryModel3D.Material = _selectionMaterial;
+                }
             }
 
             // Set selected models to Output ...  
@@ -221,6 +236,53 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
                 Top = Top,
                 Left = Left
             };
+        }
+
+        private void ExportModelMenuItemOnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ExportCurrentModel();
+        }
+
+        private void Export3DViewMenuItemOnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            ExportCurrentModelAsStereoView();
+        }
+
+
+        public void ExportCurrentModel()
+        {
+            var dia = new SaveFileDialog()
+            {
+                Filter = "STL files (*.stl)|*.stl",
+                InitialDirectory = @"C:\",
+                Title = "Please select a place for the Model"
+            };
+            if (dia.ShowDialog() == true)
+            {
+                // Fill it with information
+                HelixViewport3D.Export(dia.FileName);
+            }
+        }
+
+        public void ExportCurrentModelAsStereoView()
+        {
+            var stereoControl = new Stereo3DViewControl();
+            foreach (var elem in Control.ViewPort3D.Children.OfType<ContainerUIElement3D>().SelectMany(child => (child).Children))
+            {
+                if ((elem as ModelUIElement3D).Model.GetType() == typeof (GeometryModel3D))
+                {
+                    var modelUiElement3D = elem as ModelUIElement3D;
+                    if (modelUiElement3D != null)
+                    {
+                        var geometry = (modelUiElement3D.Model as GeometryModel3D).Clone();
+                        var tempModel = new ModelUIElement3D {Model = geometry};
+                        stereoControl.StereoView3D.Children.Add(tempModel);
+                        //  tempGeom = new GeometryModel3D();
+                    }
+                }
+            }
+
+            stereoControl.Show();
         }
     }
 }

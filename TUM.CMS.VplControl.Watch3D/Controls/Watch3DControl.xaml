@@ -8,7 +8,14 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <helixToolkit:HelixViewport3D Grid.Row="1" ZoomExtentsWhenLoaded="True" x:Name="ViewPort3D" ShowTriangleCountInfo="True" ShowFieldOfView="True" ShowCameraInfo="True" ShowCoordinateSystem="True">
+        <Menu Grid.Row="0">
+            <MenuItem Header="Export Model" Name="ExportModelMenuItem"/>
+            <Separator></Separator>
+            <MenuItem Header="3D Viewer" Name="Export3DViewMenuItem"/>
+            <Separator></Separator>
+            <MenuItem Header="SelectionMode" Name="SelectionModeMenuItem" IsCheckable="True" IsChecked="True"/>
+        </Menu>
+        <helixToolkit:HelixViewport3D Grid.Row="1" ZoomExtentsWhenLoaded="True" x:Name="ViewPort3D" ShowTriangleCountInfo="True" ShowFieldOfView="True" ShowCoordinateSystem="True">
             <helixToolkit:SunLight />
             <ModelVisual3D Content="{Binding Model}"/>
         </helixToolkit:HelixViewport3D>

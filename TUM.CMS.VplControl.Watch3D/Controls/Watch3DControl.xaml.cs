@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Media3D;
+﻿using System.Windows;
+using System.Windows.Media.Media3D;
 using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
 
 namespace TUM.CMS.VplControl.Watch3D.Controls

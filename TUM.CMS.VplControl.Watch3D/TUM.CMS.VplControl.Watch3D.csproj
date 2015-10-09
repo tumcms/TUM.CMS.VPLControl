@@ -151,6 +151,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Stereo3DViewControl.xaml.cs">
+      <DependentUpon>Stereo3DViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Watch3DxControl.xaml.cs">
       <DependentUpon>Watch3DxControl.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
     <Compile Include="Nodes\Watch3DNodeDX.cs" />
     <Compile Include="Nodes\Watch3DNode.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Page Include="Controls\Stereo3DViewControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Watch3DxControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,7 +213,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sharpdx_direct3d11_effects_x64.dll" />
+    <Content Include="sharpdx_direct3d11_effects_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="sharpdx_direct3d11_effects_x86.dll">

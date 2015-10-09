@@ -43,7 +43,7 @@ namespace TUM.CMS.VplControl.Nodes
             {
                 Filter = "OBJ files (*.obj)|*.obj|STL files (*.stl)|*.stl|All files (*.*)|*.*",
                 InitialDirectory = @"C:\",
-                Title = "Please select an IFC file."
+                Title = "Please select a file."
             };
 
             // Display OpenFileDialog by calling ShowDialog method

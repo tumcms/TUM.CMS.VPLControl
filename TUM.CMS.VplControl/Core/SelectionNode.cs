@@ -54,14 +54,13 @@ namespace TUM.CMS.VplControl.Core
 
             tempTypeList = tempTypeList.OrderBy(x => x.Name).ToList();
 
-<<<<<<< HEAD
-            foreach (var type in tempTypeList.Where(type => !type.IsAbstract && !type.IsDefined(typeof(CompilerGeneratedAttribute), true)))
+            foreach (
+                var type in
+                    tempTypeList.Where(
+                        type => !type.IsAbstract && !type.IsDefined(typeof (CompilerGeneratedAttribute), true)))
             {
-=======
-
-            foreach (var type in tempTypeList.Where(type => !type.IsAbstract))
->>>>>>> tumcms/master
                 typeList.Add(type);
+            }
 
             listBox.ItemsSource = typeList;
             searchTextBox.PreviewKeyDown += searchTextBox_KeyDown;

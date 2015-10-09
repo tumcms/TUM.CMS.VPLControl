@@ -10,6 +10,7 @@ namespace TUM.CMS.VplControl.Watch3D.Controls
     /// </summary>
     public partial class Watch3DxControl
     {
+
         public Watch3DxControl()
         {
             InitializeComponent();
@@ -18,7 +19,7 @@ namespace TUM.CMS.VplControl.Watch3D.Controls
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(RenderTechnqiueComboBox.Items.CurrentItem is RenderTechnique)) return;
-            
+
             // Detouch Renderer
             ViewPort3D.RenderTechnique = null;
             // Attach
