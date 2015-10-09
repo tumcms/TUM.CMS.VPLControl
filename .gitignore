@@ -8,9 +8,13 @@
 /TUM.CMS.VplControl.Test/obj
 /TUM.CMS.VPL.Scripting/bin/Debug
 /TUM.CMS.VPL.Scripting/bin/Release
+/TUM.CMS.VPL.Scripting/obj
 *.suo
 *.cache
 *.resources
 *.dll
 *.md
 *.baml
+*.baml
+*.cache
+*.pdb

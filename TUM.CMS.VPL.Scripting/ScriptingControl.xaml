@@ -72,6 +72,10 @@
             </Button>
         </ToolBar>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="11*"/>
+                <RowDefinition Height="38*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="100" />
@@ -100,6 +104,8 @@
 				</WindowsFormsHost>
 			</DockPanel>
             -->
+
+            <TextBlock Grid.Row="1" Background="Red" Name="TextBlockError" Grid.ColumnSpan="2" Visibility="Collapsed" ></TextBlock>
         </Grid>
     </DockPanel>
 </UserControl>

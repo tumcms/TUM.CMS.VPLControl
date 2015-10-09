@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ namespace TUM.CMS.VPL.Scripting.Nodes
     public class ScriptingNode : Node
     {
         private readonly ScriptingControl scriptingControl;
+        private Lazy<CSharpScriptCompiler> mScriptCompiler;
         private string scriptContent;
 
         public ScriptingNode(VplControl.Core.VplControl hostCanvas)
@@ -25,14 +27,15 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
 
             // Create new script File
-            scriptingControl.CurrentFile = new CSharpScriptFile();
+            scriptingControl.CurrentFile = new CSharpScriptFile2();
+
 
             //scriptingControl.Height = 400;
             //scriptingControl.Width = 700;
             //scriptingControl.DockPanel.Height = 400;
             IsResizeable = true;
 
-            scriptingControl.StartCompilingEventHandler += StartCompilingEventHandler;
+            //scriptingControl.StartCompilingEventHandler += StartCompilingEventHandler;
 
             scriptingControl.StartCSharpCompilingEventHandler += StartCSharpCompilation;
             scriptingControl.StartPythonCompilingEventHandler += StartPythonCompilation;
@@ -50,18 +53,13 @@ namespace TUM.CMS.VPL.Scripting.Nodes
             switch (scriptingControl.HighlightingComboBox.SelectedItem.ToString())
             {
                 case "C#":
-                    scriptingControl.CurrentFile = new CSharpScriptFile();
+                    scriptingControl.CurrentFile = new CSharpScriptFile2();
                     break;
                 case "Python":
                     scriptingControl.CurrentFile = new PythonScriptFile();
                     break;
             }
             scriptingControl.TextEditor.Text = scriptingControl.CurrentFile.ScriptContent;
-        }
-
-        private void StartCompilingEventHandler(object sender, EventArgs eventArgs)
-        {
-            Calculate();
         }
 
         public void StartCSharpCompilation(object sender, EventArgs eventArgs)
@@ -75,16 +73,14 @@ namespace TUM.CMS.VPL.Scripting.Nodes
             scriptingControl.CurrentFile.ScriptContent = scriptingControl.TextEditor.Text;
 
             // Define the Input for the Script
-            if (InputPorts[0].Data != null)
-            {
-                // Define the Input for the Script
-            }
-
             try
             {
-                var mScriptCompiler = new Lazy<CSharpScriptCompiler>();
+                mScriptCompiler = new Lazy<CSharpScriptCompiler>();
+
+
                 //Compile and execute current script
                 var result = mScriptCompiler.Value.Compile(scriptingControl.CurrentFile as CSharpScriptFile);
+
 
                 if (result.GetType() == typeof (CompilerErrorCollection))
                 {
@@ -106,10 +102,41 @@ namespace TUM.CMS.VPL.Scripting.Nodes
                         compilerErrors);
                 }
 
-                OutputPorts[0].Data = result;
+
+                var parameter = mScriptCompiler.Value.ScriptMethod.GetParameters();
+
+                var counter = 0;
+                foreach (var para in parameter)
+                {
+                    if (counter < InputPorts.Count)
+                    {
+                        InputPorts[counter].DataType = para.ParameterType;
+                        InputPorts[counter].Name = para.Name;
+                    }
+                    else
+                        AddInputPortToNode(para.Name, para.ParameterType);
+
+                    counter++;
+                }
+
+                while (counter < InputPorts.Count())
+                    RemoveInputPortFromNode(InputPorts.Last());
+
+                Calculate();
+
+                scriptingControl.TextBlockError.Text = "";
+                scriptingControl.TextBlockError.Visibility = Visibility.Collapsed;
             }
             catch (Exception e)
             {
+                TopComment.Text = e.ToString();
+                TopComment.Visibility = Visibility.Visible;
+                TopComment.HostNode_PropertyChanged(null, null);
+
+                scriptingControl.TextBlockError.Text = e.Message;
+                scriptingControl.TextBlockError.Visibility = Visibility.Visible;
+
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -141,6 +168,18 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
         public override void Calculate()
         {
+            // Define the Input for the Script
+            var parameters = InputPorts.Select(port => port.Data).ToList();
+
+            switch (scriptingControl.HighlightingComboBox.SelectedItem.ToString())
+            {
+                case "C#":
+                    OutputPorts[0].Data = mScriptCompiler.Value.Run(parameters.ToArray());
+                    break;
+                case "Python":
+                    StartPythonCompilation(null, null);
+                    break;
+            }
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
@@ -152,12 +191,25 @@ namespace TUM.CMS.VPL.Scripting.Nodes
             xmlWriter.WriteStartAttribute("_mSkriptContent");
             xmlWriter.WriteValue(scriptContent);
             xmlWriter.WriteEndAttribute();
+
+            xmlWriter.WriteStartAttribute("language");
+            xmlWriter.WriteValue(scriptingControl.HighlightingComboBox.SelectedItem.ToString());
+            xmlWriter.WriteEndAttribute();
         }
 
         public override void DeserializeNetwork(XmlReader xmlReader)
         {
             base.DeserializeNetwork(xmlReader);
             scriptingControl.TextEditor.Text = xmlReader.GetAttribute("_mSkriptContent");
+
+            var language = xmlReader.GetAttribute("language");
+
+            scriptingControl.HighlightingComboBox.SelectedItem = language;
+
+            if (language == "C#")
+                StartCSharpCompilation(null, null);
+            else
+                StartPythonCompilation(null, null);
         }
 
         public override Node Clone()
