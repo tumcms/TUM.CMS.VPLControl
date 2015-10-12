@@ -4,11 +4,19 @@
 
 ----------
 
-
 ![overview.PNG](2120661561.PNG)
 
+----------
+
+![multiplePorts.PNG](multiplePorts.PNG)
 
 ----------
+
+![radial+selectionMenu.PNG](radial+selectionMenu.PNG)
+
+----------
+
+
 
 ### Get Started ###
 
@@ -17,6 +25,8 @@ Download or clone this repository and run the test project in visual studio.
 Give it a try:
 
 - Add node (`double click`)
+- Context menu (`right click`)
+
 - Group selected nodes (`Ctrl+G`)
 - Select all nodes (`Ctrl+A`)
 - Copy nodes to clipboard (`Ctrl+C`)
@@ -24,7 +34,7 @@ Give it a try:
 - Open from .xml file (`Ctrl+O`)
 - Save to .xml file (`Ctrl+S`)
 - Delete nodes (`DEL`)
-- Context menu (`right click`)
+
 
 ### Features ###
 - Drawing nodes
