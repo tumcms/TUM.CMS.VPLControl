@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using HelixToolkit.Wpf;
 using TUM.CMS.VplControl.Watch3D;
 using TUM.CMS.VplControl.Watch3D.Nodes;

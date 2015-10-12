@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Services.Selection;
-using SelectionChangedEventArgs = BimPlus.Explorer.Contract.Services.Selection.SelectionChangedEventArgs;
+using BimPlus.IntegrationFramework.Contract.Services.Selection;
+using SelectionChangedEventArgs = BimPlus.IntegrationFramework.Contract.Services.Selection.SelectionChangedEventArgs;
 
 namespace TUM.CMS.VplControl.BimPlus
 {

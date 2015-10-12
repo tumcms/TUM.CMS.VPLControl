@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using TUM.CMS.VplControl.Nodes;
 
 namespace TUM.CMS.VplControl.BimPlus.Nodes

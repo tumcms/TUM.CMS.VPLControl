@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using TUM.CMS.VplControl.BimPlus.Controls;
 using TUM.CMS.VplControl.Nodes;
 

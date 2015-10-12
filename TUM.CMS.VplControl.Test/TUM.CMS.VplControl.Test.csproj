@@ -153,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <ProjectReference Include="..\TUM.CMS.VplControl.Watch3D\TUM.CMS.VplControl.Watch3D.csproj">
+      <Project>{39c73fb5-d284-409d-835a-803090e867c9}</Project>
+      <Name>TUM.CMS.VplControl.Watch3D</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TUM.CMS.VplControl\TUM.CMS.VplControl.csproj">
       <Project>{593e9bfd-be78-4487-9e22-76ae7df0b84a}</Project>
       <Name>TUM.CMS.VplControl</Name>

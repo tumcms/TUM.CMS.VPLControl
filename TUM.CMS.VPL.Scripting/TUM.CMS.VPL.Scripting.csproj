@@ -109,7 +109,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TUM.CMS.VplControl">
-      <HintPath>..\TUM.CMS.VplControl\bin\Debug\TUM.CMS.VplControl.dll</HintPath>
+      <HintPath>..\TUM.CMS.VplControl\obj\x64\Debug\TUM.CMS.VplControl.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

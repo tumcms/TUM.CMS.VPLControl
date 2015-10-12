@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using BimPlus.IntegrationFramework.WebControls.EventArgs;
+using BimPlus.IntegrationFramework.Core.EventArgs;
 using BimPlus.IntegrationFramework.WebControls.Views;
 using TUM.CMS.VplControl.Nodes;
 
@@ -24,7 +24,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
 
             IsResizeable = true;
 
-            var webControl = new WebProjectSelection(_controller.DataContainer);
+            var webControl = new WebProjectSelection(_controller.IntBase);
             {
                 Visibility = Visibility.Visible;
             };

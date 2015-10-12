@@ -1,9 +1,12 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media.Media3D;
 using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
+using BimPlus.Sdk.Data.Octree;
 using HelixToolkit.Wpf.SharpDX;
 using SharpDX;
 using TUM.CMS.VplControl.Watch3D.Nodes;
@@ -77,7 +80,6 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
                         {
                             // DiffuseColor = new SharpDX.Color(tempcolor.R, tempcolor.G, tempcolor.B, tempcolor.A)
                         }
-                    */
                 };
 
                 myModels.Add(mod);
@@ -108,3 +110,4 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
         }
     }
 }
+*/

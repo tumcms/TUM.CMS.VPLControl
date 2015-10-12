@@ -5,15 +5,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework;
+using BimPlus.IntegrationFramework.Contract.Model;
 using BimPlus.Sdk.Data.Geometry;
 using BimPlus.Sdk.Data.TenantDto;
-using Nemetschek.Allready.Logistics.DbCore;
 using Nemetschek.NUtilLibrary;
 using TUM.CMS.VplControl.BimPlus.Controls;
 using TUM.CMS.VplControl.Nodes;
-using Brushes = System.Windows.Media.Brushes;
 
 namespace TUM.CMS.VplControl.BimPlus.Nodes
 {
@@ -169,8 +167,10 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
                         var stringMatrix = baseElem.AttributeGroups["geometry"].Attributes["matrix"].ToString();
                         if (!string.IsNullOrEmpty(stringMatrix) && poly != null)
                         {
+                            /*
                             var mat = new CMatrix(Convert.FromBase64String(stringMatrix));
                             poly.MultiplyWithMatrix(mat.Values);
+                            */
                         }
 
                         var col = baseElem.AttributeGroups["geometry"].Attributes["color"];

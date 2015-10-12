@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using BimPlus.Sdk.Data.TenantDto;
 using TUM.CMS.VplControl.Nodes;
 

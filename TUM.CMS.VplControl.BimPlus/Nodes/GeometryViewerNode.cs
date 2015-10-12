@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using BimPlus.Sdk.Data.TenantDto;
 using TUM.CMS.VplControl.BimPlus.Controls;
 using TUM.CMS.VplControl.Nodes;
-using SelectionChangedEventArgs = BimPlus.Explorer.Contract.Services.Selection.SelectionChangedEventArgs;
+using SelectionChangedEventArgs = BimPlus.IntegrationFramework.Contract.Services.Selection.SelectionChangedEventArgs;
 
 namespace TUM.CMS.VplControl.BimPlus.Nodes
 {
+    /*
     public class GeometryViewerNode : Node
     {
         // DataController
@@ -153,4 +154,5 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             };
         }
     }
+    */
 }

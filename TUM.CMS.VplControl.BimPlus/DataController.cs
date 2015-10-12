@@ -3,10 +3,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Services;
-using BimPlus.Explorer.Contract.ViewModel.Gui;
 using BimPlus.IntegrationFramework.Core;
-using BimPlus.IntegrationFramework.ViewModels;
 
 // Bimplus Services -> DataProvider
 
@@ -23,14 +20,14 @@ namespace TUM.CMS.VplControl.BimPlus
         {
         }
 
-        [Import(typeof (IDataContainer))]
-        public IDataContainer DataContainer { get; set; }
+        //[Import(typeof (IDataContainer))]
+        //public IDataContainer DataContainer { get; set; }
 
         [Import(typeof (IntegrationBase))]
         public IntegrationBase IntBase { get; set; }
 
-        [Import(ContractNames.RepresentationModifier)]
-        public RepresentationModifier RepMod { get; set; }
+        //[Import(ContractNames.RepresentationModifier)]
+        //public RepresentationModifier RepMod { get; set; }
 
         public ContentPresenter ProjContPres { get; set; }
 
@@ -47,7 +44,7 @@ namespace TUM.CMS.VplControl.BimPlus
 
         public void OnImportsSatisfied()
         {
-            Instance.DataContainer = DataContainer;
+            Instance.IntBase = IntBase;
             // Instance.ProjContPres = new ContentPresenter {Content = ProjectSelectionViewModel};
             Instance.IntBase = IntBase;
         }

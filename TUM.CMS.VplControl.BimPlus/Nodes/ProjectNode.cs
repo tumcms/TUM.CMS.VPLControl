@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using TUM.CMS.VplControl.Nodes;
 
 namespace TUM.CMS.VplControl.BimPlus.Nodes
@@ -21,7 +21,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
             // Call the Singleton Class to get the actual loaded elements -> Connection to the DataModel
             _controller = DataController.Instance;
 
-            if (_controller.DataContainer != null)
+            if (_controller.IntBase != null)
             {
                 _projectComboBox = new ComboBox
                 {
@@ -35,7 +35,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
                 // Add EventHandler
                 _projectComboBox.SelectionChanged += SelectionChanged;
 
-                if (_controller.DataContainer != null)
+                if (_controller.IntBase != null)
                     AddControlToNode(_projectComboBox);
                 else
                     AddControlToNode(new TextBox {Text = "No Connection"});

@@ -73,39 +73,16 @@
         </ToolBar>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="11*"/>
-                <RowDefinition Height="38*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
             <avalonEdit:TextEditor
                 x:Name="TextEditor"
                 FontFamily="Consolas"
                 FontSize="10pt"
                 SyntaxHighlighting="C#"
-                Grid.ColumnSpan="2" Text="Scripting Editor" />
-
-            <!--
-            
-			<GridSplitter Grid.Column="1" Width="4" HorizontalAlignment="Left"/>
-            
-			<DockPanel Grid.Column="1" Margin="4 0 0 0">
-                
-				<ComboBox Name="PropertyGridComboBox" DockPanel.Dock="Top"
-				          SelectedIndex="0" SelectionChanged="PropertyGridComboBoxSelectionChanged">
-					<ComboBoxItem>TextEditor</ComboBoxItem>
-					<ComboBoxItem>TextArea</ComboBoxItem>
-					<ComboBoxItem>Options</ComboBoxItem>
-				</ComboBox>
-				<WindowsFormsHost DockPanel.Dock="Right" Name="PropertyGridHost">
-					<forms:PropertyGrid x:Name="PropertyGrid"/>
-				</WindowsFormsHost>
-			</DockPanel>
-            -->
-
-            <TextBlock Grid.Row="1" Background="Red" Name="TextBlockError" Grid.ColumnSpan="2" Visibility="Collapsed" ></TextBlock>
+                Text="Scripting Editor" />
+            <TextBlock Grid.Row="1" Background="Red" FontFamily="Consolas" Name="TextBlockError" Grid.ColumnSpan="2" Visibility="Collapsed" ></TextBlock>
         </Grid>
     </DockPanel>
 </UserControl>

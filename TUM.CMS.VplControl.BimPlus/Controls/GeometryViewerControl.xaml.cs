@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using BimPlus.Sdk.Data.Geometry;
-using BimPlus.Sdk.Utilities.V2;
-using Nemetschek.Allready.Logistics.DbCore;
-using Nemetschek.DXBase.Control;
 using Nemetschek.NUtilLibrary;
-using Newtonsoft.Json.Linq;
-using DXControl = BimPlus.Explorer.DXControl.DXControl;
 
+/*
 namespace TUM.CMS.VplControl.BimPlus.Controls
 {
     /// <summary>
@@ -138,3 +134,4 @@ namespace TUM.CMS.VplControl.BimPlus.Controls
         }
     }
 }
+*/

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.Zoombox;
 using TUM.CMS.VplControl.Core;
+using TUM.CMS.VplControl.Watch3D.Nodes;
 using TUM.CMS.VPL.Scripting.Nodes;
 
 namespace TUM.CMS.VplControl.Test
@@ -26,6 +27,11 @@ namespace TUM.CMS.VplControl.Test
                 ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
                     .ToList());
 
+            VplControl.ExternalNodeTypes.AddRange(
+                ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Watch3D.Nodes")
+                    .ToList());
+
+            VplControl.ExternalNodeTypes.Add(typeof(Watch3DNode));
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
             VplControl.NodeTypeMode = NodeTypeModes.All;
             // VplPropertyGrid.SelectedObject = VplControl.Theme;

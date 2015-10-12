@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BimPlus.Explorer.Contract.Services.Selection;
+using BimPlus.IntegrationFramework.Contract.Services.Selection;
 
 namespace TUM.CMS.VplControl.BimPlus
 {

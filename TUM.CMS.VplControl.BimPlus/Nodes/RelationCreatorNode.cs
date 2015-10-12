@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using BimPlus.Explorer.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.Model;
 using Nemetschek.NUtilLibrary;
 using TUM.CMS.VplControl.Nodes;
 
@@ -44,6 +44,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
 
             var res = new List<int>();
 
+            /*
             foreach (var item1 in InputPorts[0].Data as List<GenericElement>)
             {
                 var poly1 = new CElementPolyeder();
@@ -62,6 +63,7 @@ namespace TUM.CMS.VplControl.BimPlus.Nodes
                     var schnitt = Nemetschek.Functions.Geometry_Functions.Schneide2BelKoerper(poly1, poly2);
                 }
             }
+            */
 
             OutputPorts[0].Data = res;
         }

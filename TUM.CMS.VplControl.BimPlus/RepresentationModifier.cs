@@ -1,13 +1,11 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using BimPlus.Explorer.Contract.Model;
-using BimPlus.Explorer.Contract.Services;
-using BimPlus.Explorer.Contract.ViewModel.Representation;
-using Nemetschek.NUtilLibrary;
+using BimPlus.IntegrationFramework.Contract.Model;
+using BimPlus.IntegrationFramework.Contract.ViewModel.Representation;
 
 namespace TUM.CMS.VplControl.BimPlus
 {
@@ -187,3 +185,5 @@ namespace TUM.CMS.VplControl.BimPlus
 
     }
 }
+
+*/
