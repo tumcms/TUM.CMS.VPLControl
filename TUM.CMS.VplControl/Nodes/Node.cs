@@ -269,9 +269,9 @@ namespace TUM.CMS.VplControl.Nodes
             OnPropertyChanged("Left");
         }
 
-        public void AddInputPortToNode(string name, Type type)
+        public void AddInputPortToNode(string name, Type type, bool multipleConnectionsAllowed=false)
         {
-            var conn = new Port(name, this, PortTypes.Input, type);
+            var conn = new Port(name, this, PortTypes.Input, type) { MultipleConnectionsAllowed = multipleConnectionsAllowed };
             InputPortPanel.Children.Add(conn);
             conn.DataChanged += conn_DataChanged;
             InputPorts.Add(conn);
@@ -289,7 +289,7 @@ namespace TUM.CMS.VplControl.Nodes
 
         public void AddOutputPortToNode(string name, Type type)
         {
-            var conn = new Port(name, this, PortTypes.Output, type);
+            var conn = new Port(name, this, PortTypes.Output, type) {MultipleConnectionsAllowed = true};
             OutputPortPanel.Children.Add(conn);
 
             OutputPorts.Add(conn);
@@ -306,6 +306,8 @@ namespace TUM.CMS.VplControl.Nodes
             try
             {
                 if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked) Calculate();
+
+
 
                 HasError = false;
                 TopComment.Visibility = Visibility.Hidden;

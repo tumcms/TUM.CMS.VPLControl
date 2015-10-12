@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -56,9 +58,14 @@ namespace TUM.CMS.VplControl.Core
             get { return data; }
             set
             {
-                data = value;
-                OnDataChanged();
+                CalculateData(value);
             }
+        }
+
+        public bool MultipleConnectionsAllowed
+        {
+            get; set; 
+            
         }
 
         public BindingPoint Origin { get; set; }
@@ -121,8 +128,9 @@ namespace TUM.CMS.VplControl.Core
                         {
                             if (ConnectedConnectors.Count > 0)
                             {
-                                foreach (var tempConnector in ConnectedConnectors)
-                                    tempConnector.RemoveFromCanvas();
+                                if (!MultipleConnectionsAllowed)
+                                    foreach (var tempConnector in ConnectedConnectors)
+                                        tempConnector.RemoveFromCanvas();              
                             }
 
                             connector = new Connector(ParentNode.HostCanvas, ParentNode.HostCanvas.TempStartPort, this);
@@ -142,9 +150,7 @@ namespace TUM.CMS.VplControl.Core
 
         public void StartPort_DataChanged(object sender, EventArgs e)
         {
-            var startPort = sender as Port;
-            if (startPort != null)
-                Data = startPort.Data;
+            CalculateData();
         }
 
         public event EventHandler DataChanged;
@@ -153,6 +159,39 @@ namespace TUM.CMS.VplControl.Core
         {
             if (DataChanged != null)
                 DataChanged(this, new EventArgs());
+        }
+
+        public void CalculateData(object value=null)
+        {
+            if (PortType == PortTypes.Input)
+            {
+                if (MultipleConnectionsAllowed && ConnectedConnectors.Count > 1)
+                {
+                    var listType = typeof (List<>).MakeGenericType(new Type[] {DataType});
+                    IList list = (IList) Activator.CreateInstance(listType);
+
+                    foreach (var conn in ConnectedConnectors)
+                    {
+                        list.Add(conn.StartPort.Data);
+                    }
+
+                    data = list;
+                }
+                else if (ConnectedConnectors.Count > 0)
+                {
+                    data = ConnectedConnectors[0].StartPort.Data;
+                }
+                else
+                {
+                    data = null;
+                }
+            }
+            else
+            {
+                data = value;
+            }
+
+            OnDataChanged();
         }
     }
 

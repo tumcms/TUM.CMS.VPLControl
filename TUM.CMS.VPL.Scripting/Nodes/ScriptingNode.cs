@@ -110,11 +110,26 @@ namespace TUM.CMS.VPL.Scripting.Nodes
                 {
                     if (counter < InputPorts.Count)
                     {
-                        InputPorts[counter].DataType = para.ParameterType;
+                        if (para.ParameterType.IsGenericType)
+                        {
+                            InputPorts[counter].MultipleConnectionsAllowed = true;
+                            InputPorts[counter].DataType = para.ParameterType.GetGenericArguments()[0];
+                        }
+                        else
+                        {
+                            InputPorts[counter].DataType = para.ParameterType;
+                        }
+
                         InputPorts[counter].Name = para.Name;
                     }
                     else
-                        AddInputPortToNode(para.Name, para.ParameterType);
+                    {
+                        if (para.ParameterType.IsGenericType)
+                            AddInputPortToNode(para.Name, para.ParameterType.GetGenericArguments()[0], true);
+                        else
+                            AddInputPortToNode(para.Name, para.ParameterType);
+                    }
+
 
                     counter++;
                 }
@@ -168,6 +183,8 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
         public override void Calculate()
         {
+
+
             // Define the Input for the Script
             var parameters = InputPorts.Select(port => port.Data).ToList();
 

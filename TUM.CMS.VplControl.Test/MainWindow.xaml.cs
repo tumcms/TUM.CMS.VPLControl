@@ -29,7 +29,7 @@ namespace TUM.CMS.VplControl.Test
             VplControl.NodeTypeMode = NodeTypeModes.All;
 
 
-            //VplPropertyGrid.SelectedObject = VplControl;
+            VplPropertyGrid.SelectedObject = VplControl;
         }
     }
 }

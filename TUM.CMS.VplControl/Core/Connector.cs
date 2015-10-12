@@ -49,7 +49,6 @@ namespace TUM.CMS.VplControl.Core
             StartBezierPoint = new BindingPoint(StartPort.Origin.X, StartPort.Origin.Y);
             EndBezierPoint = new BindingPoint(EndPort.Origin.X, EndPort.Origin.Y);
 
-            endPort.Data = startPort.Data;
             startPort.DataChanged += endPort.StartPort_DataChanged;
 
             StartPort.Origin.PropertyChanged += Origin_PropertyChanged;
@@ -63,6 +62,8 @@ namespace TUM.CMS.VplControl.Core
 
             startPort.ConnectedConnectors.Add(this);
             endPort.ConnectedConnectors.Add(this);
+
+            endPort.CalculateData(startPort.Data);
 
             DefinePath();
 
@@ -173,6 +174,11 @@ namespace TUM.CMS.VplControl.Core
         private void node_DeletedInNodeCollection(object sender, EventArgs e)
         {
             RemoveFromCanvas();
+
+            StartPort.ConnectedConnectors.Remove(this);
+            EndPort.ConnectedConnectors.Remove(this);
+
+            EndPort.CalculateData();
         }
 
         public void SerializeNetwork(XmlWriter xmlWriter)

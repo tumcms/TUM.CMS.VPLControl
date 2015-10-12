@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
+using TUM.CMS.VplControl.Core;
 
 namespace TUM.CMS.VplControl.Nodes
 {
@@ -9,7 +10,7 @@ namespace TUM.CMS.VplControl.Nodes
     {
         public WatchNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Object", typeof (object));
+            AddInputPortToNode("Object", typeof (object),true);
 
             var textBlock = new TextBlock
             {
@@ -38,6 +39,12 @@ namespace TUM.CMS.VplControl.Nodes
 
         public override void Calculate()
         {
+            foreach (var port in InputPorts)
+            {
+                //if(port.MultipleConnectionsAllowed)
+                    //port.CalculateData();
+            }
+
             if (InputPorts[0] == null || ControlElements[0] == null) return;
 
             var scrollViewer = ControlElements[0] as ScrollViewer;
