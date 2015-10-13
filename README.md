@@ -16,7 +16,9 @@
 
 ----------
 
+![Watch3D.PNG](Watch3D.PNG)
 
+----------
 
 ### Get Started ###
 

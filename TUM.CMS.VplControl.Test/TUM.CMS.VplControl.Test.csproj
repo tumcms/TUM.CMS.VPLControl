@@ -121,6 +121,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TUM.CMS.VplControl.Watch3D\TUM.CMS.VplControl.Watch3D.csproj">
+      <Project>{39c73fb5-d284-409d-835a-803090e867c9}</Project>
+      <Name>TUM.CMS.VplControl.Watch3D</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

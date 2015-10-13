@@ -4,6 +4,7 @@ using System.Windows;
 using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Utilities;
 using TUM.CMS.VPL.Scripting.Nodes;
+using TUM.CMS.VplControl.Watch3D.Nodes;
 
 namespace TUM.CMS.VplControl.Test
 {
@@ -23,8 +24,12 @@ namespace TUM.CMS.VplControl.Test
                 ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
                     .ToList());
 
-            VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
+            VplControl.ExternalNodeTypes.AddRange(
+                ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Watch3D.Nodes")
+                    .ToList());
 
+            VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
+            VplControl.ExternalNodeTypes.Add(typeof(Watch3DNode));
 
             VplControl.NodeTypeMode = NodeTypeModes.All;
 
