@@ -78,6 +78,8 @@
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Core\SearchTextBox.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
+    <Compile Include="Nodes\IntegerSlider.cs" />
+    <Compile Include="Nodes\DoubleSlider.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="Core\VplElement.cs" />
@@ -87,7 +89,6 @@
     <Compile Include="Core\NodeBinButton.cs" />
     <Compile Include="Nodes\ListNode.cs" />
     <Compile Include="Nodes\Node.cs" />
-    <Compile Include="Nodes\SliderNode.cs" />
     <Compile Include="Nodes\TestNode.cs" />
     <Compile Include="Nodes\TextNode.cs" />
     <Compile Include="Nodes\WatchNode.cs" />

@@ -99,4 +99,3 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\ContentMenu\Settings.baml
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\ContentMenu\Settings.g.cs
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\Themes\Icons.baml
-C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl\obj\Debug\TUM.CMS.VplControl.csprojResolveAssemblyReference.cache

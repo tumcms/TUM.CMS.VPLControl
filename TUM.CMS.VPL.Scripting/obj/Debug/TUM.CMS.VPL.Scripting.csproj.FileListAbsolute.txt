@@ -30,7 +30,6 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\Mono
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\Mono.Cecil.Mdb.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\Mono.Cecil.Pdb.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\Mono.Cecil.Rocks.dll
-C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\TUM.CMS.VplControl.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\System.Windows.Interactivity.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\Xceed.Wpf.Toolkit.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VPL.Scripting\bin\Debug\ICSharpCode.AvalonEdit.xml

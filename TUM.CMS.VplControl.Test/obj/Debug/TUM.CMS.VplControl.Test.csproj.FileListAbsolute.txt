@@ -51,7 +51,6 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Debug\TU
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\obj\Debug\TUM.CMS.VplControl.Test.pdb
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VplControl.Test.exe
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VplControl.Test.pdb
-C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VplControl.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ICSharpCode.AvalonEdit.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\ICSharpCode.AvalonEdit.CodeCompletion.dll
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\IronPython.dll
@@ -122,3 +121,4 @@ C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\Sh
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\SharpDX.DXGI.xml
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\SharpDX.Direct3D11.Effects.xml
 C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\SharpDX.Direct3D9.xml
+C:\CMS\05_Programmierung\TUM.CMS.VplControl\TUM.CMS.VplControl.Test\bin\Debug\TUM.CMS.VplControl.dll
