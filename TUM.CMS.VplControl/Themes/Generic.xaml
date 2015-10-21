@@ -44,7 +44,9 @@
 
     <SolidColorBrush x:Key="NodeBackgroundBrush" Color="White" />
     <SolidColorBrush x:Key="NodeBackgroundBrushError" Color="Red" />
-
+    
+    <SolidColorBrush x:Key="CommentBackgroundBrush" Color="{DynamicResource ColorBlue}"></SolidColorBrush>
+    <SolidColorBrush x:Key="CommentBackgroundBrushError" Color="{DynamicResource ColorRed}"></SolidColorBrush>
 
     <SolidColorBrush x:Key="ConnectorBrush" Color="{StaticResource ColorBlue}" />
     <system:Double x:Key="ConnectorThickness">2</system:Double>

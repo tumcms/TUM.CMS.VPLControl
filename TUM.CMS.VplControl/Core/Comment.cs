@@ -12,6 +12,7 @@ namespace TUM.CMS.VplControl.Core
         private string text;
 
         public Comment(Node hostNode)
+
         {
             HostNode = hostNode;
 
@@ -20,7 +21,8 @@ namespace TUM.CMS.VplControl.Core
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
                 Height = 70,
-                CanContentScroll = true
+                CanContentScroll = true,
+                Background = Brushes.Transparent
             };
 
             var textBlock = new TextBlock
@@ -30,11 +32,12 @@ namespace TUM.CMS.VplControl.Core
                 Margin = new Thickness(5),
                 FontSize = 12
             };
-
-            Child = scrollViewer;
-            CornerRadius = new CornerRadius(5);
             scrollViewer.Content = textBlock;
 
+            CornerRadius= new CornerRadius(5);
+            Child = scrollViewer;
+            BorderThickness = new Thickness(2);
+            Background = Application.Current.Resources["BrushBlue"] as Brush;
 
             var bindingTextToTextBlock = new Binding("Text")
             {
@@ -43,7 +46,10 @@ namespace TUM.CMS.VplControl.Core
             };
             textBlock.SetBinding(TextBlock.TextProperty, bindingTextToTextBlock);
 
-            hostNode.SpaceCanvas.Children.Add(this);
+            HostNode.HostCanvas.Children.Add(this);
+
+            HostNode_PropertyChanged(null, null);
+            HostNode.PropertyChanged+= HostNode_PropertyChanged;
         }
 
         public CommentExpandSides ExpandSide { get; set; }
@@ -58,6 +64,10 @@ namespace TUM.CMS.VplControl.Core
             }
         }
 
+        /// <summary>
+        ///     The host VplControl in which the VplElement is rendered.
+        /// </summary>
+        public VplControl HostCanvas { get; set; }
         public Node HostNode { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,14 +76,16 @@ namespace TUM.CMS.VplControl.Core
             switch (ExpandSide)
             {
                 case CommentExpandSides.Top:
-                    Canvas.SetTop(this, -ActualHeight - 10);
-                    Canvas.SetLeft(this, -5);
-                    Width = HostNode.Border.Width;
+                    SetValue(Canvas.TopProperty, HostNode.Top- 125);
+                    SetValue(Canvas.LeftProperty, HostNode.Left+5);
+                    Width = HostNode.ActualWidth;
+                    Height = 100;
                     break;
                 case CommentExpandSides.Bottom:
-                    Canvas.SetTop(this, HostNode.ActualHeight + 10);
-                    Canvas.SetLeft(this, -5);
-                    Width = HostNode.Border.Width;
+                    SetValue(Canvas.TopProperty, HostNode.Top + HostNode.ActualHeight + 25);
+                    SetValue(Canvas.LeftProperty, HostNode.Left+5);
+                    Width = HostNode.ActualWidth;
+                    Height = 100;
                     break;
                 case CommentExpandSides.Left:
                     break;

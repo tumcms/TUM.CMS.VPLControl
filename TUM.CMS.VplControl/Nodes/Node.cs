@@ -138,7 +138,7 @@ namespace TUM.CMS.VplControl.Nodes
             {
                 Text =
                     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-                Background = Application.Current.Resources["BrushBlue"] as Brush,
+                Background = HostCanvas.FindResource("CommentBackgroundBrushError") as Brush,
                 ExpandSide = CommentExpandSides.Top
             };
 
@@ -147,7 +147,7 @@ namespace TUM.CMS.VplControl.Nodes
             {
                 Text =
                     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-                Background = Application.Current.Resources["BrushRed"] as Brush,
+                Background = HostCanvas.FindResource("CommentBackgroundBrush") as Brush,
                 ExpandSide = CommentExpandSides.Bottom
             };
 
@@ -156,9 +156,11 @@ namespace TUM.CMS.VplControl.Nodes
 
             ShowHelpOnMouseOver = false;
 
+            if (QuestButton != null)  if (QuestButton != null)base.QuestButton.Click += QuestButton_Click;
 
             SetZIndex(this, myid);
             SetZIndex(Border, myid);
+            
 
             if (HitTestBorder != null) SetZIndex(HitTestBorder, myid);
             if (BinButton != null) SetZIndex(BinButton, myid);
@@ -166,6 +168,14 @@ namespace TUM.CMS.VplControl.Nodes
             if (QuestButton != null) SetZIndex(QuestButton, myid);
             if (CaptionLabel != null) SetZIndex(CaptionLabel, myid);
             if (AutoCheckBox != null) SetZIndex(AutoCheckBox, myid);
+
+            SetZIndex(TopComment, myid);
+            SetZIndex(BottomComment, myid);
+        }
+
+        void QuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            BottomComment.Visibility = BottomComment.Visibility== Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public int Id
@@ -307,8 +317,6 @@ namespace TUM.CMS.VplControl.Nodes
             {
                 if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked) Calculate();
 
-
-
                 HasError = false;
                 TopComment.Visibility = Visibility.Hidden;
             }
@@ -318,8 +326,7 @@ namespace TUM.CMS.VplControl.Nodes
 
                 TopComment.Text = ex.ToString();
                 TopComment.Visibility = Visibility.Visible;
-                TopComment.HostNode_PropertyChanged(null, null);
-                PropertyChanged += TopComment.HostNode_PropertyChanged;
+
             }
         }
 
@@ -330,6 +337,8 @@ namespace TUM.CMS.VplControl.Nodes
         {
             HostCanvas.NodeCollection.Remove(this);
             HostCanvas.Children.Remove(Border);
+            HostCanvas.Children.Remove(TopComment);
+            HostCanvas.Children.Remove(BottomComment);
 
             Dispose();
 

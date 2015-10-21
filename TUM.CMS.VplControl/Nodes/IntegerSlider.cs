@@ -33,7 +33,8 @@ namespace TUM.CMS.VplControl.Nodes
             };
             expander.SetBinding(SliderExpanderInteger.SliderValueProperty, b2);
 
-            
+            Name = "Integer slider";
+
             AddControlToNode(expander);
         }
     

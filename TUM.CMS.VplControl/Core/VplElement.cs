@@ -69,12 +69,14 @@ namespace TUM.CMS.VplControl.Core
             CaptionLabel.Width = 80;
 
             BinButton.Click += binButton_Click;
-
+            
             BinButton.Visibility = Visibility.Collapsed;
             QuestButton.Visibility = Visibility.Collapsed;
             ResizeButton.Visibility = Visibility.Collapsed;
             AutoCheckBox.Visibility = Visibility.Collapsed;
         }
+
+  
 
         public void Dispose()
         {

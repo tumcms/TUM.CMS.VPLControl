@@ -29,8 +29,8 @@ namespace TUM.CMS.VplControl.Nodes
             AddOutputPortToNode("Test 12345", typeof (List<string>));
 
 
-            TopComment.Visibility = Visibility.Visible;
-            BottomComment.Visibility = Visibility.Visible;
+            //TopComment.Visibility = Visibility.Visible;
+            //BottomComment.Visibility = Visibility.Visible;
 
             IsResizeable = true;
 
@@ -39,7 +39,12 @@ namespace TUM.CMS.VplControl.Nodes
 
         public override void Calculate()
         {
-        }
+
+                string[] test=null;
+
+                string test2 = test[2];
+
+       }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
         {

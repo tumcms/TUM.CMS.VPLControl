@@ -139,17 +139,14 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
                 Calculate();
 
-                scriptingControl.TextBlockError.Text = "";
-                scriptingControl.TextBlockError.Visibility = Visibility.Collapsed;
+                TopComment.Text = "";
+                TopComment.Visibility = Visibility.Collapsed;
             }
             catch (Exception e)
             {
                 TopComment.Text = e.ToString();
                 TopComment.Visibility = Visibility.Visible;
                 TopComment.HostNode_PropertyChanged(null, null);
-
-                scriptingControl.TextBlockError.Text = e.Message;
-                scriptingControl.TextBlockError.Visibility = Visibility.Visible;
 
                 Console.WriteLine(e.Message);
             }
