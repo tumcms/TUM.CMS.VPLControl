@@ -74,6 +74,8 @@
     <Compile Include="ContentMenu\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SliderExpanderDouble.cs" />
+    <Compile Include="Controls\SliderExpanderInteger.cs" />
     <Compile Include="Core\BindingPoint.cs" />
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Core\SearchTextBox.cs" />

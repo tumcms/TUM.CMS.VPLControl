@@ -5,56 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Xml;
+using TUM.CMS.VplControl.Controls;
 
 namespace TUM.CMS.VplControl.Nodes
 {
-
-    public class SliderExpanderInteger : Expander
-    {
-        public static readonly DependencyProperty SliderValueProperty =
-            DependencyProperty.Register("SliderValue",
-                typeof(int), typeof(SliderExpanderInteger)); // optionally metadata for defaults etc.
-
-        public int SliderValue
-        {
-            get { return (int)GetValue(SliderValueProperty); }
-            set { SetValue(SliderValueProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty SliderMinProperty =
-            DependencyProperty.Register("SliderMin",
-                typeof(int), typeof(SliderExpanderInteger)); // optionally metadata for defaults etc.
-
-        public int SliderMin
-        {
-            get { return (int)GetValue(SliderMinProperty); }
-            set { SetValue(SliderMinProperty, value); }
-        }
-
-        public static readonly DependencyProperty SliderMaxProperty =
-            DependencyProperty.Register("SliderMax",
-                typeof(int), typeof(SliderExpanderInteger)); // optionally metadata for defaults etc.
-
-        public int SliderMax
-        {
-            get { return (int)GetValue(SliderMaxProperty); }
-            set { SetValue(SliderMaxProperty, value); }
-        }
-
-        public static readonly DependencyProperty SliderStepProperty =
-    DependencyProperty.Register("SliderStep",
-        typeof(int), typeof(SliderExpanderInteger)); // optionally metadata for defaults etc.
-
-        public int SliderStep
-        {
-            get { return (int)GetValue(SliderStepProperty); }
-            set { SetValue(SliderStepProperty, value); }
-        }
-    }
-
-
-
+    
     public class IntegerSlider : Node
     {
         public IntegerSlider(Core.VplControl hostCanvas)
