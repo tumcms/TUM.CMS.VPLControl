@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
 using Microsoft.Win32;
+using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Watch3D.Controls;
 

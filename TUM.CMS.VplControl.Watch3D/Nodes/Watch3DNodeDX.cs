@@ -4,6 +4,7 @@ using System.Linq;
 using HelixToolkit.Wpf;
 using HelixToolkit.Wpf.SharpDX;
 using SharpDX;
+using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Watch3D.Controls;
 using MeshBuilder = HelixToolkit.Wpf.SharpDX.MeshBuilder;

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
-using TUM.CMS.VplControl.Nodes;
+using TUM.CMS.VplControl.Core;
 
 namespace TUM.CMS.VplControl.Test.Nodes
 {
@@ -19,19 +19,7 @@ namespace TUM.CMS.VplControl.Test.Nodes
 
         public override void Calculate()
         {
-            try
-            {
-                OutputPorts[0].Data = InputPorts[0].Data;
-
-                TopComment.Text = "";
-                TopComment.Visibility = Visibility.Collapsed;
-            }
-            catch (Exception ex)
-            {
-                TopComment.Text = ex.ToString();
-                TopComment.Visibility = Visibility.Visible;
-                TopComment.HostNode_PropertyChanged(null, null);
-            }
+            OutputPorts[0].Data = InputPorts[0].Data;
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)

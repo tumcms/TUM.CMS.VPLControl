@@ -72,10 +72,7 @@ namespace TUM.CMS.VplControl.Utilities
     {
         public static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
         {
-            return
-                assembly.GetTypes()
-                    .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
-                    .ToArray();
+            return assembly.GetTypes().Where(type => type.Namespace != null && type.Namespace.Contains("Nodes")).Where(type => type.FullName != "Node").ToArray();
         }
     }
 
@@ -332,4 +329,7 @@ namespace TUM.CMS.VplControl.Utilities
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
     }
+
+
+
 }

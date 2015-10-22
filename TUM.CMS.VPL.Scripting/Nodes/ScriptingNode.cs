@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
+using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VPL.Scripting.CSharp;
 using TUM.CMS.VPL.Scripting.Python;

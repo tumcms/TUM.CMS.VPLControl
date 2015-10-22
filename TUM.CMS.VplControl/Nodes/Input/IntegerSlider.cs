@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Dynamic;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Xml;
 using TUM.CMS.VplControl.Controls;
+using TUM.CMS.VplControl.Core;
 
-namespace TUM.CMS.VplControl.Nodes
+namespace TUM.CMS.VplControl.Nodes.Input
 {
-
-
-    public class DoubleSlider : Node
+    
+    public class IntegerSlider : Node
     {
-        public DoubleSlider(Core.VplControl hostCanvas)
+        public IntegerSlider(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
-            AddOutputPortToNode("Number", typeof(double));
+            AddOutputPortToNode("Number", typeof(int));
 
-            SliderExpanderDouble expander = new SliderExpanderDouble
+            SliderExpanderInteger expander = new SliderExpanderInteger
             {
-                Style = hostCanvas.FindResource("ExpanderSliderStyleDouble") as Style,
+                Style = hostCanvas.FindResource("ExpanderSliderStyleInteger") as Style,
                 SliderValue = 5,
                 SliderMax = 10,
-                SliderMin = 2,
-                SliderStep = 0.01
+                SliderMin = 0,
+                SliderStep = 1
             };
 
             var b2 = new Binding("Data")
@@ -32,9 +29,9 @@ namespace TUM.CMS.VplControl.Nodes
                 Mode = BindingMode.OneWayToSource,
                 Source = OutputPorts[0]
             };
-            expander.SetBinding(SliderExpanderDouble.SliderValueProperty, b2);
+            expander.SetBinding(SliderExpanderInteger.SliderValueProperty, b2);
 
-            Name = "Double slider";
+            Name = "Integer slider";
 
             AddControlToNode(expander);
         }
@@ -48,7 +45,7 @@ namespace TUM.CMS.VplControl.Nodes
         {
             base.SerializeNetwork(xmlWriter);
 
-            var expander = ControlElements[0] as SliderExpanderDouble;
+            var expander = ControlElements[0] as SliderExpanderInteger;
             if (expander == null) return;
 
             xmlWriter.WriteStartAttribute("SliderMax");
@@ -76,24 +73,24 @@ namespace TUM.CMS.VplControl.Nodes
         {
             base.DeserializeNetwork(xmlReader);
 
-            var expander = ControlElements[0] as SliderExpanderDouble;
+            var expander = ControlElements[0] as SliderExpanderInteger;
             if (expander == null) return;
 
             var attribute = xmlReader.GetAttribute("SliderMax");
             if (attribute != null)
-                expander.SliderMax = Convert.ToDouble(attribute.Replace(".", ","));
+                expander.SliderMax = Convert.ToInt32(attribute.Replace(".", ","));
 
             var attribute1 = xmlReader.GetAttribute("SliderMin");
             if (attribute1 != null)
-                expander.SliderMin  = Convert.ToDouble(attribute1.Replace(".", ","));
+                expander.SliderMin = Convert.ToInt32(attribute1.Replace(".", ","));
 
             var attribute2 = xmlReader.GetAttribute("SliderValue");
             if (attribute2 != null)
-                expander.SliderValue = Convert.ToDouble(attribute2.Replace(".", ","));
+                expander.SliderValue = Convert.ToInt32(attribute2.Replace(".", ","));
 
             var attribute3 = xmlReader.GetAttribute("SliderStep");
             if (attribute3 != null)
-                expander.SliderStep = Convert.ToDouble(attribute3.Replace(".", ","));
+                expander.SliderStep = Convert.ToInt32(attribute3.Replace(".", ","));
 
             var attribute4 = xmlReader.GetAttribute("IsExpanded");
             if (attribute4 != null)

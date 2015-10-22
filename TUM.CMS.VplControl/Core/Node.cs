@@ -6,9 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
-using TUM.CMS.VplControl.Core;
 
-namespace TUM.CMS.VplControl.Nodes
+namespace TUM.CMS.VplControl.Core
 {
     public abstract class Node : VplElement
     {

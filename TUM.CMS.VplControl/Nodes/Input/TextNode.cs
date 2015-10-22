@@ -1,8 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
+using TUM.CMS.VplControl.Core;
 
-namespace TUM.CMS.VplControl.Nodes
+namespace TUM.CMS.VplControl.Nodes.Input
 {
     public class TextNode : Node
     {
