@@ -1,23 +1,25 @@
-using System.Collections;
+using System;
+using System.CodeDom;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
+using Xceed.Wpf.Toolkit.Panels;
 
 namespace TUM.CMS.VplControl.Nodes.Math
 {
-    public class SumNode : Node
+    public class ModNode : Node
     {
-        public SumNode(Core.VplControl hostCanvas) : base(hostCanvas)
-
+        public ModNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Values", typeof (double), true);
+            AddInputPortToNode("Value1", typeof (double));
+            AddInputPortToNode("Value2", typeof(double));
 
-            AddOutputPortToNode("Value", typeof (double));
+            AddOutputPortToNode("Value", typeof(double));
 
             var label = new Label
             {
-                Content = "Sum",
+                Content = "Mod",
                 Width = 60,
                 FontSize = 30,
                 HorizontalContentAlignment = HorizontalAlignment.Center
@@ -28,15 +30,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
 
         public override void Calculate()
         {
-            double sum = 0;
-
-            var collection = InputPorts[0].Data as ICollection;
-            if (collection != null)
-            {
-                foreach (var obj in collection)
-                    sum += double.Parse(obj.ToString());
-            }
-            OutputPorts[0].Data = sum;
+            OutputPorts[0].Data = Double.Parse(InputPorts[0].Data.ToString()) % Double.Parse(InputPorts[1].Data.ToString());
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
@@ -55,7 +49,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
 
         public override Node Clone()
         {
-            return new SumNode(HostCanvas)
+            return new ModNode(HostCanvas)
             {
                 Top = Top,
                 Left = Left

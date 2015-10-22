@@ -1,5 +1,7 @@
 using System;
 using System.CodeDom;
+using System.Windows;
+using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
 using Xceed.Wpf.Toolkit.Panels;
@@ -10,32 +12,25 @@ namespace TUM.CMS.VplControl.Nodes.Math
     {
         public AddNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Value1", typeof (object));
-            AddInputPortToNode("Value2", typeof (object));
+            AddInputPortToNode("Value1", typeof (double));
+            AddInputPortToNode("Value2", typeof(double));
 
-            AddOutputPortToNode("Value", typeof (object));
+            AddOutputPortToNode("Value", typeof(double));
+
+            var label = new Label
+            {
+                Content = "+",
+                Width = 60,
+                FontSize = 30,
+                HorizontalContentAlignment = HorizontalAlignment.Center
+            };
+
+            AddControlToNode(label);
         }
 
         public override void Calculate()
         {
-            if (InputPorts[0].Data.IsNumber() && InputPorts[1].Data.IsNumber())
-            {
-                if (InputPorts[0].Data.GetType() == InputPorts[1].Data.GetType())
-                {
-                    if (InputPorts[0].Data is int)
-                    {
-                        OutputPorts[0].Data = (int) InputPorts[0].Data + (int) InputPorts[1].Data;
-                    }
-                    else if (InputPorts[0].Data is double)
-                    {
-                        OutputPorts[0].Data = (double) InputPorts[0].Data + (double) InputPorts[1].Data;
-                    }
-                    else
-                        OutputPorts[0].Data = null;
-                }
-            }
-            else
-                OutputPorts[0].Data = null;
+            OutputPorts[0].Data = Double.Parse(InputPorts[0].Data.ToString()) + Double.Parse(InputPorts[1].Data.ToString());
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)

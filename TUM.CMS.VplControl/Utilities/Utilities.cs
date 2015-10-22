@@ -281,6 +281,7 @@ namespace TUM.CMS.VplControl.Utilities
                 new List<Type>
                 {
                     typeof (object),
+                    typeof (double),
                     typeof (sbyte),
                     typeof (byte),
                     typeof (short),

@@ -129,8 +129,13 @@ namespace TUM.CMS.VplControl.Core
                             if (ConnectedConnectors.Count > 0)
                             {
                                 if (!MultipleConnectionsAllowed)
+                                {
                                     foreach (var tempConnector in ConnectedConnectors)
-                                        tempConnector.RemoveFromCanvas();              
+                                        tempConnector.RemoveFromCanvas();      
+
+                                    ConnectedConnectors.Clear();
+                                }
+        
                             }
 
                             connector = new Connector(ParentNode.HostCanvas, ParentNode.HostCanvas.TempStartPort, this);
@@ -172,7 +177,7 @@ namespace TUM.CMS.VplControl.Core
 
                     foreach (var conn in ConnectedConnectors)
                     {
-                        list.Add(conn.StartPort.Data);
+                         list.Add(conn.StartPort.Data);
                     }
 
                     data = list;

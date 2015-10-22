@@ -86,6 +86,7 @@
     <Compile Include="Nodes\Input\DoubleSlider.cs" />
     <Compile Include="Nodes\Logic\TrueFalseNode.cs" />
     <Compile Include="Nodes\Math\AbsNode.cs" />
+    <Compile Include="Nodes\Math\ModNode.cs" />
     <Compile Include="Nodes\Math\AddNode.cs" />
     <Compile Include="Nodes\Math\DivideNode.cs" />
     <Compile Include="Nodes\Math\IsNumber.cs" />

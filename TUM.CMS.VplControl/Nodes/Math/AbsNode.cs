@@ -1,3 +1,6 @@
+using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
 
@@ -7,23 +10,23 @@ namespace TUM.CMS.VplControl.Nodes.Math
     {
         public AbsNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Value", typeof (object));
-            AddOutputPortToNode("AbsValue", typeof (object));
+            AddInputPortToNode("Value", typeof (double));
+            AddOutputPortToNode("AbsValue", typeof (double));
+
+            var label = new Label
+            {
+                Content = "Abs",
+                Width = 60,
+                FontSize = 30,
+                HorizontalContentAlignment = HorizontalAlignment.Center
+            };
+
+            AddControlToNode(label);
         }
 
         public override void Calculate()
         {
-            if (InputPorts[0].Data.IsNumber())
-            {
-                if (InputPorts[0].Data is int)
-                    OutputPorts[0].Data = System.Math.Abs((int) InputPorts[0].Data);
-                else if (InputPorts[0].Data is double)
-                    OutputPorts[0].Data = System.Math.Abs((double) InputPorts[0].Data);
-                else
-                    OutputPorts[0].Data = null;
-            }
-            else
-                OutputPorts[0].Data = null;
+            OutputPorts[0].Data = System.Math.Abs(Double.Parse(InputPorts[0].Data.ToString()));
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
