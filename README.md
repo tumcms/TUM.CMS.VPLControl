@@ -20,6 +20,11 @@
 
 ----------
 
+![Watch3D.PNG](doc/images/expressions.PNG)
+
+----------
+
+
 ### Get Started ###
 
 Download or clone this repository and run the test project in visual studio.

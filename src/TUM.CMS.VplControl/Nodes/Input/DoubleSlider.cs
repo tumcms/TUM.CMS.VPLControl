@@ -30,8 +30,6 @@ namespace TUM.CMS.VplControl.Nodes.Input
             };
             expander.SetBinding(SliderExpanderDouble.SliderValueProperty, b2);
 
-            Name = "Double slider";
-
             AddControlToNode(expander);
         }
     

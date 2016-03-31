@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -295,6 +296,15 @@ namespace TUM.CMS.VplControl.Core
             InputPortPanel.Children.Remove(port);
             port.DataChanged -= port_DataChanged;
             InputPorts.Remove(port);
+        }
+
+
+        public void RemoveAllInputPortsFromNode()
+        {
+            while (InputPorts.Count > 0)
+            {
+                RemoveInputPortFromNode(InputPorts.First());
+            }
         }
 
         public void AddOutputPortToNode(string name, Type type)
