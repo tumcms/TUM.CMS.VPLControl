@@ -4,19 +4,19 @@
 
 ----------
 
-![overview.PNG](2120661561.PNG)
+![overview.PNG](doc/images/2120661561.PNG)
 
 ----------
 
-![multiplePorts.PNG](multiplePorts.PNG)
+![multiplePorts.PNG](doc/images/multiplePorts.PNG)
 
 ----------
 
-![radialselectionMenu.PNG](radialselectionMenu.PNG)
+![radialselectionMenu.PNG](doc/images/radialselectionMenu.PNG)
 
 ----------
 
-![Watch3D.PNG](Watch3D.PNG)
+![Watch3D.PNG](doc/images/Watch3D.PNG)
 
 ----------
 
