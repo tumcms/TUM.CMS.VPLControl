@@ -52,18 +52,31 @@ namespace TUM.CMS.VplControl.Nodes
         {
             var textBox = sender as TextBox;
 
-            if (textBox == null) return;
-            expression = textBox.Text != "" ? new Expression(textBox.Text) : null;
-
-
-            var paras = GetParametersInExpression(textBox.Text).Distinct().ToList();
-
-            if (paras.Any())
+            if (textBox != null)
             {
-                RemoveAllInputPortsFromNode();
+                if (textBox.Text != "")
+                {
+                    expression = new Expression(textBox.Text);
 
-                foreach (var parameter in paras)
-                    AddInputPortToNode(parameter, typeof (object));
+                    List<String> paras = GetParametersInExpression(textBox.Text).Distinct().ToList();
+
+                    if (paras.Any())
+                    {
+                        RemoveAllInputPortsFromNode(paras);
+
+                        List<String> filteredParas= paras.Where(parameter => InputPorts.All(p => p.Name != parameter)).ToList();
+
+                        foreach (var parameter in filteredParas)
+                        {
+                            AddInputPortToNode(parameter, typeof(object));     
+                        }
+                    }
+                }
+                else 
+                {
+                    expression = null;
+                    RemoveAllInputPortsFromNode();
+                }
             }
 
             Calculate();
@@ -82,26 +95,56 @@ namespace TUM.CMS.VplControl.Nodes
             }
             catch (Exception ex)
             {
-                return new List<string>();
+                return  new List<string>();
             }
+
+
         }
 
         public override void Calculate()
         {
-            foreach (var port in InputPorts)
+            if (expression != null)
             {
-                expression.Parameters[port.Name] = port.Data;
-            }
+                foreach (var port in InputPorts)
+                {
+                    expression.Parameters[port.Name] = port.Data;
+                }
 
-            try
+                try
+                {
+                    OutputPorts[0].Data = expression.Evaluate();
+                }
+                catch (Exception ex)
+                {
+                    OutputPorts[0].Data = null;
+                }
+            }
+            else
             {
-                OutputPorts[0].Data = expression.Evaluate();
+                OutputPorts[0].Data = null;
             }
-            catch (Exception ex)
-            {
+        }
 
-            }
+        public override void SerializeNetwork(XmlWriter xmlWriter)
+        {
+            base.SerializeNetwork(xmlWriter);
 
+            var textBox = ControlElements[0] as TextBox;
+            if (textBox == null) return;
+
+            xmlWriter.WriteStartAttribute("Formula");
+            xmlWriter.WriteValue(textBox.Text);
+            xmlWriter.WriteEndAttribute();
+        }
+
+        public override void DeserializeNetwork(XmlReader xmlReader)
+        {
+            base.DeserializeNetwork(xmlReader);
+
+            var textBox = ControlElements[0] as TextBox;
+            if (textBox == null) return;
+
+            textBox.Text = xmlReader.GetAttribute("Formula");
         }
 
         public override Node Clone()

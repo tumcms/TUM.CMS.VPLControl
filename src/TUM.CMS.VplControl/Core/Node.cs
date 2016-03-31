@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -157,11 +158,11 @@ namespace TUM.CMS.VplControl.Core
 
             ShowHelpOnMouseOver = false;
 
-            if (QuestButton != null)  if (QuestButton != null)base.QuestButton.Click += QuestButton_Click;
+            if (QuestButton != null) if (QuestButton != null) base.QuestButton.Click += QuestButton_Click;
 
             SetZIndex(this, myid);
             SetZIndex(Border, myid);
-            
+
 
             if (HitTestBorder != null) SetZIndex(HitTestBorder, myid);
             if (BinButton != null) SetZIndex(BinButton, myid);
@@ -174,9 +175,11 @@ namespace TUM.CMS.VplControl.Core
             SetZIndex(BottomComment, myid);
         }
 
-        void QuestButton_Click(object sender, RoutedEventArgs e)
+        private void QuestButton_Click(object sender, RoutedEventArgs e)
         {
-            BottomComment.Visibility = BottomComment.Visibility== Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            BottomComment.Visibility = BottomComment.Visibility == Visibility.Collapsed
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         public int Id
@@ -280,9 +283,12 @@ namespace TUM.CMS.VplControl.Core
             OnPropertyChanged("Left");
         }
 
-        public void AddInputPortToNode(string name, Type type, bool multipleConnectionsAllowed=false)
+        public void AddInputPortToNode(string name, Type type, bool multipleConnectionsAllowed = false)
         {
-            var port = new Port(name, this, PortTypes.Input, type) { MultipleConnectionsAllowed = multipleConnectionsAllowed };
+            var port = new Port(name, this, PortTypes.Input, type)
+            {
+                MultipleConnectionsAllowed = multipleConnectionsAllowed
+            };
             InputPortPanel.Children.Add(port);
             port.DataChanged += port_DataChanged;
             InputPorts.Add(port);
@@ -299,11 +305,23 @@ namespace TUM.CMS.VplControl.Core
         }
 
 
-        public void RemoveAllInputPortsFromNode()
+        public void RemoveAllInputPortsFromNode(List<String> without = null)
         {
-            while (InputPorts.Count > 0)
+            if (without == null)
             {
-                RemoveInputPortFromNode(InputPorts.First());
+                while (InputPorts.Any())
+                {
+                    RemoveInputPortFromNode(InputPorts.First());
+                }
+            }
+            else
+            {
+                List<Port> filteredPorts= InputPorts.Where(port => !without.Contains(port.Name)).ToList();
+
+                foreach (var port in filteredPorts)
+                {
+                    RemoveInputPortFromNode(port);
+                }
             }
         }
 
