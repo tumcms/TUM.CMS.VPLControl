@@ -12,6 +12,7 @@ namespace TUM.CMS.VplControl.Core
     public abstract class Node : VplElement
     {
         private static readonly Action emptyDelegate = delegate { };
+
         private static int id = 3;
         private readonly int myid;
         private bool isResizeable;
@@ -280,20 +281,20 @@ namespace TUM.CMS.VplControl.Core
 
         public void AddInputPortToNode(string name, Type type, bool multipleConnectionsAllowed=false)
         {
-            var conn = new Port(name, this, PortTypes.Input, type) { MultipleConnectionsAllowed = multipleConnectionsAllowed };
-            InputPortPanel.Children.Add(conn);
-            conn.DataChanged += conn_DataChanged;
-            InputPorts.Add(conn);
+            var port = new Port(name, this, PortTypes.Input, type) { MultipleConnectionsAllowed = multipleConnectionsAllowed };
+            InputPortPanel.Children.Add(port);
+            port.DataChanged += port_DataChanged;
+            InputPorts.Add(port);
         }
 
-        public void RemoveInputPortFromNode(Port conn)
+        public void RemoveInputPortFromNode(Port port)
         {
-            foreach (var connector in conn.ConnectedConnectors)
+            foreach (var connector in port.ConnectedConnectors)
                 connector.RemoveFromCanvas();
 
-            InputPortPanel.Children.Remove(conn);
-            conn.DataChanged -= conn_DataChanged;
-            InputPorts.Remove(conn);
+            InputPortPanel.Children.Remove(port);
+            port.DataChanged -= port_DataChanged;
+            InputPorts.Remove(port);
         }
 
         public void AddOutputPortToNode(string name, Type type)
@@ -310,11 +311,12 @@ namespace TUM.CMS.VplControl.Core
             ControlElements.Add(element);
         }
 
-        private void conn_DataChanged(object sender, EventArgs e)
+        private void port_DataChanged(object sender, EventArgs e)
         {
             try
             {
-                if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked) Calculate();
+                if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked) 
+                    Calculate();
 
                 HasError = false;
                 TopComment.Visibility = Visibility.Hidden;
@@ -469,6 +471,9 @@ namespace TUM.CMS.VplControl.Core
 
             var topValue = xmlReader.GetAttribute("TOP").Replace(",", ".");
             var leftValue = xmlReader.GetAttribute("Left").Replace(",", ".");
+
+            topValue = xmlReader.GetAttribute("TOP").Replace(".", ",");
+            leftValue = xmlReader.GetAttribute("Left").Replace(".", ",");
 
             if (HostCanvas.ImportFlowDirection == HostCanvas.GraphFlowDirection)
             {
