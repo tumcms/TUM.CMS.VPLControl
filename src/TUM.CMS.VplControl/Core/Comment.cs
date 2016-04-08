@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using TUM.CMS.VplControl.Nodes;
 
 namespace TUM.CMS.VplControl.Core
 {
@@ -34,7 +33,7 @@ namespace TUM.CMS.VplControl.Core
             };
             scrollViewer.Content = textBlock;
 
-            CornerRadius= new CornerRadius(5);
+            CornerRadius = new CornerRadius(5);
             Child = scrollViewer;
             BorderThickness = new Thickness(2);
             Background = Application.Current.Resources["BrushBlue"] as Brush;
@@ -49,7 +48,7 @@ namespace TUM.CMS.VplControl.Core
             HostNode.HostCanvas.Children.Add(this);
 
             HostNode_PropertyChanged(null, null);
-            HostNode.PropertyChanged+= HostNode_PropertyChanged;
+            HostNode.PropertyChanged += HostNode_PropertyChanged;
         }
 
         public CommentExpandSides ExpandSide { get; set; }
@@ -68,6 +67,7 @@ namespace TUM.CMS.VplControl.Core
         ///     The host VplControl in which the VplElement is rendered.
         /// </summary>
         public VplControl HostCanvas { get; set; }
+
         public Node HostNode { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -76,14 +76,14 @@ namespace TUM.CMS.VplControl.Core
             switch (ExpandSide)
             {
                 case CommentExpandSides.Top:
-                    SetValue(Canvas.TopProperty, HostNode.Top- 125);
-                    SetValue(Canvas.LeftProperty, HostNode.Left+5);
+                    SetValue(Canvas.TopProperty, HostNode.Top - 125);
+                    SetValue(Canvas.LeftProperty, HostNode.Left + 5);
                     Width = HostNode.ActualWidth;
                     Height = 100;
                     break;
                 case CommentExpandSides.Bottom:
                     SetValue(Canvas.TopProperty, HostNode.Top + HostNode.ActualHeight + 25);
-                    SetValue(Canvas.LeftProperty, HostNode.Left+5);
+                    SetValue(Canvas.LeftProperty, HostNode.Left + 5);
                     Width = HostNode.ActualWidth;
                     Height = 100;
                     break;

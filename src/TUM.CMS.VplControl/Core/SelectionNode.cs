@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
@@ -64,7 +63,6 @@ namespace TUM.CMS.VplControl.Core
             Border.MouseLeave += SelectionNode_MouseLeave;
             MouseEnter += SelectionNode_MouseEnter;
         }
-
 
         private void listBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

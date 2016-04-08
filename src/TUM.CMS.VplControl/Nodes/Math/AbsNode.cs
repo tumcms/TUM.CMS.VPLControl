@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
@@ -26,7 +25,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
 
         public override void Calculate()
         {
-            OutputPorts[0].Data = System.Math.Abs(Double.Parse(InputPorts[0].Data.ToString()));
+            OutputPorts[0].Data = System.Math.Abs(double.Parse(InputPorts[0].Data.ToString()));
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)

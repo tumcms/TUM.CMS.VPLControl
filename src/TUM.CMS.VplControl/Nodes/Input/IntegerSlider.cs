@@ -7,15 +7,14 @@ using TUM.CMS.VplControl.Core;
 
 namespace TUM.CMS.VplControl.Nodes.Input
 {
-    
     public class IntegerSlider : Node
     {
         public IntegerSlider(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
-            AddOutputPortToNode("Number", typeof(int));
+            AddOutputPortToNode("Number", typeof (int));
 
-            SliderExpanderInteger expander = new SliderExpanderInteger
+            var expander = new SliderExpanderInteger
             {
                 Style = hostCanvas.FindResource("ExpanderSliderStyleInteger") as Style,
                 SliderValue = 5,
@@ -33,10 +32,9 @@ namespace TUM.CMS.VplControl.Nodes.Input
 
             AddControlToNode(expander);
         }
-    
+
         public override void Calculate()
         {
-          
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)

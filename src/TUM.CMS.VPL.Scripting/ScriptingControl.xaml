@@ -73,8 +73,8 @@
         </ToolBar>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="11*"/>
-                <RowDefinition Height="38*"/>
+                <RowDefinition Height="11*" />
+                <RowDefinition Height="38*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -105,7 +105,7 @@
 			</DockPanel>
             -->
 
-            <TextBlock Grid.Row="1" Background="Red" Name="TextBlockError" Grid.ColumnSpan="2" Visibility="Collapsed" ></TextBlock>
+            <TextBlock Grid.Row="1" Background="Red" Name="TextBlockError" Grid.ColumnSpan="2" Visibility="Collapsed" />
         </Grid>
     </DockPanel>
 </UserControl>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
@@ -40,12 +39,10 @@ namespace TUM.CMS.VplControl.Nodes
 
         public override void Calculate()
         {
+            string[] test = null;
 
-                string[] test=null;
-
-                string test2 = test[2];
-
-       }
+            var test2 = test[2];
+        }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
         {

@@ -12,9 +12,9 @@ namespace TUM.CMS.VplControl.Nodes.Input
         public DoubleSlider(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
-            AddOutputPortToNode("Number", typeof(double));
+            AddOutputPortToNode("Number", typeof (double));
 
-            SliderExpanderDouble expander = new SliderExpanderDouble
+            var expander = new SliderExpanderDouble
             {
                 Style = hostCanvas.FindResource("ExpanderSliderStyleDouble") as Style,
                 SliderValue = 5,
@@ -32,12 +32,10 @@ namespace TUM.CMS.VplControl.Nodes.Input
 
             AddControlToNode(expander);
         }
-    
+
         public override void Calculate()
         {
-          
         }
-
 
         public override void SerializeNetwork(XmlWriter xmlWriter)
         {
@@ -80,7 +78,7 @@ namespace TUM.CMS.VplControl.Nodes.Input
 
             var attribute1 = xmlReader.GetAttribute("SliderMin");
             if (attribute1 != null)
-                expander.SliderMin  = Convert.ToDouble(attribute1.Replace(".", ","));
+                expander.SliderMin = Convert.ToDouble(attribute1.Replace(".", ","));
 
             var attribute2 = xmlReader.GetAttribute("SliderValue");
             if (attribute2 != null)

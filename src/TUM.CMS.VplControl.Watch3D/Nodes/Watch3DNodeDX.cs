@@ -5,7 +5,6 @@ using HelixToolkit.Wpf;
 using HelixToolkit.Wpf.SharpDX;
 using SharpDX;
 using TUM.CMS.VplControl.Core;
-using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Watch3D.Controls;
 using MeshBuilder = HelixToolkit.Wpf.SharpDX.MeshBuilder;
 using ObjReader = HelixToolkit.Wpf.SharpDX.ObjReader;
@@ -54,9 +53,7 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
 
             var mb = new MeshBuilder();
             for (var i = 0; i < 1000; i++)
-            {
                 mb.AddBox(new Vector3(i + 15, i + 15, i + 15), 100, 100, 100, BoxFaces.All);
-            }
 
             // _control.meshModel.Material = PhongMaterials.Orange;
             // _control.meshModel.Geometry = mb.ToMeshGeometry3D();

@@ -72,7 +72,11 @@ namespace TUM.CMS.VplControl.Utilities
     {
         public static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
         {
-            return assembly.GetTypes().Where(type => type.Namespace != null && type.Namespace.Contains("Nodes")).Where(type => type.FullName != "Node").ToArray();
+            return
+                assembly.GetTypes()
+                    .Where(type => type.Namespace != null && type.Namespace.Contains("Nodes"))
+                    .Where(type => type.FullName != "Node")
+                    .ToArray();
         }
     }
 
@@ -294,7 +298,8 @@ namespace TUM.CMS.VplControl.Utilities
             {typeof (bool), new List<Type> {typeof (object), typeof (int), typeof (string)}},
             {typeof (string), new List<Type> {typeof (object)}},
             {typeof (object), new List<Type> {typeof (object)}},
-            {typeof (Type), new List<Type> {typeof (object)}}
+            {typeof (Type), new List<Type> {typeof (object)}},
+            {typeof (Color), new List<Type> {typeof (object)}}
         };
 
         public static bool IsCastableTo(this Type from, Type to)
@@ -330,7 +335,4 @@ namespace TUM.CMS.VplControl.Utilities
             uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
     }
-
-
-
 }

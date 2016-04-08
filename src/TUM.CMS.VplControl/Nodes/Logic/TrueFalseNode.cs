@@ -4,7 +4,7 @@ using TUM.CMS.VplControl.Core;
 
 namespace TUM.CMS.VplControl.Nodes.Logic
 {
-    class TrueFalseNode : Node
+    internal class TrueFalseNode : Node
     {
         private readonly ToggleButton toggleButton;
 
@@ -27,13 +27,13 @@ namespace TUM.CMS.VplControl.Nodes.Logic
             toggleButton.IsChecked = true;
         }
 
-        void toggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void toggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             toggleButton.Content = "False";
             OutputPorts[0].Data = toggleButton.IsChecked;
         }
 
-        void toggleButton_Checked(object sender, RoutedEventArgs e)
+        private void toggleButton_Checked(object sender, RoutedEventArgs e)
         {
             toggleButton.Content = "True";
             OutputPorts[0].Data = toggleButton.IsChecked;
@@ -41,7 +41,6 @@ namespace TUM.CMS.VplControl.Nodes.Logic
 
         public override void Calculate()
         {
-
         }
 
         public override Node Clone()

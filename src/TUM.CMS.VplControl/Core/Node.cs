@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +13,6 @@ namespace TUM.CMS.VplControl.Core
     public abstract class Node : VplElement
     {
         private static readonly Action emptyDelegate = delegate { };
-
         private static int id = 3;
         private readonly int myid;
         private bool isResizeable;
@@ -22,7 +20,7 @@ namespace TUM.CMS.VplControl.Core
         private int minMainHeight;
         private int minMainMinWidth;
 
-        protected Node(Core.VplControl hostCanvas) : base(hostCanvas)
+        protected Node(VplControl hostCanvas) : base(hostCanvas)
         {
             Guid = Guid.NewGuid();
 
@@ -158,7 +156,7 @@ namespace TUM.CMS.VplControl.Core
 
             ShowHelpOnMouseOver = false;
 
-            if (QuestButton != null) if (QuestButton != null) base.QuestButton.Click += QuestButton_Click;
+            if (QuestButton != null) if (QuestButton != null) QuestButton.Click += QuestButton_Click;
 
             SetZIndex(this, myid);
             SetZIndex(Border, myid);
@@ -173,13 +171,6 @@ namespace TUM.CMS.VplControl.Core
 
             SetZIndex(TopComment, myid);
             SetZIndex(BottomComment, myid);
-        }
-
-        private void QuestButton_Click(object sender, RoutedEventArgs e)
-        {
-            BottomComment.Visibility = BottomComment.Visibility == Visibility.Collapsed
-                ? Visibility.Visible
-                : Visibility.Collapsed;
         }
 
         public int Id
@@ -232,6 +223,13 @@ namespace TUM.CMS.VplControl.Core
                 SetRow(resizeRectangle, 2);
                 ContentGrid.Children.Add(resizeRectangle);
             }
+        }
+
+        private void QuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            BottomComment.Visibility = BottomComment.Visibility == Visibility.Collapsed
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private void Node_KeyDown(object sender, KeyEventArgs e)
@@ -304,24 +302,19 @@ namespace TUM.CMS.VplControl.Core
             InputPorts.Remove(port);
         }
 
-
-        public void RemoveAllInputPortsFromNode(List<String> without = null)
+        public void RemoveAllInputPortsFromNode(List<string> without = null)
         {
             if (without == null)
             {
                 while (InputPorts.Any())
-                {
                     RemoveInputPortFromNode(InputPorts.First());
-                }
             }
             else
             {
-                List<Port> filteredPorts= InputPorts.Where(port => !without.Contains(port.Name)).ToList();
+                var filteredPorts = InputPorts.Where(port => !without.Contains(port.Name)).ToList();
 
                 foreach (var port in filteredPorts)
-                {
                     RemoveInputPortFromNode(port);
-                }
             }
         }
 
@@ -343,7 +336,7 @@ namespace TUM.CMS.VplControl.Core
         {
             try
             {
-                if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked) 
+                if (AutoCheckBox.IsChecked != null && (bool) AutoCheckBox.IsChecked)
                     Calculate();
 
                 HasError = false;
@@ -355,7 +348,6 @@ namespace TUM.CMS.VplControl.Core
 
                 TopComment.Text = ex.ToString();
                 TopComment.Visibility = Visibility.Visible;
-
             }
         }
 

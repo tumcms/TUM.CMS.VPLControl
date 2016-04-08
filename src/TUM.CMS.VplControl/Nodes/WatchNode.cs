@@ -10,7 +10,7 @@ namespace TUM.CMS.VplControl.Nodes
     {
         public WatchNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Object", typeof (object),true);
+            AddInputPortToNode("Object", typeof (object), true);
 
             var textBlock = new TextBlock
             {
@@ -42,7 +42,7 @@ namespace TUM.CMS.VplControl.Nodes
             foreach (var port in InputPorts)
             {
                 //if(port.MultipleConnectionsAllowed)
-                    //port.CalculateData();
+                //port.CalculateData();
             }
 
             if (InputPorts[0] == null || ControlElements[0] == null) return;

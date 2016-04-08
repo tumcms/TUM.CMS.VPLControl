@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml;
 using Microsoft.Win32;
@@ -8,18 +9,18 @@ namespace TUM.CMS.VplControl.Nodes.Input
 {
     public class FilePathNode : Node
     {
-        private TextBlock textBlock;
+        private readonly TextBlock textBlock;
 
         public FilePathNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
             AddOutputPortToNode("String", typeof (string));
 
-            Grid grid=new Grid();
+            var grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-             textBlock = new TextBlock(){MinWidth = 120, MaxWidth = 300, IsHitTestVisible = false};
+            textBlock = new TextBlock {MinWidth = 120, MaxWidth = 300, IsHitTestVisible = false};
 
             var button = new Button {Content = "Search"};
             button.Click += button_Click;
@@ -31,11 +32,11 @@ namespace TUM.CMS.VplControl.Nodes.Input
             AddControlToNode(grid);
         }
 
-        void button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
             {
-                Multiselect = false,
+                Multiselect = false
                 //Filter = "vplXML (.vplxml)|*.vplxml"
             };
 
@@ -53,8 +54,6 @@ namespace TUM.CMS.VplControl.Nodes.Input
             Border.Focus();
             Border.Focusable = false;
         }
-
-
 
         public override void Calculate()
         {

@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
-using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
@@ -56,17 +54,10 @@ namespace TUM.CMS.VplControl.Core
         public object Data
         {
             get { return data; }
-            set
-            {
-                CalculateData(value);
-            }
+            set { CalculateData(value); }
         }
 
-        public bool MultipleConnectionsAllowed
-        {
-            get; set; 
-            
-        }
+        public bool MultipleConnectionsAllowed { get; set; }
 
         public BindingPoint Origin { get; set; }
         public List<Connector> ConnectedConnectors { get; set; }
@@ -120,7 +111,8 @@ namespace TUM.CMS.VplControl.Core
                             {
                                 if (!ParentNode.HostCanvas.TempStartPort.MultipleConnectionsAllowed)
                                 {
-                                    foreach (var tempConnector in ParentNode.HostCanvas.TempStartPort.ConnectedConnectors)
+                                    foreach (
+                                        var tempConnector in ParentNode.HostCanvas.TempStartPort.ConnectedConnectors)
                                         tempConnector.RemoveFromCanvas();
 
                                     ParentNode.HostCanvas.TempStartPort.ConnectedConnectors.Clear();
@@ -136,11 +128,10 @@ namespace TUM.CMS.VplControl.Core
                                 if (!MultipleConnectionsAllowed)
                                 {
                                     foreach (var tempConnector in ConnectedConnectors)
-                                        tempConnector.RemoveFromCanvas();      
+                                        tempConnector.RemoveFromCanvas();
 
                                     ConnectedConnectors.Clear();
                                 }
-        
                             }
 
                             connector = new Connector(ParentNode.HostCanvas, ParentNode.HostCanvas.TempStartPort, this);
@@ -171,35 +162,27 @@ namespace TUM.CMS.VplControl.Core
                 DataChanged(this, new EventArgs());
         }
 
-        public void CalculateData(object value=null)
+        public void CalculateData(object value = null)
         {
             if (PortType == PortTypes.Input)
             {
                 if (MultipleConnectionsAllowed && ConnectedConnectors.Count > 1)
                 {
-                    var listType = typeof (List<>).MakeGenericType(new Type[] {DataType});
-                    IList list = (IList) Activator.CreateInstance(listType);
+                    var listType = typeof (List<>).MakeGenericType(DataType);
+                    var list = (IList) Activator.CreateInstance(listType);
 
                     foreach (var conn in ConnectedConnectors)
-                    {
-                         list.Add(conn.StartPort.Data);
-                    }
+                        list.Add(conn.StartPort.Data);
 
                     data = list;
                 }
                 else if (ConnectedConnectors.Count > 0)
-                {
                     data = ConnectedConnectors[0].StartPort.Data;
-                }
                 else
-                {
                     data = null;
-                }
             }
             else
-            {
                 data = value;
-            }
 
             OnDataChanged();
         }

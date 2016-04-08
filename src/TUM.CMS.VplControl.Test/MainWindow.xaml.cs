@@ -3,8 +3,8 @@ using System.Reflection;
 using System.Windows;
 using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Utilities;
-using TUM.CMS.VPL.Scripting.Nodes;
 using TUM.CMS.VplControl.Watch3D.Nodes;
+using TUM.CMS.VPL.Scripting.Nodes;
 
 namespace TUM.CMS.VplControl.Test
 {
@@ -29,7 +29,7 @@ namespace TUM.CMS.VplControl.Test
                     .ToList());
 
             VplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
-            VplControl.ExternalNodeTypes.Add(typeof(Watch3DNode));
+            VplControl.ExternalNodeTypes.Add(typeof (Watch3DNode));
 
             VplControl.NodeTypeMode = NodeTypeModes.All;
 

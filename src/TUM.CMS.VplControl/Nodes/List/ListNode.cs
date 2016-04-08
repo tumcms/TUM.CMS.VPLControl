@@ -8,7 +8,7 @@ namespace TUM.CMS.VplControl.Nodes.List
     {
         public ListNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            var label = new Label {Width = 40, Content = "List", Margin = new Thickness(5), FontSize= 14};
+            var label = new Label {Width = 40, Content = "List", Margin = new Thickness(5), FontSize = 14};
 
             AddControlToNode(label);
 
@@ -18,7 +18,7 @@ namespace TUM.CMS.VplControl.Nodes.List
 
         public override void Calculate()
         {
-                OutputPorts[0].Data = InputPorts[0].Data;
+            OutputPorts[0].Data = InputPorts[0].Data;
         }
 
         public override Node Clone()

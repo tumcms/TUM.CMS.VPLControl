@@ -1,6 +1,4 @@
-﻿using TUM.CMS.VplControl.Nodes;
-
-namespace TUM.CMS.VplControl.Core
+﻿namespace TUM.CMS.VplControl.Core
 {
     internal class CopyConnection
     {

@@ -11,12 +11,12 @@ namespace TUM.CMS.NodeClassGenerator
             Console.WriteLine("Input class name:");
             var name = Console.ReadLine();
 
-            List<PortInfo> inputPortInfos= new List<PortInfo>();
-            List<PortInfo> outputPortInfos = new List<PortInfo>();
+            var inputPortInfos = new List<PortInfo>();
+            var outputPortInfos = new List<PortInfo>();
 
             Console.WriteLine("New input port?");
 
-            while (Console.ReadLine()=="y")
+            while (Console.ReadLine() == "y")
             {
                 Console.WriteLine("Port name");
                 var portName = Console.ReadLine();
@@ -24,7 +24,7 @@ namespace TUM.CMS.NodeClassGenerator
                 Console.WriteLine("Port type");
                 var portType = Console.ReadLine();
 
-                inputPortInfos.Add(new PortInfo(){Name=portName, Type = portType});
+                inputPortInfos.Add(new PortInfo {Name = portName, Type = portType});
                 Console.WriteLine("New input port?");
             }
 
@@ -38,12 +38,12 @@ namespace TUM.CMS.NodeClassGenerator
                 Console.WriteLine("Port type");
                 var portType = Console.ReadLine();
 
-                outputPortInfos.Add(new PortInfo() { Name = portName, Type = portType });
+                outputPortInfos.Add(new PortInfo {Name = portName, Type = portType});
                 Console.WriteLine("New output port?");
             }
 
 
-            string fileString =
+            var fileString =
                 @"using System;
             using System.Windows;
             using System.Windows.Controls;
@@ -60,15 +60,17 @@ namespace TUM.CMS.NodeClassGenerator
 
             foreach (var portInfo in inputPortInfos)
             {
-                fileString += @"AddInputPortToNode(""" + portInfo.Name + @"""," + "typeof(" + portInfo.Type + "));" + Environment.NewLine;
+                fileString += @"AddInputPortToNode(""" + portInfo.Name + @"""," + "typeof(" + portInfo.Type + "));" +
+                              Environment.NewLine;
             }
 
             foreach (var portInfo in outputPortInfos)
             {
-                fileString += @"AddOutputPortToNode(""" + portInfo.Name + @"""," + "typeof(" + portInfo.Type + "));" + Environment.NewLine;
+                fileString += @"AddOutputPortToNode(""" + portInfo.Name + @"""," + "typeof(" + portInfo.Type + "));" +
+                              Environment.NewLine;
             }
 
-            fileString +=@"
+            fileString += @"
                     }
 
                     public override void Calculate()
@@ -101,9 +103,8 @@ namespace TUM.CMS.NodeClassGenerator
                 }
             }";
 
-            string path = @"c:\temp\" + name + ".cs";
+            var path = @"c:\temp\" + name + ".cs";
             File.WriteAllText(path, fileString);
-
         }
     }
 

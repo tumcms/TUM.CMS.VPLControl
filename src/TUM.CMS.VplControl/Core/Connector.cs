@@ -6,7 +6,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
-using TUM.CMS.VplControl.Nodes;
 
 namespace TUM.CMS.VplControl.Core
 {

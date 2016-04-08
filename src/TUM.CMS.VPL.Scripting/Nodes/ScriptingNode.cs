@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using TUM.CMS.VplControl.Core;
-using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VPL.Scripting.CSharp;
 using TUM.CMS.VPL.Scripting.Python;
 
@@ -117,9 +116,7 @@ namespace TUM.CMS.VPL.Scripting.Nodes
                             InputPorts[counter].DataType = para.ParameterType.GetGenericArguments()[0];
                         }
                         else
-                        {
                             InputPorts[counter].DataType = para.ParameterType;
-                        }
 
                         InputPorts[counter].Name = para.Name;
                     }
@@ -181,8 +178,6 @@ namespace TUM.CMS.VPL.Scripting.Nodes
 
         public override void Calculate()
         {
-
-
             // Define the Input for the Script
             var parameters = InputPorts.Select(port => port.Data).ToList();
 

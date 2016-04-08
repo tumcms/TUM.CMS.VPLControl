@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,11 +78,13 @@
     <Compile Include="ContentMenu\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ExpanderColor.cs" />
     <Compile Include="Controls\SliderExpanderDouble.cs" />
     <Compile Include="Controls\SliderExpanderInteger.cs" />
     <Compile Include="Core\BindingPoint.cs" />
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Core\SearchTextBox.cs" />
+    <Compile Include="Nodes\ColorNode.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Nodes\ExpressionNode.cs" />
     <Compile Include="Nodes\Input\FilePath.cs" />

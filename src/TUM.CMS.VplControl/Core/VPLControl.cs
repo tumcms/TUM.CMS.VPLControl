@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using System.Xml;
 using Microsoft.Win32;
 using TUM.CMS.VplControl.ContentMenu;
-using TUM.CMS.VplControl.Nodes;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
