@@ -31,6 +31,8 @@ namespace TUM.CMS.VplControl.Nodes
                 BorderBrush = Brushes.White
             };
 
+
+
             expander.Content = cc;
             cc.SelectedColorChanged += cc_SelectedColorChanged;
 
