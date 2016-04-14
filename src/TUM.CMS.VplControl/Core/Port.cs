@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -168,13 +169,7 @@ namespace TUM.CMS.VplControl.Core
             {
                 if (MultipleConnectionsAllowed && ConnectedConnectors.Count > 1)
                 {
-                    var listType = typeof (List<>).MakeGenericType(DataType);
-                    var list = (IList) Activator.CreateInstance(listType);
-
-                    foreach (var conn in ConnectedConnectors)
-                        list.Add(conn.StartPort.Data);
-
-                    data = list;
+                    data = ConnectedConnectors.Select(conn => conn.StartPort.Data).ToList();
                 }
                 else if (ConnectedConnectors.Count > 0)
                     data = ConnectedConnectors[0].StartPort.Data;
