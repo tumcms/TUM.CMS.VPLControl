@@ -130,7 +130,7 @@ namespace TUM.CMS.VplControl.Core
             else
             {
                 listBox.ItemsSource = typeList
-                    .Where(x => x.Name.StartsWith(searchArgs.Keyword, StringComparison.OrdinalIgnoreCase))
+                    .Where(x => x.Name.ToLower().Contains(searchArgs.Keyword.ToLower(), StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 listBox.SelectedIndex = 0;
             }
