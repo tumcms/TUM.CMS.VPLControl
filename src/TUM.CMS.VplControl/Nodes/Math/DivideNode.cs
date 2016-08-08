@@ -17,7 +17,6 @@ namespace TUM.CMS.VplControl.Nodes.Math
             var label = new Label
             {
                 Content = "/",
-                Width = 60,
                 FontSize = 30,
                 HorizontalContentAlignment = HorizontalAlignment.Center
             };

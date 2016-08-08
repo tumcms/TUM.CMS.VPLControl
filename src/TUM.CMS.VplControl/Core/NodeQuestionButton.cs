@@ -9,7 +9,9 @@ namespace TUM.CMS.VplControl.Core
         public NodeQuestionButton(VplElement hostNodeGroup)
         {
             HostElement = hostNodeGroup;
-            HostElement.HostCanvas.Children.Add(this);
+            //HostElement.HostCanvas.Children.Add(this);
+            HostElement.HitTestGrid.Children.Add(this);
+            Grid.SetColumn(this, 0);
 
             Style = FindResource("QuestButton20") as Style;
 

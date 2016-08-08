@@ -9,14 +9,16 @@
 
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="1*" />
-        </Grid.ColumnDefinitions>
+        <TabControl>
+            <TabItem Header="Project">
+                <core:VplControl Name="VplControl" />
+            </TabItem>
+            <TabItem Header="Group_1">
+                <core:VplGroupControl Name="VplGroupControl"  />
+            </TabItem>
+            <TabItem Header="+" />
 
-        <wpfToolkit:PropertyGrid Name="VplPropertyGrid" />
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
-        <core:VplControl Name="VplControl" Grid.Column="2" />
+        </TabControl>
+
     </Grid>
 </Window>

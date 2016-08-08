@@ -17,10 +17,12 @@ namespace TUM.CMS.VplControl.Nodes.Input
             AddOutputPortToNode("String", typeof (string));
 
             var grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(60, GridUnitType.Pixel)});
+            grid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(100, GridUnitType.Auto)});
 
-            textBlock = new TextBlock {MinWidth = 120, MaxWidth = 300, IsHitTestVisible = false};
+            textBlock = new TextBlock {IsHitTestVisible = false, VerticalAlignment = VerticalAlignment.Center};
+
+            textBlock.SetValue(ColumnProperty, 1);
 
             var button = new Button {Content = "Search"};
             button.Click += button_Click;
@@ -44,6 +46,7 @@ namespace TUM.CMS.VplControl.Nodes.Input
             if (openFileDialog.ShowDialog() == true)
             {
                 textBlock.Text = openFileDialog.FileName;
+                //MainContentGrid.Width = 250;
                 Calculate();
             }
         }

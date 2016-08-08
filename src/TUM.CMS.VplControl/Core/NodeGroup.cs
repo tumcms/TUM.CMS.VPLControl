@@ -47,7 +47,7 @@ namespace TUM.CMS.VplControl.Core
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            HostCanvas.MouseMode = MouseModes.Nothing;
+            HostCanvas.mouseMode = MouseMode.Nothing;
         }
 
         private void HitTestBorder_MouseDown(object sender, MouseButtonEventArgs e)
@@ -62,13 +62,12 @@ namespace TUM.CMS.VplControl.Core
                 HostCanvas.SelectedNodes.Add(node);
             }
 
-            HostCanvas.MouseMode = MouseModes.GroupSelection;
+            HostCanvas.mouseMode = MouseMode.GroupSelection;
         }
 
         public override void binButton_Click(object sender, RoutedEventArgs e)
         {
             Dispose();
-
             DeleteGroup();
         }
 

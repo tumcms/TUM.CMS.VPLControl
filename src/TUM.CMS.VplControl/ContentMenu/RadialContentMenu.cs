@@ -60,7 +60,7 @@ namespace TUM.CMS.VplControl.ContentMenu
             Panel.SetZIndex(this, 9999999);
         }
 
-        public Core.VplControl HostCanvas { get; private set; }
+        public Core.VplControl HostCanvas { get; }
 
         public void Dispose()
         {
@@ -125,13 +125,11 @@ namespace TUM.CMS.VplControl.ContentMenu
                         window.Show();
                         break;
                     case "MenuZoomToFit":
-
-
                         // fit pan
                         bBox = Node.GetBoundingBoxOfNodes(HostCanvas.NodeCollection.ToList());
 
-                        var deltaX = (bBox.Left + bBox.Width/2) - HostCanvas.ActualWidth/2;
-                        var deltaY = (bBox.Top + bBox.Height/2) - HostCanvas.ActualHeight/2;
+                        var deltaX = bBox.Left + bBox.Width/2 - HostCanvas.ActualWidth/2;
+                        var deltaY = bBox.Top + bBox.Height/2 - HostCanvas.ActualHeight/2;
 
                         foreach (var node in HostCanvas.NodeCollection)
                         {
@@ -152,13 +150,8 @@ namespace TUM.CMS.VplControl.ContentMenu
 
                         if (ratio < 0)
                         {
-                            HostCanvas.DoZoomIn(new Point(HostCanvas.ActualWidth/2, HostCanvas.ActualHeight/2),
-                                Math.Abs(ratio));
-                        }
-                        else
-                        {
-                            HostCanvas.DoZoomOut(new Point(HostCanvas.ActualWidth/2, HostCanvas.ActualHeight/2),
-                                Math.Abs(ratio) + 0.3);
+                            // HostCanvas.DoZoomIn(new Point(HostCanvas.ActualWidth/2, HostCanvas.ActualHeight/2),
+                            //     Math.Abs(ratio));
                         }
 
                         HostCanvas.Refresh();
@@ -166,8 +159,8 @@ namespace TUM.CMS.VplControl.ContentMenu
                         // fit pan
                         bBox = Node.GetBoundingBoxOfNodes(HostCanvas.NodeCollection.ToList());
 
-                        deltaX = (bBox.Left + bBox.Width/2) - HostCanvas.ActualWidth/2;
-                        deltaY = (bBox.Top + bBox.Height/2) - HostCanvas.ActualHeight/2;
+                        deltaX = bBox.Left + bBox.Width/2 - HostCanvas.ActualWidth/2;
+                        deltaY = bBox.Top + bBox.Height/2 - HostCanvas.ActualHeight/2;
 
                         foreach (var node in HostCanvas.NodeCollection)
                         {

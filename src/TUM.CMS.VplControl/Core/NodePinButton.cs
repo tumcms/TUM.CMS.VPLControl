@@ -4,12 +4,14 @@ using System.Windows.Controls;
 
 namespace TUM.CMS.VplControl.Core
 {
-    public class NodeResizeButton : Button
+    public class NodePinButton : Button
     {
-        public NodeResizeButton(VplElement hostElement)
+        public NodePinButton(VplElement hostElement)
         {
             HostElement = hostElement;
-            hostElement.HostCanvas.Children.Add(this);
+            //HostElement.HostCanvas.Children.Add(this);
+            HostElement.HitTestGrid.Children.Add(this);
+            Grid.SetColumn(this, 3);
 
             Style = FindResource("PinButton20") as Style;
 

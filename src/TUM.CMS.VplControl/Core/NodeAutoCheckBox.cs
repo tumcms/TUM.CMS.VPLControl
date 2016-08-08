@@ -10,7 +10,11 @@ namespace TUM.CMS.VplControl.Core
         public NodeAutoCheckBox(VplElement hostNodeGroup)
         {
             HostElement = hostNodeGroup;
-            HostElement.HostCanvas.Children.Add(this);
+            //HostElement.HostCanvas.Children.Add(this);
+            HostElement.HitTestGrid.Children.Add(this);
+            Grid.SetColumn(this, 2);
+
+            Margin = new Thickness(5);
 
             IsChecked = true;
             BorderBrush = Application.Current.Resources["BrushBlue"] as Brush;

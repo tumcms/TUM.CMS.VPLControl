@@ -2,36 +2,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Shapes;
 using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
 {
     public class Port : Control
     {
+        private readonly VplControl hostCanvas;
         private object data;
 
         public Port(string name, Node parent, PortTypes portType, Type type)
         {
             ParentNode = parent;
-
+            hostCanvas = ParentNode.HostCanvas;
             DataType = type;
             PortType = portType;
             Name = name;
 
             if (portType == PortTypes.Input)
-                Style = ParentNode.HostCanvas.FindResource("VplPortStyleLeft") as Style;
+                Style = hostCanvas.FindResource("VplPortStyleLeft") as Style;
             else
-                Style = ParentNode.HostCanvas.FindResource("VplPortStyleRight") as Style;
+                Style = hostCanvas.FindResource("VplPortStyleRight") as Style;
 
             MouseDown += Port_MouseDown;
-            ParentNode.SizeChanged += ParentNode_SizeChanged;
 
+            ParentNode.SizeChanged += ParentNode_SizeChanged;
             ParentNode.PropertyChanged += ParentNode_PropertyChanged;
+
+            ConnectedConnectors = new List<Connector>();
+            Origin = new BindingPoint(0, 0);
+        }
+
+        public Port(string name, PortTypes portType, Type type, VplControl hostCanvas)
+        {
+            DataType = type;
+            PortType = portType;
+            Name = name;
+
+            this.hostCanvas = hostCanvas;
+
+            if (portType == PortTypes.Input)
+                Style = this.hostCanvas.FindResource("VplPortStyleLeft") as Style;
+            else
+                Style = this.hostCanvas.FindResource("VplPortStyleRight") as Style;
+
+            MouseDown += Port_MouseDown;
+
+            // ParentNode.SizeChanged += ParentNode_SizeChanged;
+            // ParentNode.PropertyChanged += ParentNode_PropertyChanged;
+
             ConnectedConnectors = new List<Connector>();
             Origin = new BindingPoint(0, 0);
         }
@@ -47,7 +69,6 @@ namespace TUM.CMS.VplControl.Core
         }
 
         public new string Name { get; set; }
-        public Ellipse Geometry { get; set; }
         public Node ParentNode { get; set; }
         public PortTypes PortType { get; set; }
         public Type DataType { get; set; }
@@ -63,64 +84,61 @@ namespace TUM.CMS.VplControl.Core
         public BindingPoint Origin { get; set; }
         public List<Connector> ConnectedConnectors { get; set; }
 
-        private void ParentNode_SizeChanged(object sender, SizeChangedEventArgs e)
+        public void ParentNode_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             CalcOrigin();
         }
 
-        private void ParentNode_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void ParentNode_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             CalcOrigin();
         }
 
-        private void CalcOrigin()
+        public void CalcOrigin()
         {
-            Origin.X = TranslatePoint(new Point(Width/2, Height/2), ParentNode.HostCanvas).X;
-            Origin.Y = TranslatePoint(new Point(Width/2, Height/2), ParentNode.HostCanvas).Y;
+            Origin.X = TranslatePoint(new Point(Width/2, Height/2), hostCanvas).X;
+            Origin.Y = TranslatePoint(new Point(Width/2, Height/2), hostCanvas).Y;
         }
 
         private void Port_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            switch (ParentNode.HostCanvas.SplineMode)
+            switch (hostCanvas.SplineMode)
             {
                 case SplineModes.Nothing:
-                    ParentNode.HostCanvas.TempStartPort = this;
-                    ParentNode.HostCanvas.SplineMode = SplineModes.Second;
+                    hostCanvas.TempStartPort = this;
+                    hostCanvas.SplineMode = SplineModes.Second;
                     break;
                 case SplineModes.Second:
                     if (
                         (
-                            (
-                                ParentNode.HostCanvas.TempStartPort.DataType.IsCastableTo(DataType) &&
-                                ParentNode.HostCanvas.TypeSensitive && PortType == PortTypes.Output
-                                ||
-                                DataType.IsCastableTo(ParentNode.HostCanvas.TempStartPort.DataType) &&
-                                ParentNode.HostCanvas.TypeSensitive && PortType == PortTypes.Input
-                                ) // data types matching
+                            hostCanvas.TempStartPort.DataType.IsCastableTo(DataType) &&
+                            hostCanvas.TypeSensitive && PortType == PortTypes.Output
                             ||
-                            (!ParentNode.HostCanvas.TypeSensitive) // data types must not match
+                            DataType.IsCastableTo(hostCanvas.TempStartPort.DataType) &&
+                            hostCanvas.TypeSensitive && PortType == PortTypes.Input // data types matching
+                            ||
+                            !hostCanvas.TypeSensitive // data types must not match
                             )
-                        && PortType != ParentNode.HostCanvas.TempStartPort.PortType
+                        && PortType != hostCanvas.TempStartPort.PortType
                             // is not same port type --> input to output or output to input
-                        && !Equals(ParentNode, ParentNode.HostCanvas.TempStartPort.ParentNode)) // is not same node
+                        && !Equals(ParentNode, hostCanvas.TempStartPort.ParentNode)) // is not same node
                     {
                         Connector connector;
 
                         if (PortType == PortTypes.Output)
                         {
-                            if (ParentNode.HostCanvas.TempStartPort.ConnectedConnectors.Count > 0)
+                            if (hostCanvas.TempStartPort.ConnectedConnectors.Count > 0)
                             {
-                                if (!ParentNode.HostCanvas.TempStartPort.MultipleConnectionsAllowed)
+                                if (!hostCanvas.TempStartPort.MultipleConnectionsAllowed)
                                 {
-                                    foreach (
-                                        var tempConnector in ParentNode.HostCanvas.TempStartPort.ConnectedConnectors)
+                                    foreach (var tempConnector in hostCanvas.TempStartPort.ConnectedConnectors)
                                         tempConnector.RemoveFromCanvas();
 
-                                    ParentNode.HostCanvas.TempStartPort.ConnectedConnectors.Clear();
+                                    hostCanvas.TempStartPort.ConnectedConnectors.Clear();
                                 }
                             }
 
-                            connector = new Connector(ParentNode.HostCanvas, this, ParentNode.HostCanvas.TempStartPort);
+                            connector = new Connector(hostCanvas, this, hostCanvas.TempStartPort);
                         }
                         else
                         {
@@ -135,15 +153,15 @@ namespace TUM.CMS.VplControl.Core
                                 }
                             }
 
-                            connector = new Connector(ParentNode.HostCanvas, ParentNode.HostCanvas.TempStartPort, this);
+                            connector = new Connector(hostCanvas, hostCanvas.TempStartPort, this);
                         }
 
-                        ParentNode.HostCanvas.ConnectorCollection.Add(connector);
+                        hostCanvas.ConnectorCollection.Add(connector);
                     }
 
 
-                    ParentNode.HostCanvas.SplineMode = SplineModes.Nothing;
-                    ParentNode.HostCanvas.ClearTempLine();
+                    hostCanvas.SplineMode = SplineModes.Nothing;
+                    hostCanvas.ClearTempLine();
                     break;
             }
 
@@ -169,15 +187,29 @@ namespace TUM.CMS.VplControl.Core
             {
                 if (MultipleConnectionsAllowed && ConnectedConnectors.Count > 1)
                 {
-                    data = ConnectedConnectors.Select(conn => conn.StartPort.Data).ToList();
+                    var listType = typeof (List<>).MakeGenericType(DataType);
+                    var list = (IList) Activator.CreateInstance(listType);
+
+                    foreach (var conn in ConnectedConnectors)
+                    {
+                        list.Add(conn.StartPort.Data);
+                    }
+
+                    data = list;
                 }
                 else if (ConnectedConnectors.Count > 0)
+                {
                     data = ConnectedConnectors[0].StartPort.Data;
+                }
                 else
+                {
                     data = null;
+                }
             }
             else
+            {
                 data = value;
+            }
 
             OnDataChanged();
         }

@@ -13,7 +13,8 @@ namespace TUM.CMS.VplControl.Nodes.Logic
         {
             toggleButton = new ToggleButton
             {
-                Width = 80,
+                Width = 40,
+                Height = 40,
                 Margin = new Thickness(5)
             };
 

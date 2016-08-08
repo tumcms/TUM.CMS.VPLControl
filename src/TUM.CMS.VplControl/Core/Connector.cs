@@ -11,8 +11,9 @@ namespace TUM.CMS.VplControl.Core
 {
     public class Connector
     {
-        private readonly Ellipse endEllipse;
-        private readonly Ellipse srtEllipse;
+        public readonly ConnectorPort endEllipse;
+        public readonly ConnectorPort srtEllipse;
+        private int counter = 0;
 
         public Connector(VplControl hostCanvas, Port startPort, Port endPort)
         {
@@ -20,19 +21,21 @@ namespace TUM.CMS.VplControl.Core
 
             Path = new Path();
 
-            srtEllipse = new Ellipse
-            {
-                Style = hostCanvas.FindResource("VplEllipseConnStyle") as Style
-            };
-
-            endEllipse = new Ellipse
-            {
-                Style = hostCanvas.FindResource("VplEllipseConnStyle") as Style
-            };
+            srtEllipse = new ConnectorPort(hostCanvas);
+            endEllipse = new ConnectorPort(hostCanvas);
 
             Panel.SetZIndex(Path, 2);
-            Panel.SetZIndex(srtEllipse, startPort.ParentNode.Id + 1);
-            Panel.SetZIndex(endEllipse, endPort.ParentNode.Id + 1);
+
+            if (startPort.ParentNode != null)
+            {
+                Panel.SetZIndex(srtEllipse, startPort.ParentNode.Id + 1);
+            }
+
+            if (endPort.ParentNode != null)
+            {
+                Panel.SetZIndex(endEllipse, endPort.ParentNode.Id + 1);
+            }
+
 
             Path.Style = HostCanvas.FindResource("VplConnectorStyle") as Style;
 
@@ -53,11 +56,18 @@ namespace TUM.CMS.VplControl.Core
             StartPort.Origin.PropertyChanged += Origin_PropertyChanged;
             EndPort.Origin.PropertyChanged += Origin_PropertyChanged;
 
-            StartPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
-            EndPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
+            if (startPort.ParentNode != null)
+            {
+                StartPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
+                ObserveNode(StartPort.ParentNode);
+            }
 
-            ObserveNode(StartPort.ParentNode);
-            ObserveNode(EndPort.ParentNode);
+            if (endPort.ParentNode != null)
+            {
+                EndPort.ParentNode.PropertyChanged += Origin_PropertyChanged;
+                ObserveNode(EndPort.ParentNode);
+            }
+
 
             startPort.ConnectedConnectors.Add(this);
             endPort.ConnectedConnectors.Add(this);
@@ -67,16 +77,20 @@ namespace TUM.CMS.VplControl.Core
             DefinePath();
 
             HostCanvas.Children.Add(Path);
-            HostCanvas.Children.Add(srtEllipse);
-            HostCanvas.Children.Add(endEllipse);
         }
 
-        public Port StartPort { get; private set; }
-        public Port EndPort { get; private set; }
+        public Port StartPort { get; }
+        public Port EndPort { get; }
         public VplControl HostCanvas { get; set; }
         public Path Path { get; set; }
         public BindingPoint StartBezierPoint { get; set; }
         public BindingPoint EndBezierPoint { get; set; }
+
+
+        public void SynchroniseAfterZoom()
+        {
+            Origin_PropertyChanged(null, null);
+        }
 
         private void Origin_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -103,6 +117,8 @@ namespace TUM.CMS.VplControl.Core
             EndBezierPoint.X = endBezierPoint.X;
             EndBezierPoint.Y = endBezierPoint.Y;
 
+            srtEllipse.UpdateLayout();
+             
             Canvas.SetLeft(srtEllipse, StartPort.Origin.X - srtEllipse.ActualWidth/2);
             Canvas.SetTop(srtEllipse, StartPort.Origin.Y - srtEllipse.ActualHeight/2);
 

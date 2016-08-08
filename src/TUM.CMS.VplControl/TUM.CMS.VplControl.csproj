@@ -82,11 +82,17 @@
     <Compile Include="Controls\SliderExpanderDouble.cs" />
     <Compile Include="Controls\SliderExpanderInteger.cs" />
     <Compile Include="Core\BindingPoint.cs" />
+    <Compile Include="Core\ConnectorPort.cs" />
     <Compile Include="Core\NodeAutoCheckBox.cs" />
     <Compile Include="Core\SearchTextBox.cs" />
+    <Compile Include="Core\VplGroupControl.xaml.cs">
+      <DependentUpon>VplGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Core\ZoomCanvas.cs" />
     <Compile Include="Nodes\ColorNode.cs" />
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Nodes\ExpressionNode.cs" />
+    <Compile Include="Nodes\GroupInputNode.cs" />
     <Compile Include="Nodes\Input\FilePath.cs" />
     <Compile Include="Nodes\Logic\IfNode.cs" />
     <Compile Include="Nodes\Input\IntegerSlider.cs" />
@@ -109,7 +115,7 @@
     <Compile Include="Core\VplElement.cs" />
     <Compile Include="Core\NodeQuestionButton.cs" />
     <Compile Include="Core\NodeCaptionLabel.cs" />
-    <Compile Include="Core\NodeResizeButton.cs" />
+    <Compile Include="Core\NodePinButton.cs" />
     <Compile Include="Core\NodeBinButton.cs" />
     <Compile Include="Nodes\List\ListNode.cs" />
     <Compile Include="Core\Node.cs" />
@@ -120,6 +126,14 @@
     <Page Include="ContentMenu\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Core\VplGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +150,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Themes\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\InputOutputStackPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

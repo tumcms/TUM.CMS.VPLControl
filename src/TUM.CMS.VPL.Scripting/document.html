@@ -19,39 +19,39 @@ scripts and style sheets.
 <!-- IGNORE THIS SECTION -->
 <html>
 <head>
-    <title>Document</title>
-    <Style>
-        BODY, P, TD {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 10pt
-        }
+	<title>Document</title>
+	<Style>
+		BODY, P, TD {
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			font-size: 10pt
+		}
 
-        H2, H3, H4, H5 {
-            color: #ff9900;
-            font-weight: bold;
-        }
+		H2, H3, H4, H5 {
+			color: #ff9900;
+			font-weight: bold;
+		}
 
-        H2 { font-size: 13pt; }
+		H2 { font-size: 13pt; }
 
-        H3 { font-size: 12pt; }
+		H3 { font-size: 12pt; }
 
-        H4 {
-            color: black;
-            font-size: 10pt;
-        }
+		H4 {
+			color: black;
+			font-size: 10pt;
+		}
 
-        PRE {
-            BACKGROUND-COLOR: #FBEDBB;
-            FONT-FAMILY: "Courier New", Courier, mono;
-            WHITE-SPACE: pre;
-        }
+		PRE {
+			BACKGROUND-COLOR: #FBEDBB;
+			FONT-FAMILY: "Courier New", Courier, mono;
+			WHITE-SPACE: pre;
+		}
 
-        CODE {
-            COLOR: #990000;
-            FONT-FAMILY: "Courier New", Courier, mono;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
+		CODE {
+			COLOR: #990000;
+			FONT-FAMILY: "Courier New", Courier, mono;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
 </head>
 <body bgcolor="#FFFFFF" color="#000000">
 <div style="margin-left: 24px; width: 600px;">
@@ -69,7 +69,7 @@ For the sample application and source code download, please see the main article
 <a href="http://www.codeproject.com/KB/edit/AvalonEdit.aspx">Using AvalonEdit (WPF Text Editor)</a>
 
 <p>
-    <img src="Article.gif" alt="Sample Image - maximum width is 600 pixels" width="400" height="200">
+	<img src="Article.gif" alt="Sample Image - maximum width is 600 pixels" width="400" height="200">
 </p>
 
 
@@ -167,7 +167,7 @@ Those are convenience methods built on top of the <code>DocumentLine</code> clas
 
 <p>The <code>TextDocument.Lines</code> collection contains one <code>DocumentLine</code> instance for every line in the document.
 This collection is read-only to user code and is automatically updated to always<sup>
-    <small>*</small>
+	<small>*</small>
 </sup> reflect the current document content.
 
 <p>Internally, the <code>DocumentLine</code> instances are arranged in a binary tree that allows for both efficient updates and lookup.
@@ -175,8 +175,8 @@ Converting between offset and line number is possible in O(lg N) time, and the d
 
 
 <p><small>
-    * tiny exception: it is possible to see the line collection in an inconsistent state inside <code>ILineTracker</code> callbacks. Don't use <code>ILineTracker</code>
-    unless you know what you are doing!
+	* tiny exception: it is possible to see the line collection in an inconsistent state inside <code>ILineTracker</code> callbacks. Don't use <code>ILineTracker</code>
+	unless you know what you are doing!
 </small>
 
 <h3>Change Events</h3>
@@ -185,23 +185,23 @@ Here is the order in which events are raised during a document update:
 
 <p><b>BeginUpdate()</b>
 <ul>
-    <li><code>UpdateStarted</code> event is raised</li>
+	<li><code>UpdateStarted</code> event is raised</li>
 </ul>
 
 <p><b>Insert() / Remove() / Replace()</b>
 <ul>
-    <li><code>Changing</code> event is raised</li>
-    <li>The document is changed</li>
-    <li><code>TextAnchor.Deleted</code> events are raised if anchors were in the deleted text portion</li>
-    <li><code>Changed</code> event is raised</li>
+	<li><code>Changing</code> event is raised</li>
+	<li>The document is changed</li>
+	<li><code>TextAnchor.Deleted</code> events are raised if anchors were in the deleted text portion</li>
+	<li><code>Changed</code> event is raised</li>
 </ul>
 
 <p><b>EndUpdate()</b>
 <ul>
-    <li><code>TextChanged</code> event is raised</li>
-    <li><code>TextLengthChanged</code> event is raised</li>
-    <li><code>LineCountChanged</code> event is raised</li>
-    <li><code>UpdateFinished</code> event is raised</li>
+	<li><code>TextChanged</code> event is raised</li>
+	<li><code>TextLengthChanged</code> event is raised</li>
+	<li><code>LineCountChanged</code> event is raised</li>
+	<li><code>UpdateFinished</code> event is raised</li>
 </ul>
 
 <p>If the insert/remove/replace methods are called without a call to <code>BeginUpdate()</code>, they will call

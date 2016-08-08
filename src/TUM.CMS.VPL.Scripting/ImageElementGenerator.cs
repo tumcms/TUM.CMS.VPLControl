@@ -59,7 +59,7 @@ namespace TUM.CMS.VPL.Scripting
         public override int GetFirstInterestedOffset(int startOffset)
         {
             var m = FindMatch(startOffset);
-            return m.Success ? (startOffset + m.Index) : -1;
+            return m.Success ? startOffset + m.Index : -1;
         }
 
         /// <summary>

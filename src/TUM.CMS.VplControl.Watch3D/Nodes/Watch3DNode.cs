@@ -264,7 +264,7 @@ namespace TUM.CMS.VplControl.Watch3D.Nodes
             var stereoControl = new Stereo3DViewControl();
             foreach (
                 var elem in
-                    Control.ViewPort3D.Children.OfType<ContainerUIElement3D>().SelectMany(child => (child).Children))
+                    Control.ViewPort3D.Children.OfType<ContainerUIElement3D>().SelectMany(child => child.Children))
             {
                 if ((elem as ModelUIElement3D).Model.GetType() == typeof (GeometryModel3D))
                 {

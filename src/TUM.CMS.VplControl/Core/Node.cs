@@ -14,7 +14,6 @@ namespace TUM.CMS.VplControl.Core
     {
         private static readonly Action emptyDelegate = delegate { };
         private static int id = 3;
-        private readonly int myid;
         private bool isResizeable;
         private bool isResizing;
         private int minMainHeight;
@@ -26,7 +25,7 @@ namespace TUM.CMS.VplControl.Core
 
             id = Interlocked.Increment(ref id);
             id = Interlocked.Increment(ref id);
-            myid = id;
+            Id = id;
 
             InputPorts = new List<Port>();
             OutputPorts = new List<Port>();
@@ -108,6 +107,9 @@ namespace TUM.CMS.VplControl.Core
             ContentGrid.RowDefinitions.Insert(1, new RowDefinition {Height = new GridLength(1, GridUnitType.Auto)});
             // Risize area
 
+            ContentGrid.SizeChanged += ContentGridOnSizeChanged;
+            ContentGrid.VerticalAlignment = VerticalAlignment.Center;
+
             // ----------------------------------------------------------------------------------------------------------------------
             // Main content grid
             // ----------------------------------------------------------------------------------------------------------------------
@@ -126,7 +128,7 @@ namespace TUM.CMS.VplControl.Core
             // Event delagates
             // ----------------------------------------------------------------------------------------------------------------------
             Border.MouseDown += Node_MouseDown;
-            HostCanvas.MouseUp += HostCanvas_MouseUp;
+
             Loaded += Node_Loaded;
             KeyUp += Node_KeyUp;
             KeyDown += Node_KeyDown;
@@ -158,25 +160,71 @@ namespace TUM.CMS.VplControl.Core
 
             if (QuestButton != null) if (QuestButton != null) QuestButton.Click += QuestButton_Click;
 
-            SetZIndex(this, myid);
-            SetZIndex(Border, myid);
+            SetZIndex(this, Id);
+            SetZIndex(Border, Id);
 
 
-            if (HitTestBorder != null) SetZIndex(HitTestBorder, myid);
-            if (BinButton != null) SetZIndex(BinButton, myid);
-            if (ResizeButton != null) SetZIndex(ResizeButton, myid);
-            if (QuestButton != null) SetZIndex(QuestButton, myid);
-            if (CaptionLabel != null) SetZIndex(CaptionLabel, myid);
-            if (AutoCheckBox != null) SetZIndex(AutoCheckBox, myid);
+            if (HitTestBorder != null) SetZIndex(HitTestBorder, Id);
+            if (BinButton != null) SetZIndex(BinButton, Id);
+            if (ResizeButton != null) SetZIndex(ResizeButton, Id);
+            if (QuestButton != null) SetZIndex(QuestButton, Id);
+            if (CaptionLabel != null) SetZIndex(CaptionLabel, Id);
+            if (AutoCheckBox != null) SetZIndex(AutoCheckBox, Id);
 
-            SetZIndex(TopComment, myid);
-            SetZIndex(BottomComment, myid);
+            SetZIndex(TopComment, Id);
+            SetZIndex(BottomComment, Id);
+
+            if (GetType() == typeof (SelectionNode)) return;
+            HostCanvas.NodeCollection.Add(this);
         }
 
-        public int Id
+        private void ContentGridOnSizeChanged(object sender, SizeChangedEventArgs sizeChangedEventArgs)
         {
-            get { return myid; }
+            if(HostCanvas.mouseMode== MouseMode.Zooming) return;
+
+
+            if (sizeChangedEventArgs.WidthChanged)
+            {
+
+                Border.Width = Math.Ceiling(ContentGrid.ActualWidth / 10.0d) * 10 +10;
+
+                List<Double> values = new List<Double>()
+                {
+                    Border.ActualWidth/1.618, //Golden Ratio
+                    Border.ActualWidth*1.618, //Golden Ratio flip
+                    Border.ActualWidth, //Quadratic
+                    Border.ActualWidth / 10, //1:10
+                    Border.ActualWidth / 5, //1:5
+                };
+
+                for (int i = 0; i < values.Count; i++)
+                {
+                    values[i] = Math.Ceiling(values[i] / 10.0d)*10;
+                }
+
+                
+
+                //Console.Write(GetType() + @": ActualContentGridWidth: " + ContentGrid.ActualWidth + @" - ActualContentGridHeight: " + ContentGrid.ActualHeight + " ---- ");
+
+                foreach (var value in values)
+                {
+                    //Console.Write(value + @", ");
+                }
+
+                //Console.WriteLine(@"Min: " + values.Min());
+
+                values = values.Where(v => v > ContentGrid.ActualHeight ).ToList();
+
+                if (values.Count > 0)
+                {
+                    Border.MinHeight = values.Min();
+                   // ContentGrid.Height = values.Min();
+                    
+                }
+            }
         }
+
+        public int Id { get; }
 
         public bool HasError { get; set; }
         public Guid Guid { get; set; }
@@ -276,10 +324,6 @@ namespace TUM.CMS.VplControl.Core
             Calculate();
         }
 
-        public void HostCanvas_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            OnPropertyChanged("Left");
-        }
 
         public void AddInputPortToNode(string name, Type type, bool multipleConnectionsAllowed = false)
         {
@@ -354,7 +398,7 @@ namespace TUM.CMS.VplControl.Core
         public abstract void Calculate();
         public event EventHandler DeletedInNodeCollection;
 
-        public void Delete()
+        public void Delete(bool removeConnectors = true)
         {
             HostCanvas.NodeCollection.Remove(this);
             HostCanvas.Children.Remove(Border);
@@ -363,7 +407,7 @@ namespace TUM.CMS.VplControl.Core
 
             Dispose();
 
-            OnDeleted();
+            if (removeConnectors) OnDeleted();
         }
 
         public override void binButton_Click(object sender, RoutedEventArgs e)
@@ -390,6 +434,7 @@ namespace TUM.CMS.VplControl.Core
                 {
                     // Remove this node from selection
                     HostCanvas.SelectedNodes.Remove(this);
+                    HostCanvas.SelectedUiElements.Remove(Border);
                     IsSelected = false;
                 }
                 else
@@ -409,6 +454,7 @@ namespace TUM.CMS.VplControl.Core
                 {
                     // add this node to selection
                     HostCanvas.SelectedNodes.Add(this);
+                    HostCanvas.SelectedUiElements.Add(Border);
                     IsSelected = true;
                 }
                 else
@@ -418,8 +464,10 @@ namespace TUM.CMS.VplControl.Core
                         node.IsSelected = false;
 
                     HostCanvas.SelectedNodes.Clear();
+                    HostCanvas.SelectedUiElements.Clear();
 
                     HostCanvas.SelectedNodes.Add(this);
+                    HostCanvas.SelectedUiElements.Add(Border);
                     IsSelected = true;
 
                     foreach (var node in HostCanvas.SelectedNodes)
@@ -429,6 +477,8 @@ namespace TUM.CMS.VplControl.Core
                         node.OldMousePosition = e.GetPosition(HostCanvas);
                     }
                 }
+
+                HostCanvas.mouseMode = MouseMode.Selection;
             }
 
             e.Handled = true;
@@ -453,7 +503,6 @@ namespace TUM.CMS.VplControl.Core
                 Top += delta.Y;
             }
 
-
             OldMousePosition = p;
         }
 
@@ -461,6 +510,7 @@ namespace TUM.CMS.VplControl.Core
         {
             isResizing = false;
             HostCanvas.MouseMove -= HostCanvas_MouseMove;
+            HostCanvas.MouseUp -= Node_MouseUp;
         }
 
         public void OnDeleted()
@@ -523,8 +573,8 @@ namespace TUM.CMS.VplControl.Core
                 if (node.Left < minLeft) minLeft = node.Left;
                 if (node.Top < minTop) minTop = node.Top;
 
-                if ((node.Left + node.ActualWidth) > maxLeft) maxLeft = node.Left + node.ActualWidth;
-                if ((node.Top + node.ActualHeight) > maxTop) maxTop = node.Top + node.ActualHeight;
+                if (node.Left + node.ActualWidth > maxLeft) maxLeft = node.Left + node.ActualWidth;
+                if (node.Top + node.ActualHeight > maxTop) maxTop = node.Top + node.ActualHeight;
             }
 
             return new Rect(new Point(minLeft, minTop), new Size(maxLeft - minLeft, maxTop - minTop));

@@ -9,16 +9,13 @@ namespace TUM.CMS.VplControl.Nodes.Math
     public class SumNode : Node
     {
         public SumNode(Core.VplControl hostCanvas) : base(hostCanvas)
-
         {
             AddInputPortToNode("Values", typeof (double), true);
-
             AddOutputPortToNode("Value", typeof (double));
 
             var label = new Label
             {
                 Content = "Sum",
-                Width = 60,
                 FontSize = 30,
                 HorizontalContentAlignment = HorizontalAlignment.Center
             };

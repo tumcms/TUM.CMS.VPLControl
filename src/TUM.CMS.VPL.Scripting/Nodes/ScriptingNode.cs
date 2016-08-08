@@ -22,13 +22,10 @@ namespace TUM.CMS.VPL.Scripting.Nodes
         {
             scriptingControl = new ScriptingControl();
 
-
             scriptingControl.HighlightingComboBox.SelectionChanged += HighlightingComboBoxOnSelectionChanged;
-
 
             // Create new script File
             scriptingControl.CurrentFile = new CSharpScriptFile2();
-
 
             //scriptingControl.Height = 400;
             //scriptingControl.Width = 700;

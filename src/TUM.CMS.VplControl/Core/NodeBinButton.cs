@@ -9,7 +9,9 @@ namespace TUM.CMS.VplControl.Core
         public NodeBinButton(VplElement hostNodeGroup)
         {
             HostElement = hostNodeGroup;
-            HostElement.HostCanvas.Children.Add(this);
+            //HostElement.HostCanvas.Children.Add(this);
+            HostElement.HitTestGrid.Children.Add(this);
+            Grid.SetColumn(this, 4);
 
             Style = FindResource("BinButton20") as Style;
 

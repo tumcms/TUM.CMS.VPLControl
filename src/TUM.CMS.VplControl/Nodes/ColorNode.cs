@@ -32,7 +32,6 @@ namespace TUM.CMS.VplControl.Nodes
             };
 
 
-
             expander.Content = cc;
             cc.SelectedColorChanged += cc_SelectedColorChanged;
 

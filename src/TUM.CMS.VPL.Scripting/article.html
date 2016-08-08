@@ -19,39 +19,39 @@ scripts and style sheets.
 <!-- IGNORE THIS SECTION -->
 <html>
 <head>
-    <title>AvalonEdit</title>
-    <Style>
-        BODY, P, TD {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 10pt
-        }
+	<title>AvalonEdit</title>
+	<Style>
+		BODY, P, TD {
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			font-size: 10pt
+		}
 
-        H2, H3, H4, H5 {
-            color: #ff9900;
-            font-weight: bold;
-        }
+		H2, H3, H4, H5 {
+			color: #ff9900;
+			font-weight: bold;
+		}
 
-        H2 { font-size: 13pt; }
+		H2 { font-size: 13pt; }
 
-        H3 { font-size: 12pt; }
+		H3 { font-size: 12pt; }
 
-        H4 {
-            color: black;
-            font-size: 10pt;
-        }
+		H4 {
+			color: black;
+			font-size: 10pt;
+		}
 
-        PRE {
-            BACKGROUND-COLOR: #FBEDBB;
-            FONT-FAMILY: "Courier New", Courier, mono;
-            WHITE-SPACE: pre;
-        }
+		PRE {
+			BACKGROUND-COLOR: #FBEDBB;
+			FONT-FAMILY: "Courier New", Courier, mono;
+			WHITE-SPACE: pre;
+		}
 
-        CODE {
-            COLOR: #990000;
-            FONT-FAMILY: "Courier New", Courier, mono;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
+		CODE {
+			COLOR: #990000;
+			FONT-FAMILY: "Courier New", Courier, mono;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
 </head>
 <body bgcolor="#FFFFFF" color="#000000">
 <div style="margin-left: 24px; width: 600px;">
@@ -66,23 +66,23 @@ scripts and style sheets.
 <!-- Include download and sample image information. -->
 
 <ul class="download">
-    <li>
-        <a href="AvalonEdit/AvalonEdit_Binaries.zip">Download binaries - 206.5 KB</a>
-    </li>
-    <li>
-        <a href="AvalonEdit/AvalonEdit_Source.zip">Download source code - 391.3 KB</a>
-    </li>
-    <li>
-        <a href="AvalonEdit/AvalonEdit_CHM_Documentation.zip">Download .chm documentation file - 1.88 MB</a>
-    </li>
+	<li>
+		<a href="AvalonEdit/AvalonEdit_Binaries.zip">Download binaries - 206.5 KB</a>
+	</li>
+	<li>
+		<a href="AvalonEdit/AvalonEdit_Source.zip">Download source code - 391.3 KB</a>
+	</li>
+	<li>
+		<a href="AvalonEdit/AvalonEdit_CHM_Documentation.zip">Download .chm documentation file - 1.88 MB</a>
+	</li>
 </ul>
 <p>
-    The latest version of AvalonEdit can be found as part of the <a href="http://www.icsharpcode.net/OpenSource/SD/">SharpDevelop</a> project.
-    For details on AvalonEdit, please see <a href="http://www.avalonedit.net/">www.avalonedit.net</a>.
+	The latest version of AvalonEdit can be found as part of the <a href="http://www.icsharpcode.net/OpenSource/SD/">SharpDevelop</a> project.
+	For details on AvalonEdit, please see <a href="http://www.avalonedit.net/">www.avalonedit.net</a>.
 </p>
 
 <p>
-    <img src="AvalonEdit/screenshot.png" width="611" height="441" alt="Sample Image"/>
+	<img src="AvalonEdit/screenshot.png" width="611" height="441" alt="Sample Image"/>
 </p>
 
 
@@ -95,9 +95,9 @@ scripts and style sheets.
 <p>ICSharpCode.AvalonEdit is the WPF-based text editor that I've written for SharpDevelop 4.0. It is meant as a replacement
 for <a href="http://www.codeproject.com/KB/edit/TextEditorControl.aspx">ICSharpCode.TextEditor</a>, but should be:
 <ul>
-    <li>Extensible</li>
-    <li>Easy to use</li>
-    <li>Better at handling large files</li>
+	<li>Extensible</li>
+	<li>Easy to use</li>
+	<li>Better at handling large files</li>
 </ul>
 <p>
 <b>Extensible</b> means that I wanted SharpDevelop AddIns to be able to add features to the text editor.
@@ -139,15 +139,15 @@ ASP.NET, Boo, Coco/R grammars, C++, C#, HTML, Java, JavaScript, Patch files, PHP
 As you can see in this dependency graph, AvalonEdit consists of a few sub-namespaces that have cleanly separated jobs.
 Most of the namespaces have a kind of 'main' class.
 <ul>
-    <li>ICSharpCode.AvalonEdit.Utils: Various utility classes</li>
-    <li>ICSharpCode.AvalonEdit.Document: <code>TextDocument</code> &mdash; text model</li>
-    <li>ICSharpCode.AvalonEdit.Rendering: <code>TextView</code> &mdash; extensible view onto the document</li>
-    <li>ICSharpCode.AvalonEdit.Editing: <code>TextArea</code> &mdash; controls text editing (e.g. caret, selection, handles user input)</li>
-    <li>ICSharpCode.AvalonEdit.Folding: <code>FoldingManager</code> &mdash; enables code collapsing</li>
-    <li>ICSharpCode.AvalonEdit.Highlighting: <code>HighlightingManager</code> &mdash; highlighting engine</li>
-    <li>ICSharpCode.AvalonEdit.Highlighting.Xshd: <code>HighlightingLoader</code> &mdash; XML syntax highlighting definition support (.xshd files)</li>
-    <li>ICSharpCode.AvalonEdit.CodeCompletion: <code>CompletionWindow</code> &mdash; shows a drop-down list for code completion</li>
-    <li>ICSharpCode.AvalonEdit: <code>TextEditor</code> &mdash; the main control that brings it all together</li>
+	<li>ICSharpCode.AvalonEdit.Utils: Various utility classes</li>
+	<li>ICSharpCode.AvalonEdit.Document: <code>TextDocument</code> &mdash; text model</li>
+	<li>ICSharpCode.AvalonEdit.Rendering: <code>TextView</code> &mdash; extensible view onto the document</li>
+	<li>ICSharpCode.AvalonEdit.Editing: <code>TextArea</code> &mdash; controls text editing (e.g. caret, selection, handles user input)</li>
+	<li>ICSharpCode.AvalonEdit.Folding: <code>FoldingManager</code> &mdash; enables code collapsing</li>
+	<li>ICSharpCode.AvalonEdit.Highlighting: <code>HighlightingManager</code> &mdash; highlighting engine</li>
+	<li>ICSharpCode.AvalonEdit.Highlighting.Xshd: <code>HighlightingLoader</code> &mdash; XML syntax highlighting definition support (.xshd files)</li>
+	<li>ICSharpCode.AvalonEdit.CodeCompletion: <code>CompletionWindow</code> &mdash; shows a drop-down list for code completion</li>
+	<li>ICSharpCode.AvalonEdit: <code>TextEditor</code> &mdash; the main control that brings it all together</li>
 </ul>
 
 <p>
@@ -447,10 +447,10 @@ was triggered, it is an instance of <code>TextCompositionEventArgs</code>, <code
 <h2>History</h2>
 
 <ul>
-    <li>August 13, 2008: Work on AvalonEdit started</li>
-    <li>November 7, 2008: First version of AvalonEdit added to SharpDevelop 4.0 trunk</li>
-    <li>June 14, 2009: The SharpDevelop team switches to SharpDevelop 4 as their IDE for working on SharpDevelop; AvalonEdit starts to get used for real work</li>
-    <li>October 4, 2009: This article first published on The Code Project</li>
+	<li>August 13, 2008: Work on AvalonEdit started</li>
+	<li>November 7, 2008: First version of AvalonEdit added to SharpDevelop 4.0 trunk</li>
+	<li>June 14, 2009: The SharpDevelop team switches to SharpDevelop 4 as their IDE for working on SharpDevelop; AvalonEdit starts to get used for real work</li>
+	<li>October 4, 2009: This article first published on The Code Project</li>
 </ul>
 
 <p>AvalonEdit 5.0 and this sample code is provided under the MIT license.</p>

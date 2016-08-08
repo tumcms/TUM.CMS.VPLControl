@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -23,6 +25,7 @@ namespace TUM.CMS.VplControl.Core
         public Label CaptionLabel;
         private bool disposed;
         public Border HitTestBorder;
+        public Grid HitTestGrid;
         public Button QuestButton;
         public Button ResizeButton;
 
@@ -39,11 +42,13 @@ namespace TUM.CMS.VplControl.Core
             Border = new Border
             {
                 Child = this,
-                Style = FindResource("VplElementBorderStyle") as Style
+                Style = FindResource("VplElementBorderStyle") as Style,
+                Visibility = Visibility.Collapsed
             };
             DependencyPropertyDescriptor.FromProperty(IsSelectedProperty, typeof (VplElement))
                 .AddValueChanged(this, OnSelectionChanged);
-            HostCanvas.Children.Add(Border);
+            HostCanvas.AddChildren(Border);
+
 
             // ----------------------------------------------------------------------------------------------------------------------
             // HitTestBorder
@@ -52,8 +57,16 @@ namespace TUM.CMS.VplControl.Core
             HitTestBorder.MouseEnter += HitTestBorder_MouseEnter;
             HitTestBorder.MouseLeave += HitTestBorder_MouseLeave;
 
-            HostCanvas.Children.Add(HitTestBorder);
+            HitTestGrid = new Grid();
 
+            HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(30)});
+            HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(30)});
+            HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(30)});
+            HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(30)});
+
+            HitTestBorder.Child = HitTestGrid;
+            HostCanvas.AddChildren(HitTestBorder);
 
             // ----------------------------------------------------------------------------------------------------------------------
             // Buttons
@@ -62,11 +75,11 @@ namespace TUM.CMS.VplControl.Core
 
             CaptionLabel = new NodeCaptionLabel(this);
             QuestButton = new NodeQuestionButton(this);
-            ResizeButton = new NodeResizeButton(this);
+            ResizeButton = new NodePinButton(this);
             BinButton = new NodeBinButton(this);
             AutoCheckBox = new NodeAutoCheckBox(this);
 
-            CaptionLabel.Width = 80;
+            //CaptionLabel.Width = 80;
 
             BinButton.Click += binButton_Click;
 
@@ -75,6 +88,7 @@ namespace TUM.CMS.VplControl.Core
             ResizeButton.Visibility = Visibility.Collapsed;
             AutoCheckBox.Visibility = Visibility.Collapsed;
         }
+
 
         public void Dispose()
         {
@@ -214,6 +228,17 @@ namespace TUM.CMS.VplControl.Core
             }
         }
 
+        public void Hide()
+        {
+            Visibility = Visibility.Collapsed;
+            Border.Visibility = Visibility.Collapsed;
+        }
+
+        public void Show()
+        {
+            Visibility = Visibility.Visible;
+            Border.Visibility = Visibility.Visible;
+        }
 
         public new double Width { get; set; }
 

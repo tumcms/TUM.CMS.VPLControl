@@ -29,8 +29,8 @@ namespace TUM.CMS.VplControl.Nodes
                 MaxWidth = 200,
                 MaxHeight = 400,
                 CanContentScroll = true,
-                Content = textBlock
-                //IsHitTestVisible = false
+                Content = textBlock,
+               // IsHitTestVisible = false
             };
 
 

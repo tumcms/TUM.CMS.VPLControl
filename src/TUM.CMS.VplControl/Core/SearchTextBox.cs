@@ -146,7 +146,6 @@ namespace TUM.CMS.VplControl.Core
 
     public class SearchEventArgs : RoutedEventArgs
     {
-        private string keyword = "";
         private List<string> sections = new List<string>();
 
         public SearchEventArgs()
@@ -158,10 +157,6 @@ namespace TUM.CMS.VplControl.Core
         {
         }
 
-        public string Keyword
-        {
-            get { return keyword; }
-            set { keyword = value; }
-        }
+        public string Keyword { get; set; } = "";
     }
 }

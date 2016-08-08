@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document GraphFlowDirection="Horizontal">
+  <Nodes>
+    <TUM.CMS.VplControl.Nodes.Math.AddNode GUID="679db444-6063-40fb-9f7f-e1c5eef80ead" TOP="231.70666666666688" Left="534.47619047619048" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="2ba8e69b-132c-43ae-9c63-5e1cac3ab1c0" TOP="246.30984126984134" Left="735.93650793650829" />
+    <TUM.CMS.VplControl.Nodes.Input.DoubleSlider GUID="552bb4f3-238f-40c0-a245-a665316f6545" TOP="243.31428571428569" Left="118.57142857142839" SliderMax="10" SliderMin="2" SliderValue="5.1400000000000006" SliderStep="0.01" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.Math.MinNode GUID="5aef6681-04f2-4135-ba6d-27d7d2b51f9d" TOP="526.04" Left="544" />
+    <TUM.CMS.VplControl.Nodes.Math.MaxNode GUID="493057ba-b2a5-48de-b532-bb01d00f26dc" TOP="639.04" Left="545" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="523e6ec2-f0a1-4b63-8dfa-e9908a5259d1" TOP="543.04" Left="754" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="1a882d50-5a0d-4466-825a-d68468bb7444" TOP="663.04" Left="746" />
+    <TUM.CMS.VplControl.Nodes.Input.DoubleSlider GUID="7b69beff-1080-4edb-b26d-01f6a2bfd0f8" TOP="503.03999999999996" Left="120" SliderMax="10" SliderMin="2" SliderValue="4.482" SliderStep="0.001" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.Input.DoubleSlider GUID="075a8b2e-5fe8-4cda-bed6-4330a4c085da" TOP="663.04" Left="125" SliderMax="10" SliderMin="2" SliderValue="4.935" SliderStep="0.001" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.ExpressionNode GUID="f99f7521-945d-410b-9a15-d57b5f2f5a7d" TOP="803.04" Left="230" Formula="10" />
+    <TUM.CMS.VplControl.Nodes.Math.SubtractNode GUID="ed38ed22-c3f8-4b35-a6ab-d15d74adbf59" TOP="868.04" Left="502" />
+    <TUM.CMS.VplControl.Nodes.ExpressionNode GUID="d1f8727f-5928-4096-8d79-f3a7bb5337dc" TOP="936.04" Left="236" Formula="5" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="ed51f36c-39a0-4328-b060-e6a6126a0657" TOP="883.04" Left="721" />
+    <TUM.CMS.VplControl.Nodes.Logic.IfNode GUID="b55805fe-c201-4c68-ac04-2d4c3990cbe4" TOP="637.04" Left="1382" />
+    <TUM.CMS.VplControl.Nodes.Logic.TrueFalseNode GUID="c5c744c5-5f97-4021-a2ea-e2bf6ebb5116" TOP="516.04" Left="1075" />
+    <TUM.CMS.VplControl.Nodes.Input.IntegerSlider GUID="cd2c0156-e32a-4a1a-aa53-cffb6c13e3b1" TOP="678.04" Left="1015" SliderMax="0" SliderMin="-10" SliderValue="-4" SliderStep="1" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.Input.IntegerSlider GUID="698e634e-a1ef-4cea-9bcf-ca631e3351a4" TOP="797.04" Left="1026" SliderMax="10" SliderMin="0" SliderValue="3" SliderStep="1" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.Math.AbsNode GUID="804d341e-bb6b-448b-8632-b6e234ad0af2" TOP="659.04" Left="1572" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="aca3b9db-3b1e-488f-a9c4-b8e1feb7c787" TOP="689.04" Left="1740" />
+    <TUM.CMS.VplControl.Nodes.Math.ModNode GUID="6710470c-ce9f-46ad-84d9-71e35730e034" TOP="121.03999999999999" Left="505" />
+    <TUM.CMS.VplControl.Nodes.Math.DivideNode GUID="fe919d49-bd32-4f12-88eb-7e92badef09b" TOP="103.03999999999999" Left="752" />
+    <TUM.CMS.VplControl.Nodes.Input.DoubleSlider GUID="b02b6daa-a12e-4cdc-b34d-593488aa929d" TOP="55.039999999999992" Left="116" SliderMax="10" SliderMin="2" SliderValue="10" SliderStep="0.01" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.Input.IntegerSlider GUID="be7b9acd-07fb-4c2d-9cbe-59c0cedf0e18" TOP="144.04" Left="120" SliderMax="10" SliderMin="0" SliderValue="6" SliderStep="1" IsExpanded="false" />
+    <TUM.CMS.VplControl.Nodes.WatchNode GUID="2543e0cb-d80f-427c-b808-f657afb6b563" TOP="124.03999999999999" Left="961" />
+    <TUM.CMS.VplControl.Nodes.Math.RoundNode GUID="ab743aaf-ff0f-4217-8eb2-d90943b26d0b" TOP="349.03999999999996" Left="538" />
+    <TUM.CMS.VplControl.Nodes.Input.IntegerSlider GUID="47108f02-87a5-4598-814c-82b6667b422e" TOP="377.04" Left="113" SliderMax="10" SliderMin="0" SliderValue="1" SliderStep="1" IsExpanded="false" />
+	<TUM.CMS.VplControl.Nodes.WatchNode GUID="d90e97b3-2418-46b3-b57d-1290123759ef" TOP="390.04" Left="782" />
+  </Nodes>
+  <Connectors>
+    <TUM.CMS.VplControl.Core.Connector StartNode="679db444-6063-40fb-9f7f-e1c5eef80ead" StartIndex="0" EndNode="2ba8e69b-132c-43ae-9c63-5e1cac3ab1c0" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="552bb4f3-238f-40c0-a245-a665316f6545" StartIndex="0" EndNode="679db444-6063-40fb-9f7f-e1c5eef80ead" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="552bb4f3-238f-40c0-a245-a665316f6545" StartIndex="0" EndNode="679db444-6063-40fb-9f7f-e1c5eef80ead" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="493057ba-b2a5-48de-b532-bb01d00f26dc" StartIndex="0" EndNode="1a882d50-5a0d-4466-825a-d68468bb7444" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="5aef6681-04f2-4135-ba6d-27d7d2b51f9d" StartIndex="0" EndNode="523e6ec2-f0a1-4b63-8dfa-e9908a5259d1" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="7b69beff-1080-4edb-b26d-01f6a2bfd0f8" StartIndex="0" EndNode="5aef6681-04f2-4135-ba6d-27d7d2b51f9d" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="075a8b2e-5fe8-4cda-bed6-4330a4c085da" StartIndex="0" EndNode="493057ba-b2a5-48de-b532-bb01d00f26dc" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="075a8b2e-5fe8-4cda-bed6-4330a4c085da" StartIndex="0" EndNode="5aef6681-04f2-4135-ba6d-27d7d2b51f9d" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="7b69beff-1080-4edb-b26d-01f6a2bfd0f8" StartIndex="0" EndNode="493057ba-b2a5-48de-b532-bb01d00f26dc" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="f99f7521-945d-410b-9a15-d57b5f2f5a7d" StartIndex="0" EndNode="ed38ed22-c3f8-4b35-a6ab-d15d74adbf59" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="d1f8727f-5928-4096-8d79-f3a7bb5337dc" StartIndex="0" EndNode="ed38ed22-c3f8-4b35-a6ab-d15d74adbf59" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="ed38ed22-c3f8-4b35-a6ab-d15d74adbf59" StartIndex="0" EndNode="ed51f36c-39a0-4328-b060-e6a6126a0657" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="c5c744c5-5f97-4021-a2ea-e2bf6ebb5116" StartIndex="0" EndNode="b55805fe-c201-4c68-ac04-2d4c3990cbe4" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="cd2c0156-e32a-4a1a-aa53-cffb6c13e3b1" StartIndex="0" EndNode="b55805fe-c201-4c68-ac04-2d4c3990cbe4" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="698e634e-a1ef-4cea-9bcf-ca631e3351a4" StartIndex="0" EndNode="b55805fe-c201-4c68-ac04-2d4c3990cbe4" EndIndex="2" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="b55805fe-c201-4c68-ac04-2d4c3990cbe4" StartIndex="0" EndNode="804d341e-bb6b-448b-8632-b6e234ad0af2" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="804d341e-bb6b-448b-8632-b6e234ad0af2" StartIndex="0" EndNode="aca3b9db-3b1e-488f-a9c4-b8e1feb7c787" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="b02b6daa-a12e-4cdc-b34d-593488aa929d" StartIndex="0" EndNode="6710470c-ce9f-46ad-84d9-71e35730e034" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="be7b9acd-07fb-4c2d-9cbe-59c0cedf0e18" StartIndex="0" EndNode="6710470c-ce9f-46ad-84d9-71e35730e034" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="b02b6daa-a12e-4cdc-b34d-593488aa929d" StartIndex="0" EndNode="fe919d49-bd32-4f12-88eb-7e92badef09b" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="6710470c-ce9f-46ad-84d9-71e35730e034" StartIndex="0" EndNode="fe919d49-bd32-4f12-88eb-7e92badef09b" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="fe919d49-bd32-4f12-88eb-7e92badef09b" StartIndex="0" EndNode="2543e0cb-d80f-427c-b808-f657afb6b563" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="47108f02-87a5-4598-814c-82b6667b422e" StartIndex="0" EndNode="ab743aaf-ff0f-4217-8eb2-d90943b26d0b" EndIndex="1" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="7b69beff-1080-4edb-b26d-01f6a2bfd0f8" StartIndex="0" EndNode="ab743aaf-ff0f-4217-8eb2-d90943b26d0b" EndIndex="0" />
+    <TUM.CMS.VplControl.Core.Connector StartNode="ab743aaf-ff0f-4217-8eb2-d90943b26d0b" StartIndex="0" EndNode="d90e97b3-2418-46b3-b57d-1290123759ef" EndIndex="0" />
+  </Connectors>
+</Document>

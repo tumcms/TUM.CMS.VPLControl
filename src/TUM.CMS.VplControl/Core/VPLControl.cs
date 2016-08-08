@@ -17,175 +17,57 @@ using Microsoft.Win32;
 using TUM.CMS.VplControl.ContentMenu;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using Path = System.Windows.Shapes.Path;
 
 namespace TUM.CMS.VplControl.Core
 {
-    public class VplControl : Canvas
+    public class VplControl : ZoomCanvas
     {
-        // Zoom Utilities
-        private readonly ScaleTransform scaleTransform;
-        private readonly TransformGroup transformGroup;
-        private readonly TranslateTransform translateTransform;
         private GraphFlowDirections graphFlowDirection;
         public GraphFlowDirections ImportFlowDirection;
-        public MouseModes MouseMode = MouseModes.Nothing;
+
         private RadialContentMenu radialMenu;
         private ScaleTransform scaleTransformZooming;
+        private SelectionNode selectionNode;
         private Border selectionRectangle;
-        private Point startSelectionPoint;
+        private Point startSelectionRectanglePoint;
         private TrulyObservableCollection<Node> tempCollection;
         public Line TempLine;
         internal Port TempStartPort;
 
         public VplControl()
         {
-            try
+            if (!DesignerProperties.GetIsInDesignMode(this))
             {
-                DefaultStyleKeyProperty.OverrideMetadata(typeof (VplControl),
-                    new FrameworkPropertyMetadata(typeof (VplControl)));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            Style = FindResource("VplControlStyle") as Style;
-            GraphFlowDirection = GraphFlowDirections.Vertical;
-
-
-            MouseDown += HandleMouseDown;
-            MouseMove += HandleMouseMove;
-            MouseUp += HandleMouseUp;
-            MouseWheel += HandleMouseWheel;
-            KeyDown += VplControl_KeyDown;
-            KeyUp += VplControl_KeyDown;
-
-            NodeCollection = new TrulyObservableCollection<Node>();
-            NodeGroupCollection = new List<NodeGroup>();
-            ConnectorCollection = new List<Connector>();
-            SelectedNodes = new TrulyObservableCollection<Node>();
-            ExternalNodeTypes = new List<Type>();
-
-            TypeSensitive = true;
-
-            // Zooming 
-            scaleTransform = new ScaleTransform();
-            translateTransform = new TranslateTransform();
-            transformGroup = new TransformGroup();
-            transformGroup.Children.Add(scaleTransform);
-            transformGroup.Children.Add(translateTransform);
-
-            // Zooming Transformation
-            LayoutTransform = transformGroup;
-
-            // Init Grid for the background
-            var visualBrush = new VisualBrush
-            {
-                TileMode = TileMode.Tile,
-                Viewport = new Rect(0, 0, 50, 50),
-                ViewportUnits = BrushMappingMode.Absolute,
-                Viewbox = new Rect(0, 0, 50, 50),
-                ViewboxUnits = BrushMappingMode.Absolute,
-                Visual = new Rectangle
+                try
                 {
-                    Stroke = Brushes.DarkGray,
-                    StrokeThickness = 0.1,
-                    Height = 1000,
-                    Width = 1000,
-                    Fill = Brushes.White
+                    DefaultStyleKeyProperty.OverrideMetadata(typeof (VplControl),
+                        new FrameworkPropertyMetadata(typeof (VplControl)));
                 }
-            };
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
 
-            Theme = new Theme(this) {FontFamily = TextElement.GetFontFamily(this)};
+                Style = FindResource("VplControlStyle") as Style;
+                GraphFlowDirection = GraphFlowDirections.Vertical;
 
-            var solidColorBrush = TextElement.GetForeground(this) as SolidColorBrush;
-            if (solidColorBrush != null)
-                Theme.ForegroundColor = solidColorBrush.Color;
+                KeyDown += VplControl_KeyDown;
+                KeyUp += VplControl_KeyDown;
 
-            var colorBrush = Application.Current.Resources["BackgroundBrush"] as SolidColorBrush;
-            if (colorBrush != null)
-                Theme.BackgroundColor = colorBrush.Color;
+                ScaleTransform.Changed += ScaleTransformOnChanged;
 
-            var gridBrush = Application.Current.Resources["GridBrush"] as SolidColorBrush;
-            if (gridBrush != null)
-                Theme.GridColor = gridBrush.Color;
+                NodeCollection = new TrulyObservableCollection<Node>();
+                NodeGroupCollection = new List<NodeGroup>();
+                ConnectorCollection = new List<Connector>();
+                SelectedNodes = new TrulyObservableCollection<Node>();
+                ExternalNodeTypes = new List<Type>();
 
-            var connectorBrush = Application.Current.Resources["ConnectorBrush"] as SolidColorBrush;
-            if (connectorBrush != null)
-                Theme.ConnectorColor = connectorBrush.Color;
+                TypeSensitive = true;
 
-            Theme.ConnectorThickness =
-                Application.Current.Resources["ConnectorThickness"] is double
-                    ? (double) Application.Current.Resources["ConnectorThickness"]
-                    : 0;
-
-
-            var toolTipBackgroundBrush = Application.Current.Resources["TooltipBackgroundBrush"] as SolidColorBrush;
-            if (toolTipBackgroundBrush != null)
-            {
-                Theme.TooltipBackgroundColor =
-                    toolTipBackgroundBrush.Color;
+                InitializeGridBackground();
+                InitializeTheme();
             }
-
-            var tooltipBorderBrush = Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush;
-            if (tooltipBorderBrush != null)
-                Theme.TooltipBorderColor = tooltipBorderBrush.Color;
-
-            var portFillBrush = Application.Current.Resources["PortFillBrush"] as SolidColorBrush;
-            if (portFillBrush != null)
-                Theme.PortFillColor = portFillBrush.Color;
-
-            var portStrokeBrush = Application.Current.Resources["PortStrokeBrush"] as SolidColorBrush;
-            if (portStrokeBrush != null)
-                Theme.PortStrokeColor = portStrokeBrush.Color;
-
-            Theme.PortSize =
-                Application.Current.Resources["PortSize"] is double
-                    ? (double) Application.Current.Resources["PortSize"]
-                    : 0;
-
-            Theme.PortStrokeThickness =
-                Application.Current.Resources["PortStrokeThickness"] is double
-                    ? (double) Application.Current.Resources["PortStrokeThickness"]
-                    : 0;
-
-            Theme.NodeBackgroundColor = Colors.White;
-
-            Theme.ButtonBorderColor = (Application.Current.Resources["ButtonBorderBrush"] as SolidColorBrush).Color;
-
-            Theme.ButtonFillColor = (Application.Current.Resources["ButtonFillBrush"] as SolidColorBrush).Color;
-
-            Theme.HighlightingColor = (Application.Current.Resources["BrushHighlighting"] as SolidColorBrush).Color;
-
-            Theme.NodeBorderColor = (Application.Current.Resources["NodeBorderBrush"] as SolidColorBrush).Color;
-
-            //NodeBorderThickness = Application.Current.Resources["NodeBorderThickness"] is Thickness ? (Thickness) Application.Current.Resources["NodeBorderThickness"] : new Thickness(),
-
-            Theme.NodeBorderCornerRadius =
-                Application.Current.Resources["NodeBorderCornerRadius"] is double
-                    ? (double) Application.Current.Resources["NodeBorderCornerRadius"]
-                    : 0;
-
-            Theme.NodeBorderColorOnMouseOver =
-                (Application.Current.Resources["NodeBorderBrushMouseOver"] as SolidColorBrush).Color;
-
-            Theme.NodeBorderColorOnSelection =
-                (Application.Current.Resources["NodeBorderBrushSelection"] as SolidColorBrush).Color;
-
-            Theme.LineColor = (Application.Current.Resources["LineStrokeBrush"] as SolidColorBrush).Color;
-
-            Theme.LineThickness =
-                Application.Current.Resources["LineStrokeThickness"] is double
-                    ? (double) Application.Current.Resources["LineStrokeThickness"]
-                    : 0;
-
-            Theme.ConnEllipseFillColor =
-                (Application.Current.Resources["ConnEllipseFillBrush"] as SolidColorBrush).Color;
-
-            Theme.ConnEllipseSize =
-                Application.Current.Resources["ConnEllipseSize"] is double
-                    ? (double) Application.Current.Resources["ConnEllipseSize"]
-                    : 0;
         }
 
         internal SplineModes SplineMode { get; set; }
@@ -240,61 +122,198 @@ namespace TUM.CMS.VplControl.Core
         [ExpandableObject]
         public Theme Theme { get; set; }
 
-        private async void HandleMouseDown(object sender, MouseButtonEventArgs e)
+        private static void InitializeGridBackground()
         {
-            switch (MouseMode)
+            var visualBrush = new VisualBrush
             {
-                case MouseModes.Nothing:
+                TileMode = TileMode.Tile,
+                Viewport = new Rect(0, 0, 50, 50),
+                ViewportUnits = BrushMappingMode.Absolute,
+                Viewbox = new Rect(0, 0, 50, 50),
+                ViewboxUnits = BrushMappingMode.Absolute,
+                Visual = new Rectangle
+                {
+                    Stroke = Brushes.DarkGray,
+                    StrokeThickness = 0.1,
+                    Height = 1000,
+                    Width = 1000,
+                    Fill = Brushes.White
+                }
+            };
+        }
+
+        private void InitializeTheme()
+        {
+            Theme = new Theme(this) {FontFamily = TextElement.GetFontFamily(this)};
+
+            var solidColorBrush = TextElement.GetForeground(this) as SolidColorBrush;
+            if (solidColorBrush != null)
+                Theme.ForegroundColor = solidColorBrush.Color;
+
+            var colorBrush = Application.Current.Resources["BackgroundBrush"] as SolidColorBrush;
+            if (colorBrush != null)
+                Theme.BackgroundColor = colorBrush.Color;
+
+            var gridBrush = Application.Current.Resources["GridBrush"] as SolidColorBrush;
+            if (gridBrush != null)
+                Theme.GridColor = gridBrush.Color;
+
+            var connectorBrush = Application.Current.Resources["ConnectorBrush"] as SolidColorBrush;
+            if (connectorBrush != null)
+                Theme.ConnectorColor = connectorBrush.Color;
+
+            Theme.ConnectorThickness =
+                Application.Current.Resources["ConnectorThickness"] is double
+                    ? (double) Application.Current.Resources["ConnectorThickness"]
+                    : 0;
+
+            var toolTipBackgroundBrush = Application.Current.Resources["TooltipBackgroundBrush"] as SolidColorBrush;
+            if (toolTipBackgroundBrush != null)
+            {
+                Theme.TooltipBackgroundColor =
+                    toolTipBackgroundBrush.Color;
+            }
+
+            var tooltipBorderBrush = Application.Current.Resources["TooltipBorderBrush"] as SolidColorBrush;
+            if (tooltipBorderBrush != null)
+                Theme.TooltipBorderColor = tooltipBorderBrush.Color;
+
+            var portFillBrush = Application.Current.Resources["PortFillBrush"] as SolidColorBrush;
+            if (portFillBrush != null)
+                Theme.PortFillColor = portFillBrush.Color;
+
+            var portStrokeBrush = Application.Current.Resources["PortStrokeBrush"] as SolidColorBrush;
+            if (portStrokeBrush != null)
+                Theme.PortStrokeColor = portStrokeBrush.Color;
+
+            Theme.PortSize =
+                Application.Current.Resources["PortSize"] is double
+                    ? (double) Application.Current.Resources["PortSize"]
+                    : 0;
+
+            Theme.PortStrokeThickness =
+                Application.Current.Resources["PortStrokeThickness"] is double
+                    ? (double) Application.Current.Resources["PortStrokeThickness"]
+                    : 0;
+
+            Theme.ButtonBorderColor = (Application.Current.Resources["ButtonBorderBrush"] as SolidColorBrush).Color;
+
+            Theme.ButtonFillColor = (Application.Current.Resources["ButtonFillBrush"] as SolidColorBrush).Color;
+
+            Theme.HighlightingColor = (Application.Current.Resources["BrushHighlighting"] as SolidColorBrush).Color;
+
+            Theme.NodeBorderColor = (Application.Current.Resources["NodeBorderBrush"] as SolidColorBrush).Color;
+
+            //NodeBorderThickness = Application.Current.Resources["NodeBorderThickness"] is Thickness ? (Thickness) Application.Current.Resources["NodeBorderThickness"] : new Thickness(),
+
+            Theme.NodeBorderCornerRadius =
+                Application.Current.Resources["NodeBorderCornerRadius"] is double
+                    ? (double) Application.Current.Resources["NodeBorderCornerRadius"]
+                    : 0;
+
+            Theme.NodeBorderColorOnMouseOver =
+                (Application.Current.Resources["NodeBorderBrushMouseOver"] as SolidColorBrush).Color;
+
+            Theme.NodeBorderColorOnSelection =
+                (Application.Current.Resources["NodeBorderBrushSelection"] as SolidColorBrush).Color;
+
+            Theme.LineColor = (Application.Current.Resources["LineStrokeBrush"] as SolidColorBrush).Color;
+
+            Theme.LineThickness =
+                Application.Current.Resources["LineStrokeThickness"] is double
+                    ? (double) Application.Current.Resources["LineStrokeThickness"]
+                    : 0;
+
+            Theme.ConnEllipseFillColor =
+                (Application.Current.Resources["ConnEllipseFillBrush"] as SolidColorBrush).Color;
+
+            Theme.ConnEllipseSize =
+                Application.Current.Resources["ConnEllipseSize"] is double
+                    ? (double) Application.Current.Resources["ConnEllipseSize"]
+                    : 0;
+        }
+
+        private void TranslateTransformOnChanged()
+        {
+            foreach (var node in NodeCollection)
+            {
+                node.Left = node.Left;
+            }
+        }
+
+        private void ScaleTransformOnChanged(object sender, EventArgs eventArgs)
+        {
+            if (Math.Abs(ScaleTransform.ScaleX - ScaleTransform.ScaleY) > 0.0001) return;
+
+            //Theme.ConnectorThickness = 2*ScaleTransform.ScaleX;
+            //Theme.PortSize = 20*ScaleTransform.ScaleX/2;
+            //Theme.PortStrokeThickness = 1.5*ScaleTransform.ScaleX/2;
+            //Theme.ConnEllipseSize = 14*ScaleTransform.ScaleX;
+            //Theme.LineThickness = 1.5*ScaleTransform.ScaleX;
+
+            foreach (var node in NodeCollection)
+            {
+                node.Left = node.Left;
+            }
+        }
+
+
+        protected override async void HandleMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            switch (mouseMode)
+            {
+                case MouseMode.Nothing:
 
                     if (e.LeftButton == MouseButtonState.Pressed)
                     {
                         if (e.ClickCount == 2)
                         {
-                            // double click in empty space of canvas
-                            var node = new SelectionNode(this)
+                            // left double click in empty space of canvas
+                            if (selectionNode == null)
                             {
-                                Left = Mouse.GetPosition(this).X - 15,
-                                Top = Mouse.GetPosition(this).Y - 20
-                            };
+                                selectionNode = new SelectionNode(this);
+                            }
+
+                            selectionNode.Left = Mouse.GetPosition(this).X - 45;
+                            selectionNode.Top = Mouse.GetPosition(this).Y - 20;
+
+                            selectionNode.Show();
                         }
                         else
                         {
-                            var mouseUpOnNode = false;
+                            // left singe click in empty space of canvas
+                            startSelectionRectanglePoint = Mouse.GetPosition(this);
+                            mouseMode = MouseMode.SelectionRectangle;
+                            SplineMode = SplineModes.Nothing;
 
-                            foreach (var node in NodeCollection)
+                            if (radialMenu != null)
                             {
-                                if (VisualTreeHelper.HitTest(node.Border, e.GetPosition(node)) != null)
-                                    mouseUpOnNode = true;
-                            }
-
-                            // if mouse up in empty space
-                            if (!mouseUpOnNode)
-                            {
-                                startSelectionPoint = Mouse.GetPosition(this);
-                                MouseMode = MouseModes.Selection;
-                                SplineMode = SplineModes.Nothing;
-
-                                if (radialMenu != null)
-                                {
-                                    radialMenu.IsOpen = false;
-                                    radialMenu.Dispose();
-                                    radialMenu = null;
-                                }
+                                radialMenu.IsOpen = false;
+                                radialMenu.Dispose();
+                                radialMenu = null;
                             }
                         }
                     }
                     else if (e.MiddleButton == MouseButtonState.Pressed)
                     {
-                        // panning
+                        start = e.GetPosition(this);
+                        origin = new Point(TranslateTransform.X, TranslateTransform.Y);
+
+
                         foreach (var node in NodeCollection)
                         {
-                            node.OldMousePosition = e.GetPosition(this);
-
-                            if (MouseMode != MouseModes.Panning)
-                                MouseMove += node.HostCanvas_MouseMove;
+                            node.ContentGrid.Visibility = Visibility.Collapsed;
                         }
 
-                        MouseMode = MouseModes.Panning;
+                        foreach (var conn in ConnectorCollection)
+                        {
+                            conn.Path.Visibility = Visibility.Collapsed;
+                            conn.srtEllipse.Visibility = Visibility.Collapsed;
+                            conn.endEllipse.Visibility = Visibility.Collapsed;
+                        }
+
+                        Cursor = Cursors.Hand;
+                        mouseMode = MouseMode.Panning;
                     }
                     else if (e.RightButton == MouseButtonState.Pressed)
                     {
@@ -316,12 +335,31 @@ namespace TUM.CMS.VplControl.Core
                     }
 
                     break;
+
+                case MouseMode.Selection:
+
+                    if (e.LeftButton == MouseButtonState.Pressed)
+                    {
+                        // left singe click in empty space of canvas while nodes are selected
+                        foreach (var node in SelectedNodes)
+                        {
+                            node.IsSelected = false;
+                        }
+                        SelectedNodes.Clear();
+                        SelectedUiElements.Clear();
+
+                        mouseMode = MouseMode.Nothing;
+                    }
+                    break;
+
+                case MouseMode.GroupSelection:
+                    break;
             }
         }
 
-        private void HandleMouseMove(object sender, MouseEventArgs e)
+        protected override void HandleMouseMove(object sender, MouseEventArgs e)
         {
-            if (MouseMode == MouseModes.Selection)
+            if (mouseMode == MouseMode.SelectionRectangle)
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
@@ -339,14 +377,14 @@ namespace TUM.CMS.VplControl.Core
                             BorderThickness = new Thickness(2)
                         };
 
-                        SetLeft(selectionRectangle, startSelectionPoint.X);
-                        SetTop(selectionRectangle, startSelectionPoint.Y);
+                        SetLeft(selectionRectangle, startSelectionRectanglePoint.X);
+                        SetTop(selectionRectangle, startSelectionRectanglePoint.Y);
 
                         Children.Add(selectionRectangle);
                     }
 
                     var currentPosition = Mouse.GetPosition(this);
-                    var delta = Point.Subtract(currentPosition, startSelectionPoint);
+                    var delta = Point.Subtract(currentPosition, startSelectionRectanglePoint);
 
                     if (delta.X < 0)
                         SetLeft(selectionRectangle, currentPosition.X);
@@ -361,11 +399,10 @@ namespace TUM.CMS.VplControl.Core
                     {
                         SelectedNodes.Remove(node);
 
-                        if ((node.Left >= GetLeft(selectionRectangle) &&
-                             node.Left + node.ActualWidth <= GetLeft(selectionRectangle) + selectionRectangle.Width)
-                            &&
-                            (node.Top >= GetTop(selectionRectangle) &&
-                             node.Top + node.ActualHeight <= GetTop(selectionRectangle) + selectionRectangle.Height))
+                        if (node.Left >= GetLeft(selectionRectangle) &&
+                            node.Left + node.ActualWidth <= GetLeft(selectionRectangle) + selectionRectangle.Width &&
+                            node.Top >= GetTop(selectionRectangle) &&
+                            node.Top + node.ActualHeight <= GetTop(selectionRectangle) + selectionRectangle.Height)
                         {
                             node.IsSelected = true;
                             SelectedNodes.Add(node);
@@ -375,6 +412,14 @@ namespace TUM.CMS.VplControl.Core
                     }
                 }
             }
+            else if (mouseMode == MouseMode.Panning)
+            {
+                var v = start - e.GetPosition(this);
+
+                TranslateTransform.X = origin.X - v.X;
+                TranslateTransform.Y = origin.Y - v.Y;
+            }
+
 
             switch (SplineMode)
             {
@@ -407,58 +452,70 @@ namespace TUM.CMS.VplControl.Core
             TempLine = null;
         }
 
-        private void HandleMouseWheel(object sender, MouseWheelEventArgs e)
+        protected override void HandleMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            // Zooming
+            mouseMode = MouseMode.Zooming;
 
-            var mouseRelativetoCanvas = e.GetPosition(this);
+            var zoom = e.Delta > 0 ? .2 : -.2;
 
-            if (e.Delta > 0)
-                DoZoomIn(mouseRelativetoCanvas);
+            if (!(e.Delta > 0) && (ScaleTransform.ScaleX < .4 || ScaleTransform.ScaleY < .4))
+                return;
 
-            if (e.Delta < 0)
-                DoZoomOut(mouseRelativetoCanvas);
-        }
 
-        public void DoZoomIn(Point mouseRelativetoCanvas, double scaleStep = 0.1)
-        {
-            if (ZoomIn < 10)
+            var elementsToZoom = new List<UIElement>();
+            elementsToZoom.AddRange(Children.OfType<Border>());
+            elementsToZoom.AddRange(Children.OfType<Ellipse>());
+            elementsToZoom.AddRange(Children.OfType<Path>());
+
+            foreach (var element in elementsToZoom)
             {
-                ZoomIn = ZoomIn + (int) (scaleStep*10);
-                ZoomOut = ZoomOut - (int) (scaleStep*10);
-                scaleTransform.ScaleX += scaleStep;
-                scaleTransform.ScaleY += scaleStep;
+                element.UpdateLayout();
 
-                var scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
-                var scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
+                var position = e.GetPosition(element);
+                double width = 0;
+                double height = 0;
 
-                translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
-                translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
+                if (element is Border)
+                {
+                    var border = element as Border;
+
+                    width = border.ActualWidth;
+                    height = border.ActualHeight;
+                }
+                else if (element is Ellipse)
+                {
+                    var ellipse = element as Ellipse;
+
+                    width = ellipse.ActualWidth;
+                    height = ellipse.ActualHeight;
+                }
+                else if (element is Path)
+                {
+                    var path = element as Path;
+
+                    width = path.ActualWidth;
+                    height = path.ActualHeight;
+                }
+
+
+                if (width > 0 && height > 0)
+                {
+                    element.RenderTransformOrigin = new Point(position.X/width, position.Y/height);
+                }
             }
+
+            ScaleTransform.ScaleX += zoom;
+            ScaleTransform.ScaleY += zoom;
+
+            mouseMode = MouseMode.Nothing;
         }
 
-        public void DoZoomOut(Point mouseRelativetoCanvas, double scaleStep = 0.1)
+
+        protected override void HandleMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (ZoomOut < 7)
+            switch (mouseMode)
             {
-                ZoomIn = ZoomIn - (int) (scaleStep*10);
-                ZoomOut = ZoomOut + (int) (scaleStep*10);
-                scaleTransform.ScaleX -= scaleStep;
-                scaleTransform.ScaleY -= scaleStep;
-
-                var scaledCanvasMouseOffsetX = mouseRelativetoCanvas.X*scaleTransform.ScaleX;
-                var scaledCanvasMouseOffsetY = mouseRelativetoCanvas.Y*scaleTransform.ScaleY;
-
-                translateTransform.X = -(scaledCanvasMouseOffsetX - mouseRelativetoCanvas.X);
-                translateTransform.Y = -(scaledCanvasMouseOffsetY - mouseRelativetoCanvas.Y);
-            }
-        }
-
-        private void HandleMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            switch (MouseMode)
-            {
-                case MouseModes.Nothing:
+                case MouseMode.Nothing:
 
                     var mouseUpOnNode = false;
 
@@ -468,7 +525,6 @@ namespace TUM.CMS.VplControl.Core
                             mouseUpOnNode = true;
                     }
 
-
                     // if mouse up in empty space unselect all nodes
                     if (!mouseUpOnNode && e.ChangedButton != MouseButton.Right)
                     {
@@ -476,27 +532,50 @@ namespace TUM.CMS.VplControl.Core
                             node.IsSelected = false;
 
                         SelectedNodes.Clear();
+                        SelectedUiElements.Clear();
                     }
-
-
                     break;
 
-                case MouseModes.Panning:
+                case MouseMode.Panning:
 
                     foreach (var node in NodeCollection)
-                        MouseMove -= node.HostCanvas_MouseMove;
+                    {
+                        node.ContentGrid.Visibility = Visibility.Hidden;
+                    }
 
+                    foreach (var conn in ConnectorCollection)
+                    {
+                        conn.Path.Visibility = Visibility.Hidden;
+                        conn.srtEllipse.Visibility = Visibility.Hidden;
+                        conn.endEllipse.Visibility = Visibility.Hidden;
+                    }
 
-                    Console.WriteLine(NodeCollection.Count);
+                    ScaleTransform.ScaleX += 1;
+                    ScaleTransform.ScaleX -= 1;
 
-                    MouseMode = MouseModes.Nothing;
+                    foreach (var node in NodeCollection)
+                    {
+                        node.ContentGrid.Visibility = Visibility.Visible;
+                    }
+
+                    foreach (var conn in ConnectorCollection)
+                    {
+                        conn.Path.Visibility = Visibility.Visible;
+                        conn.srtEllipse.Visibility = Visibility.Visible;
+                        conn.endEllipse.Visibility = Visibility.Visible;
+                    }
+
+                    Cursor = Cursors.Arrow;
+                    mouseMode = MouseMode.Nothing;
+
                     break;
 
-                case MouseModes.Selection:
+                case MouseMode.SelectionRectangle:
                     Children.Remove(selectionRectangle);
                     selectionRectangle = null;
 
-                    MouseMode = MouseModes.Nothing;
+                    mouseMode = SelectedNodes.Count > 0 ? MouseMode.Selection : MouseMode.Nothing;
+
                     break;
             }
         }
@@ -616,8 +695,6 @@ namespace TUM.CMS.VplControl.Core
                             newNode.Left = Convert.ToInt32(newNode.Left);
                             newNode.Top = Convert.ToInt32(newNode.Top);
 
-                            NodeCollection.Add(newNode);
-
                             copyConnections.Add(new CopyConnection {NewNode = newNode, OldNode = node});
                         }
 
@@ -672,10 +749,21 @@ namespace TUM.CMS.VplControl.Core
                         GroupNodes();
                 }
                     break;
+
                 case Key.S:
                 {
                     if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
                         SaveFile();
+                }
+                    break;
+                case Key.T:
+                {
+                    Console.WriteLine("T");
+                    foreach (var node in NodeCollection)
+                    {
+                        Console.WriteLine(node.ActualWidth);
+                        Console.WriteLine(node.ActualHeight);
+                    }
                 }
                     break;
                 case Key.O:
@@ -708,6 +796,7 @@ namespace TUM.CMS.VplControl.Core
             Children.Clear();
             if (radialMenu != null) radialMenu.Dispose();
             radialMenu = null;
+            selectionNode = null;
         }
 
         public void OpenFile()
@@ -721,6 +810,11 @@ namespace TUM.CMS.VplControl.Core
 
             if (openFileDialog.ShowDialog() == true)
                 DeserializeNetwork(openFileDialog.FileName);
+        }
+
+        public void OpenFile(string filepath)
+        {
+            DeserializeNetwork(filepath);
         }
 
         public void SaveFile()
@@ -834,6 +928,8 @@ namespace TUM.CMS.VplControl.Core
 
         internal void DeserializeNetwork(string filePath)
         {
+            var tempNodeCollection = new List<Node>();
+
             NewFile();
 
             // Create an reader
@@ -867,7 +963,7 @@ namespace TUM.CMS.VplControl.Core
                                     try // try to find type in entry assembly
                                     {
                                         var assembly = Assembly.GetEntryAssembly();
-                                        type = assembly.GetTypes().First(t => t.FullName == reader.Name);
+                                        type = assembly.GetTypes().FirstOrDefault(t => t.FullName == reader.Name);
                                     }
                                     catch (Exception ex)
                                     {
@@ -876,7 +972,8 @@ namespace TUM.CMS.VplControl.Core
 
                                     try // try to find type in ExternalNodeTypes
                                     {
-                                        type = ExternalNodeTypes.ToArray().First(t => t.FullName == reader.Name);
+                                        type = ExternalNodeTypes.ToArray()
+                                            .FirstOrDefault(t => t.FullName == reader.Name);
                                     }
                                     catch (Exception ex)
                                     {
@@ -891,7 +988,8 @@ namespace TUM.CMS.VplControl.Core
                                     {
                                         var node = (Node) Activator.CreateInstance(type, this);
                                         node.DeserializeNetwork(reader);
-                                        NodeCollection.Add(node);
+
+                                        tempNodeCollection.Add(node);
                                     }
                                     else if (type == typeof (Connector))
                                     {
@@ -948,16 +1046,24 @@ namespace TUM.CMS.VplControl.Core
                     }
                 }
             }
+
+
+            foreach (var node in tempNodeCollection)
+            {
+                node.Show();
+            }
         }
     }
 
 
-    public enum MouseModes
+    public enum MouseMode
     {
         Nothing,
         Panning,
         Selection,
-        GroupSelection
+        GroupSelection,
+        SelectionRectangle,
+        Zooming
     }
 
     internal enum SplineModes

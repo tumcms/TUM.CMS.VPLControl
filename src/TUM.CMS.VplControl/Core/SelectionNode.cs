@@ -25,6 +25,7 @@ namespace TUM.CMS.VplControl.Core
 
             listBox.DisplayMemberPath = "Name";
             listBox.MaxHeight = 140;
+            listBox.MinHeight = 80;
 
             AddControlToNode(listBox);
 
@@ -50,7 +51,7 @@ namespace TUM.CMS.VplControl.Core
             tempTypeList = tempTypeList.OrderBy(x => x.Name).ToList();
 
 
-            foreach (var type in tempTypeList.Where(type => !type.IsAbstract))
+            foreach (var type in tempTypeList.Where(type => !type.IsAbstract && !type.Name.Contains("<>")))
                 typeList.Add(type);
 
             listBox.ItemsSource = typeList;
@@ -81,8 +82,7 @@ namespace TUM.CMS.VplControl.Core
                     CreateNode();
                 else
                 {
-                    Dispose();
-                    HostCanvas.Children.Remove(Border);
+                    Hide();
                 }
             }
             else
@@ -111,8 +111,8 @@ namespace TUM.CMS.VplControl.Core
 
         private void SelectionNode_MouseLeave(object sender, MouseEventArgs e)
         {
-            Dispose();
-            HostCanvas.Children.Remove(Border);
+            searchTextBox.Text = "";
+            Hide();
         }
 
         private void searchTextBox_OnSearch(object sender, RoutedEventArgs e)
@@ -130,7 +130,8 @@ namespace TUM.CMS.VplControl.Core
             else
             {
                 listBox.ItemsSource = typeList
-                    .Where(x => x.Name.ToLower().Contains(searchArgs.Keyword.ToLower(), StringComparison.OrdinalIgnoreCase))
+                    .Where(
+                        x => x.Name.ToLower().Contains(searchArgs.Keyword.ToLower(), StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 listBox.SelectedIndex = 0;
             }
@@ -146,8 +147,10 @@ namespace TUM.CMS.VplControl.Core
             node.Left = Left;
             node.Top = Top;
 
-            HostCanvas.Children.Remove(Border);
-            HostCanvas.NodeCollection.Add(node);
+            node.Show();
+
+            searchTextBox.Text = "";
+            Hide();
         }
 
         public override void Calculate()

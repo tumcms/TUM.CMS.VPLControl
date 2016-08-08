@@ -10,7 +10,9 @@ namespace TUM.CMS.VplControl.Core
         public NodeCaptionLabel(VplElement hostElement)
         {
             HostElement = hostElement;
-            HostElement.HostCanvas.Children.Add(this);
+            //HostElement.HostCanvas.Children.Add(this);
+            HostElement.HitTestGrid.Children.Add(this);
+            Grid.SetColumn(this, 1);
 
             Style = FindResource("EditableLabelStyleGroup") as Style;
 
