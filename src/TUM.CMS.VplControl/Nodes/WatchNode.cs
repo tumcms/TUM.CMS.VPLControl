@@ -33,9 +33,9 @@ namespace TUM.CMS.VplControl.Nodes
                // IsHitTestVisible = false
             };
 
-
-            AddControlToNode(scrollViewer);
+ AddControlToNode(scrollViewer);
         }
+
 
         public override void Calculate()
         {

@@ -19,8 +19,12 @@ namespace TUM.CMS.VplControl.Test
         {
             InitializeComponent();
 
+            KeyDown += VplControl.VplControl_KeyDown;
+            KeyUp += VplControl.VplControl_KeyUp;
+
             KeyDown += VplGroupControl.MainVplControl.VplControl_KeyDown;
             KeyUp += VplGroupControl.MainVplControl.VplControl_KeyUp;
+
             Loaded += OnLoaded;
 
             VplGroupControl.MainVplControl.ExternalNodeTypes.AddRange(

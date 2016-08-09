@@ -105,7 +105,18 @@ namespace TUM.CMS.VplControl.Core
             switch (hostCanvas.SplineMode)
             {
                 case SplineModes.Nothing:
-                    hostCanvas.TempStartPort = this;
+
+                    if (PortType== PortTypes.Input && !MultipleConnectionsAllowed && ConnectedConnectors.Count > 0)
+                    {
+                        Connector conn = ConnectedConnectors[0];
+                        conn.Delete();
+                        hostCanvas.TempStartPort = conn.StartPort;
+                    }
+                    else
+                    {
+                        hostCanvas.TempStartPort = this;
+                    }
+
                     hostCanvas.SplineMode = SplineModes.Second;
                     break;
                 case SplineModes.Second:
@@ -156,6 +167,8 @@ namespace TUM.CMS.VplControl.Core
                             connector = new Connector(hostCanvas, hostCanvas.TempStartPort, this);
                         }
 
+
+                        connector.SynchroniseAfterZoom();
                         hostCanvas.ConnectorCollection.Add(connector);
                     }
 

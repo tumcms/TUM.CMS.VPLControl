@@ -506,6 +506,18 @@ namespace TUM.CMS.VplControl.Core
             OldMousePosition = p;
         }
 
+
+        public override void OnSelectionChanged(object sender, EventArgs e)
+        {
+            base.OnSelectionChanged(sender, e);
+
+            foreach (var conn in InputPorts.Concat(OutputPorts).SelectMany(port => port.ConnectedConnectors))
+            {
+                conn.IsSelected = IsSelected;
+            }
+        }
+
+
         public void Node_MouseUp(object sender, MouseButtonEventArgs e)
         {
             isResizing = false;

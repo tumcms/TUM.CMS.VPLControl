@@ -61,6 +61,7 @@ namespace TUM.CMS.VplControl.Core
                 NodeGroupCollection = new List<NodeGroup>();
                 ConnectorCollection = new List<Connector>();
                 SelectedNodes = new TrulyObservableCollection<Node>();
+                SelectedConnectors = new TrulyObservableCollection<Connector>();
                 ExternalNodeTypes = new List<Type>();
 
                 TypeSensitive = true;
@@ -83,6 +84,9 @@ namespace TUM.CMS.VplControl.Core
 
         [Browsable(false)]
         public TrulyObservableCollection<Node> SelectedNodes { get; set; }
+
+        [Browsable(false)]
+        public TrulyObservableCollection<Connector> SelectedConnectors { get; set; }
 
         [Browsable(false)]
         public List<Type> ExternalNodeTypes { get; set; }
@@ -266,32 +270,16 @@ namespace TUM.CMS.VplControl.Core
 
                     if (e.LeftButton == MouseButtonState.Pressed)
                     {
-                        if (e.ClickCount == 2)
+                        // left singe click in empty space of canvas
+                        startSelectionRectanglePoint = Mouse.GetPosition(this);
+                        mouseMode = MouseMode.PreSelectionRectangle;
+                        SplineMode = SplineModes.Nothing;
+
+                        if (radialMenu != null)
                         {
-                            // left double click in empty space of canvas
-                            if (selectionNode == null)
-                            {
-                                selectionNode = new SelectionNode(this);
-                            }
-
-                            selectionNode.Left = Mouse.GetPosition(this).X - 45;
-                            selectionNode.Top = Mouse.GetPosition(this).Y - 20;
-
-                            selectionNode.Show();
-                        }
-                        else
-                        {
-                            // left singe click in empty space of canvas
-                            startSelectionRectanglePoint = Mouse.GetPosition(this);
-                            mouseMode = MouseMode.SelectionRectangle;
-                            SplineMode = SplineModes.Nothing;
-
-                            if (radialMenu != null)
-                            {
-                                radialMenu.IsOpen = false;
-                                radialMenu.Dispose();
-                                radialMenu = null;
-                            }
+                            radialMenu.IsOpen = false;
+                            radialMenu.Dispose();
+                            radialMenu = null;
                         }
                     }
                     else if (e.MiddleButton == MouseButtonState.Pressed)
@@ -335,19 +323,27 @@ namespace TUM.CMS.VplControl.Core
                     }
 
                     break;
+                case MouseMode.PreSelectionRectangle:
+                    if (e.ClickCount == 2)
+                    {
+                        // left double click in empty space of canvas
+                        if (selectionNode == null)
+                        {
+                            selectionNode = new SelectionNode(this);
+                        }
 
+                        selectionNode.Left = Mouse.GetPosition(this).X - 45;
+                        selectionNode.Top = Mouse.GetPosition(this).Y - 20;
+
+                        selectionNode.Show();
+                    }
+                    break;
                 case MouseMode.Selection:
 
                     if (e.LeftButton == MouseButtonState.Pressed)
                     {
                         // left singe click in empty space of canvas while nodes are selected
-                        foreach (var node in SelectedNodes)
-                        {
-                            node.IsSelected = false;
-                        }
-                        SelectedNodes.Clear();
-                        SelectedUiElements.Clear();
-
+                        UnselectAllElements();
                         mouseMode = MouseMode.Nothing;
                     }
                     break;
@@ -357,12 +353,31 @@ namespace TUM.CMS.VplControl.Core
             }
         }
 
+        private void UnselectAllElements()
+        {
+            foreach (var node in SelectedNodes)
+            {
+                node.IsSelected = false;
+            }
+
+            foreach (var conn in ConnectorCollection)
+            {
+                conn.IsSelected = false;
+            }
+
+            SelectedNodes.Clear();
+            SelectedConnectors.Clear();
+            SelectedUiElements.Clear();
+        }
+
         protected override void HandleMouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseMode == MouseMode.SelectionRectangle)
+            if (mouseMode == MouseMode.PreSelectionRectangle || mouseMode == MouseMode.SelectionRectangle)
             {
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
+                    mouseMode = MouseMode.SelectionRectangle;
+
                     if (selectionRectangle == null)
                     {
                         selectionRectangle = new Border
@@ -497,7 +512,6 @@ namespace TUM.CMS.VplControl.Core
                     height = path.ActualHeight;
                 }
 
-
                 if (width > 0 && height > 0)
                 {
                     element.RenderTransformOrigin = new Point(position.X/width, position.Y/height);
@@ -528,11 +542,7 @@ namespace TUM.CMS.VplControl.Core
                     // if mouse up in empty space unselect all nodes
                     if (!mouseUpOnNode && e.ChangedButton != MouseButton.Right)
                     {
-                        foreach (var node in SelectedNodes)
-                            node.IsSelected = false;
-
-                        SelectedNodes.Clear();
-                        SelectedUiElements.Clear();
+                        UnselectAllElements();
                     }
                     break;
 
@@ -570,6 +580,10 @@ namespace TUM.CMS.VplControl.Core
 
                     break;
 
+                case MouseMode.PreSelectionRectangle:
+                    UnselectAllElements();
+                    mouseMode = MouseMode.Nothing;
+                    break;
                 case MouseMode.SelectionRectangle:
                     Children.Remove(selectionRectangle);
                     selectionRectangle = null;
@@ -651,7 +665,13 @@ namespace TUM.CMS.VplControl.Core
                     foreach (var node in SelectedNodes)
                         node.Delete();
 
+                    foreach (var conn in SelectedConnectors)
+                    {
+                        conn.Delete();
+                    }
+
                     SelectedNodes.Clear();
+                    SelectedConnectors.Clear();
                     break;
                 case Key.C:
                 {
@@ -784,6 +804,12 @@ namespace TUM.CMS.VplControl.Core
                             SelectedNodes.Add(node);
                         }
                     }
+                }
+                    break;
+                case Key.Escape:
+                {
+                    UnselectAllElements();
+                    mouseMode = MouseMode.Nothing;
                 }
                     break;
             }
@@ -1062,6 +1088,7 @@ namespace TUM.CMS.VplControl.Core
         Panning,
         Selection,
         GroupSelection,
+        PreSelectionRectangle,
         SelectionRectangle,
         Zooming
     }

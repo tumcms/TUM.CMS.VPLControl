@@ -1,6 +1,8 @@
-# TUM.CMS.VplControl 0.3#
-**TUM.CMS.VplControl** is a WPF based Visual Programming Control for .Net.
-
+# TUM.CMS.VplControl 0.4#
+**TUM.CMS.VplControl** is a WPF based Visual Programming Language Control for .Net. 
+**A visual programming language can aid non-programmers to write simple programs or processes, without the knowledge of how they are internally built. 
+**The control allows simple visual programming (assignments, boolean expressions, and math expressions, scripting) from scratch. Further nodes for your purposes can be added easily.
+**The development of this VPL framework was mainly influenced by the well known VPL tools Dynamo and Grasshopper.
 
 ----------
 
@@ -67,10 +69,9 @@ Give it a try:
 - Nodes for graph plotting / sql
 - Drag&Drop nodes from toolbox
 - Performance improvement: Virtual canvas
-- Better zooming
 - Node preview at port
 - Calculation progress bar
-- Connector remove
+
 
 
 ----------
@@ -193,4 +194,4 @@ Dominic Singer
 dominic.singer@tum.de
 
 
-11th August 2015
+09th August 2016

@@ -45,7 +45,7 @@ namespace TUM.CMS.VplControl.Core
             };
             textBlock.SetBinding(TextBlock.TextProperty, bindingTextToTextBlock);
 
-            HostNode.HostCanvas.Children.Add(this);
+            HostNode.HostCanvas.AddChildren(this);
 
             HostNode_PropertyChanged(null, null);
             HostNode.PropertyChanged += HostNode_PropertyChanged;

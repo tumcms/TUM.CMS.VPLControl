@@ -12,7 +12,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
     {
         public MinNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Values", typeof(double), true);
+            AddInputPortToNode("Values", typeof(object), true);
             AddOutputPortToNode("MaxValue", typeof(double));
 
             var label = new Label
@@ -27,17 +27,19 @@ namespace TUM.CMS.VplControl.Nodes.Math
 
         public override void Calculate()
         {
-            var t = InputPorts[0].Data.GetType();
+            List<double> doubles= new List<double>();
+            var collection = InputPorts[0].Data as ICollection;
 
-            if (t.IsGenericType)
+            if (collection != null)
             {
-                var collection = InputPorts[0].Data as ICollection;
-                if (collection == null) return;
-
-                List<double> doubles = collection.Cast<double>().ToList();
-
+                doubles.AddRange(from object obj in collection select double.Parse(obj.ToString()));
                 OutputPorts[0].Data = doubles.Min();
             }
+            else
+            {
+                OutputPorts[0].Data = double.Parse(InputPorts[0].Data.ToString());
+            }
+
         }
 
         public override void SerializeNetwork(XmlWriter xmlWriter)

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
@@ -10,7 +11,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
     {
         public SumNode(Core.VplControl hostCanvas) : base(hostCanvas)
         {
-            AddInputPortToNode("Values", typeof (double), true);
+            AddInputPortToNode("Values", typeof (object), true);
             AddOutputPortToNode("Value", typeof (double));
 
             var label = new Label
@@ -30,8 +31,7 @@ namespace TUM.CMS.VplControl.Nodes.Math
             var collection = InputPorts[0].Data as ICollection;
             if (collection != null)
             {
-                foreach (var obj in collection)
-                    sum += double.Parse(obj.ToString());
+                sum += collection.Cast<object>().Sum(obj => double.Parse(obj.ToString()));
             }
             OutputPorts[0].Data = sum;
         }

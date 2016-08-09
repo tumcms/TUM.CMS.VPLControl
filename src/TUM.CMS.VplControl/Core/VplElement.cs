@@ -45,8 +45,10 @@ namespace TUM.CMS.VplControl.Core
                 Style = FindResource("VplElementBorderStyle") as Style,
                 Visibility = Visibility.Collapsed
             };
+
             DependencyPropertyDescriptor.FromProperty(IsSelectedProperty, typeof (VplElement))
                 .AddValueChanged(this, OnSelectionChanged);
+
             HostCanvas.AddChildren(Border);
 
 
@@ -263,7 +265,6 @@ namespace TUM.CMS.VplControl.Core
             set { SetValue(BorderProperty, value); }
         }
 
-
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register("IsSelected", typeof (bool), typeof (VplElement));
 
@@ -273,7 +274,7 @@ namespace TUM.CMS.VplControl.Core
             set { SetValue(IsSelectedProperty, value); }
         }
 
-        private void OnSelectionChanged(object sender, EventArgs e)
+        public virtual void OnSelectionChanged(object sender, EventArgs e)
         {
             if (IsSelected)
                 Border.Style = FindResource("VplElementBorderSelectionStyle") as Style;

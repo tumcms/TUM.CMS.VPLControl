@@ -120,6 +120,11 @@
         <Setter Property="StrokeThickness" Value="{DynamicResource ConnectorThickness}" />
     </Style>
 
+    <Style x:Key="VplSelectedConnectorStyle" TargetType="Path">
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="StrokeThickness" Value="{DynamicResource ConnectorThickness}" />
+    </Style>
+    
 
     <Style x:Key="ToolTipStyle" TargetType="ToolTip">
         <Setter Property="OverridesDefaultStyle" Value="true" />

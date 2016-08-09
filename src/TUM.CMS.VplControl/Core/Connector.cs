@@ -1,15 +1,18 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
+using TUM.CMS.VplControl.Annotations;
 
 namespace TUM.CMS.VplControl.Core
 {
-    public class Connector
+    public class Connector : INotifyPropertyChanged
     {
         public readonly ConnectorPort endEllipse;
         public readonly ConnectorPort srtEllipse;
@@ -75,8 +78,20 @@ namespace TUM.CMS.VplControl.Core
             endPort.CalculateData(startPort.Data);
 
             DefinePath();
-
             HostCanvas.Children.Add(Path);
+
+            Path.MouseDown += Path_MouseDown;
+            Path.MouseUp += PathOnMouseUp;
+        }
+
+        private void PathOnMouseUp(object sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            mouseButtonEventArgs.Handled = true;
+        }
+
+        private void Path_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            IsSelected = !IsSelected;
         }
 
         public Port StartPort { get; }
@@ -85,6 +100,34 @@ namespace TUM.CMS.VplControl.Core
         public Path Path { get; set; }
         public BindingPoint StartBezierPoint { get; set; }
         public BindingPoint EndBezierPoint { get; set; }
+
+        private bool isSelected;
+
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                if (value != isSelected)
+                {
+                    if (value)
+                    {
+                        Path.Style = HostCanvas.FindResource("VplSelectedConnectorStyle") as Style;
+                        HostCanvas.SelectedConnectors.Add(this);
+                    }
+                    else
+                    {
+                        Path.Style = HostCanvas.FindResource("VplConnectorStyle") as Style;
+                        HostCanvas.SelectedConnectors.Remove(this);
+                    }
+                }
+
+                isSelected=value;
+
+
+            }
+        }
+
 
 
         public void SynchroniseAfterZoom()
@@ -171,6 +214,16 @@ namespace TUM.CMS.VplControl.Core
             Path.Data = new PathGeometry(pfColl);
         }
 
+        public void Delete()
+        {
+            RemoveFromCanvas();
+
+            StartPort.ConnectedConnectors.Remove(this);
+            EndPort.ConnectedConnectors.Remove(this);
+
+            EndPort.CalculateData();
+        }
+
         public void RemoveFromCanvas()
         {
             HostCanvas.Children.Remove(Path);
@@ -188,12 +241,7 @@ namespace TUM.CMS.VplControl.Core
 
         private void node_DeletedInNodeCollection(object sender, EventArgs e)
         {
-            RemoveFromCanvas();
-
-            StartPort.ConnectedConnectors.Remove(this);
-            EndPort.ConnectedConnectors.Remove(this);
-
-            EndPort.CalculateData();
+            Delete();
         }
 
         public void SerializeNetwork(XmlWriter xmlWriter)
@@ -217,6 +265,14 @@ namespace TUM.CMS.VplControl.Core
 
         public virtual void DeserializeNetwork(XmlReader xmlReader)
         {
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
