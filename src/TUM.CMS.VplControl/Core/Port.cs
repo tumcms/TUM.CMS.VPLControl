@@ -62,9 +62,11 @@ namespace TUM.CMS.VplControl.Core
         {
             get
             {
-                if (Data != null)
-                    return Name + " : " + DataType.Name + " : " + Data;
-                return Name + " : " + DataType.Name + " : null";
+                //if (Data != null)
+                //    return Name + " : " + DataType.Name + " : " + Data;
+                //return Name + " : " + DataType.Name + " : null";
+
+                return Utilities.Utilities.DataToString(Data);
             }
         }
 

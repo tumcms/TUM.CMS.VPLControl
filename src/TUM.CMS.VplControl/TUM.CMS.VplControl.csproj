@@ -124,6 +124,14 @@
     <Compile Include="Nodes\TestNode.cs" />
     <Compile Include="Nodes\Input\TextNode.cs" />
     <Compile Include="Nodes\WatchNode.cs" />
+    <Compile Include="Utilities\CollectionEx.cs" />
+    <Compile Include="Utilities\Converter.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+    <Compile Include="Utilities\ParameterExtractionVisitor.cs" />
+    <Compile Include="Utilities\StringExtensions.cs" />
+    <Compile Include="Utilities\StringWriterWithEncoding.cs" />
+    <Compile Include="Utilities\TrulyObservableCollection.cs" />
+    <Compile Include="Utilities\TypeExtensions.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Page Include="ContentMenu\Settings.xaml">
       <SubType>Designer</SubType>

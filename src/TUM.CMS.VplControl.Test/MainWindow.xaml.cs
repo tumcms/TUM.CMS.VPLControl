@@ -28,11 +28,11 @@ namespace TUM.CMS.VplControl.Test
             Loaded += OnLoaded;
 
             VplGroupControl.MainVplControl.ExternalNodeTypes.AddRange(
-                ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
+                Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
                     .ToList());
 
             VplGroupControl.MainVplControl.ExternalNodeTypes.AddRange(
-                ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Watch3D.Nodes")
+                Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Watch3D.Nodes")
                     .ToList());
 
             VplGroupControl.MainVplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));

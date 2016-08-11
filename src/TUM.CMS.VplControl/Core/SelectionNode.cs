@@ -34,7 +34,7 @@ namespace TUM.CMS.VplControl.Core
             {
                 case NodeTypeModes.OnlyInternalTypes:
                     tempTypeList.AddRange(
-                        ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Nodes")
+                        Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Nodes")
                             .ToList());
                     break;
                 case NodeTypeModes.OnlyExternalTypes:
@@ -42,7 +42,7 @@ namespace TUM.CMS.VplControl.Core
                     break;
                 case NodeTypeModes.All:
                     tempTypeList.AddRange(
-                        ClassUtility.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Nodes")
+                        Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Nodes")
                             .ToList());
                     tempTypeList.AddRange(hostCanvas.ExternalNodeTypes);
                     break;

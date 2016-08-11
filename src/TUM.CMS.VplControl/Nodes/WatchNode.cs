@@ -33,7 +33,7 @@ namespace TUM.CMS.VplControl.Nodes
                // IsHitTestVisible = false
             };
 
- AddControlToNode(scrollViewer);
+            AddControlToNode(scrollViewer);
         }
 
 
@@ -53,102 +53,10 @@ namespace TUM.CMS.VplControl.Nodes
             var textBlock = scrollViewer.Content as TextBlock;
             if (textBlock == null) return;
 
-            if (InputPorts[0].Data == null)
-                textBlock.Text = "null";
-            else
-            {
-                Type t;
-
-                var type = InputPorts[0].Data as Type;
-
-                if (type != null)
-                {
-                    t = type;
-
-                    if (t.IsEnum)
-                    {
-                        textBlock.Text = "Enum " + t.Name + " {";
-
-                        var counter = 0;
-                        foreach (var o in Enum.GetValues(t))
-                        {
-                            textBlock.Text += o.ToString();
-
-                            if (counter < Enum.GetValues(t).Length - 1)
-                                textBlock.Text += ",";
-
-                            counter++;
-                        }
-                        textBlock.Text += "}";
-                    }
-                    else
-                        textBlock.Text = t.Name + " : Type";
-                }
-                else
-                {
-                    t = InputPorts[0].Data.GetType();
-
-                    if (t.IsGenericType)
-                    {
-                        var collection = InputPorts[0].Data as ICollection;
-                        if (collection == null) return;
-                        var obj = collection;
-
-                        textBlock.Text = CollectionToString(obj, 1);
-                    }
-                    else
-                        textBlock.Text = InputPorts[0].Data + " : " + t.Name;
-                }
-            }
+            textBlock.Text = Utilities.Utilities.DataToString(InputPorts[0].Data);
         }
 
-        private string CollectionToString(ICollection coll, int depth)
-        {
-            var tempLine = "";
-
-            for (var i = 0; i < depth - 1; i++)
-                tempLine += "  ";
-
-            tempLine = "List" + Environment.NewLine;
-            var counter = 0;
-
-            foreach (var item in coll)
-            {
-                for (var i = 0; i < depth; i++)
-                    tempLine += "  ";
-
-                tempLine += "[" + counter + "] ";
-
-                if (item == null)
-                {
-                    tempLine += "null";
-
-                    if (depth != 1 || counter != coll.Count - 1)
-                        tempLine += Environment.NewLine;
-                }
-                else
-                {
-                    if (item.GetType().IsGenericType)
-                    {
-                        var collection = item as ICollection;
-                        if (collection == null) return "";
-                        var obj = collection;
-
-                        tempLine += CollectionToString(obj, depth + 1);
-                    }
-                    else
-                    {
-                        tempLine += item + " : " + item.GetType().Name;
-
-                        if (depth != 1 || counter != coll.Count - 1)
-                            tempLine += Environment.NewLine;
-                    }
-                }
-
-                counter++;
-            }
-            return tempLine;
-        }
+       
 
         public override Node Clone()
         {
