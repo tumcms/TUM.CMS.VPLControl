@@ -3,13 +3,13 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace TUM.CMS.VplControl.Core
+namespace TUM.CMS.VplControl.Themes
 {
     public class Theme
     {
-        private readonly VplControl hostCanvas;
+        private readonly Core.VplControl hostCanvas;
 
-        public Theme(VplControl hostCanvas)
+        public Theme(Core.VplControl hostCanvas)
         {
             this.hostCanvas = hostCanvas;
         }

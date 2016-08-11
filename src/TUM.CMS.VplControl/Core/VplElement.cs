@@ -68,6 +68,7 @@ namespace TUM.CMS.VplControl.Core
             HitTestGrid.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(30)});
 
             HitTestBorder.Child = HitTestGrid;
+
             HostCanvas.AddChildren(HitTestBorder);
 
             // ----------------------------------------------------------------------------------------------------------------------
@@ -80,8 +81,6 @@ namespace TUM.CMS.VplControl.Core
             ResizeButton = new NodePinButton(this);
             BinButton = new NodeBinButton(this);
             AutoCheckBox = new NodeAutoCheckBox(this);
-
-            //CaptionLabel.Width = 80;
 
             BinButton.Click += binButton_Click;
 

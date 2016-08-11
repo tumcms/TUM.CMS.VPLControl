@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using TUM.CMS.VplControl.Utilities;
 
 namespace TUM.CMS.VplControl.Core
@@ -21,14 +22,13 @@ namespace TUM.CMS.VplControl.Core
             Border.MouseDown += HitTestBorder_MouseDown;
             Border.MouseUp += Border_MouseUp;
 
-            CaptionLabel.Width = 200;
-
-            Name = "Name group here...";
-
+            Border.Visibility = Visibility.Visible;
+            Border.Style = FindResource("VplGroupBorderStyle") as Style;
+                
             HostCanvas.NodeGroupCollection.Add(this);
 
-            SetZIndex(this, 0);
-            SetZIndex(Border, 0);
+            SetZIndex(this, 1);
+            SetZIndex(Border, 1);
         }
 
         public int Id { get; set; }
@@ -145,7 +145,7 @@ namespace TUM.CMS.VplControl.Core
             Canvas.SetTop(Border, minTop);
 
             HitTestBorder.Width = maxLeft - minLeft;
-            HitTestBorder.Height = maxTop - minTop + 30;
+            //HitTestBorder.Height = maxTop - minTop + 30;
             Canvas.SetLeft(HitTestBorder, minLeft);
             Canvas.SetTop(HitTestBorder, minTop - 30);
 

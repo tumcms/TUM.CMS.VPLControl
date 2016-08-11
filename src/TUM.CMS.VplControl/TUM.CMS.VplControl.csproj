@@ -93,6 +93,8 @@
     <Compile Include="Nodes\CommentNode.cs" />
     <Compile Include="Nodes\ExpressionNode.cs" />
     <Compile Include="Nodes\GroupInputNode.cs" />
+    <Compile Include="Nodes\Input\ReadTextFile.cs" />
+    <Compile Include="Nodes\Input\FileWatcher.cs" />
     <Compile Include="Nodes\Input\FilePath.cs" />
     <Compile Include="Nodes\Logic\IfNode.cs" />
     <Compile Include="Nodes\Input\IntegerSlider.cs" />

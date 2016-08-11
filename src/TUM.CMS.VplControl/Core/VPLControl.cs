@@ -9,15 +9,22 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml;
-using Microsoft.Win32;
 using TUM.CMS.VplControl.ContentMenu;
+using TUM.CMS.VplControl.Themes;
 using TUM.CMS.VplControl.Utilities;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using Application = System.Windows.Application;
+using Cursors = System.Windows.Input.Cursors;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using Path = System.Windows.Shapes.Path;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace TUM.CMS.VplControl.Core
 {
@@ -270,10 +277,18 @@ namespace TUM.CMS.VplControl.Core
 
                     if (e.LeftButton == MouseButtonState.Pressed)
                     {
-                        // left singe click in empty space of canvas
-                        startSelectionRectanglePoint = Mouse.GetPosition(this);
-                        mouseMode = MouseMode.PreSelectionRectangle;
-                        SplineMode = SplineModes.Nothing;
+                        if (e.ClickCount == 2)
+                        {
+                            // left double click in empty space of canvas
+                            ShowSelectionNode();
+                        }
+                        else
+                        {
+                            // left singe click in empty space of canvas
+                            startSelectionRectanglePoint = Mouse.GetPosition(this);
+                            mouseMode = MouseMode.PreSelectionRectangle;
+                            SplineMode = SplineModes.Nothing;
+                        }
 
                         if (radialMenu != null)
                         {
@@ -288,17 +303,7 @@ namespace TUM.CMS.VplControl.Core
                         origin = new Point(TranslateTransform.X, TranslateTransform.Y);
 
 
-                        foreach (var node in NodeCollection)
-                        {
-                            node.ContentGrid.Visibility = Visibility.Collapsed;
-                        }
-
-                        foreach (var conn in ConnectorCollection)
-                        {
-                            conn.Path.Visibility = Visibility.Collapsed;
-                            conn.srtEllipse.Visibility = Visibility.Collapsed;
-                            conn.endEllipse.Visibility = Visibility.Collapsed;
-                        }
+                        HideElementsForTransformation();
 
                         Cursor = Cursors.Hand;
                         mouseMode = MouseMode.Panning;
@@ -327,15 +332,7 @@ namespace TUM.CMS.VplControl.Core
                     if (e.ClickCount == 2)
                     {
                         // left double click in empty space of canvas
-                        if (selectionNode == null)
-                        {
-                            selectionNode = new SelectionNode(this);
-                        }
-
-                        selectionNode.Left = Mouse.GetPosition(this).X - 45;
-                        selectionNode.Top = Mouse.GetPosition(this).Y - 20;
-
-                        selectionNode.Show();
+                        ShowSelectionNode();
                     }
                     break;
                 case MouseMode.Selection:
@@ -350,6 +347,35 @@ namespace TUM.CMS.VplControl.Core
 
                 case MouseMode.GroupSelection:
                     break;
+            }
+        }
+
+        private void ShowSelectionNode()
+        {
+            if (selectionNode == null)
+            {
+                selectionNode = new SelectionNode(this);
+            }
+
+            selectionNode.Left = Mouse.GetPosition(this).X - 45;
+            selectionNode.Top = Mouse.GetPosition(this).Y - 20;
+
+            selectionNode.Show();
+        }
+
+        private void HideElementsForTransformation()
+        {
+            foreach (var node in NodeCollection)
+            {
+                node.ContentGrid.Visibility = Visibility.Collapsed;
+                node.HitTestGrid.Visibility = Visibility.Collapsed;
+            }
+
+            foreach (var conn in ConnectorCollection)
+            {
+                conn.Path.Visibility = Visibility.Collapsed;
+                conn.srtEllipse.Visibility = Visibility.Collapsed;
+                conn.endEllipse.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -469,13 +495,14 @@ namespace TUM.CMS.VplControl.Core
 
         protected override void HandleMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl)) return;
+
             mouseMode = MouseMode.Zooming;
 
             var zoom = e.Delta > 0 ? .2 : -.2;
 
             if (!(e.Delta > 0) && (ScaleTransform.ScaleX < .4 || ScaleTransform.ScaleY < .4))
                 return;
-
 
             var elementsToZoom = new List<UIElement>();
             elementsToZoom.AddRange(Children.OfType<Border>());
@@ -548,32 +575,7 @@ namespace TUM.CMS.VplControl.Core
 
                 case MouseMode.Panning:
 
-                    foreach (var node in NodeCollection)
-                    {
-                        node.ContentGrid.Visibility = Visibility.Hidden;
-                    }
-
-                    foreach (var conn in ConnectorCollection)
-                    {
-                        conn.Path.Visibility = Visibility.Hidden;
-                        conn.srtEllipse.Visibility = Visibility.Hidden;
-                        conn.endEllipse.Visibility = Visibility.Hidden;
-                    }
-
-                    ScaleTransform.ScaleX += 1;
-                    ScaleTransform.ScaleX -= 1;
-
-                    foreach (var node in NodeCollection)
-                    {
-                        node.ContentGrid.Visibility = Visibility.Visible;
-                    }
-
-                    foreach (var conn in ConnectorCollection)
-                    {
-                        conn.Path.Visibility = Visibility.Visible;
-                        conn.srtEllipse.Visibility = Visibility.Visible;
-                        conn.endEllipse.Visibility = Visibility.Visible;
-                    }
+                    ShowElementsAfterTransformation();
 
                     Cursor = Cursors.Arrow;
                     mouseMode = MouseMode.Nothing;
@@ -591,6 +593,38 @@ namespace TUM.CMS.VplControl.Core
                     mouseMode = SelectedNodes.Count > 0 ? MouseMode.Selection : MouseMode.Nothing;
 
                     break;
+            }
+        }
+
+        private void ShowElementsAfterTransformation()
+        {
+            foreach (var node in NodeCollection)
+            {
+                node.ContentGrid.Visibility = Visibility.Hidden;
+                node.HitTestGrid.Visibility = Visibility.Hidden;
+            }
+
+            foreach (var conn in ConnectorCollection)
+            {
+                conn.Path.Visibility = Visibility.Hidden;
+                conn.srtEllipse.Visibility = Visibility.Hidden;
+                conn.endEllipse.Visibility = Visibility.Hidden;
+            }
+
+            ScaleTransform.ScaleX += 1;
+            ScaleTransform.ScaleX -= 1;
+
+            foreach (var node in NodeCollection)
+            {
+                node.ContentGrid.Visibility = Visibility.Visible;
+                node.HitTestGrid.Visibility = Visibility.Visible;
+            }
+
+            foreach (var conn in ConnectorCollection)
+            {
+                conn.Path.Visibility = Visibility.Visible;
+                conn.srtEllipse.Visibility = Visibility.Visible;
+                conn.endEllipse.Visibility = Visibility.Visible;
             }
         }
 
@@ -699,7 +733,7 @@ namespace TUM.CMS.VplControl.Core
 
                         var delta = Point.Subtract(pastePoint, copyPoint);
 
-                        SelectedNodes.Clear();
+                        UnselectAllElements();
 
                         var alreadyClonedConnectors = new List<Connector>();
                         var copyConnections = new List<CopyConnection>();
@@ -715,7 +749,10 @@ namespace TUM.CMS.VplControl.Core
                             newNode.Left = Convert.ToInt32(newNode.Left);
                             newNode.Top = Convert.ToInt32(newNode.Top);
 
+                            newNode.Show();
+
                             copyConnections.Add(new CopyConnection {NewNode = newNode, OldNode = node});
+
                         }
 
                         foreach (var cc in copyConnections)
@@ -812,6 +849,12 @@ namespace TUM.CMS.VplControl.Core
                     mouseMode = MouseMode.Nothing;
                 }
                     break;
+                case Key.LeftCtrl:
+                    if (!Keyboard.IsKeyDown(Key.RightCtrl)) ShowElementsAfterTransformation();
+                    break;
+                case Key.RightCtrl:
+                    if (!Keyboard.IsKeyDown(Key.LeftCtrl)) ShowElementsAfterTransformation();
+                    break;
             }
         }
 
@@ -891,6 +934,12 @@ namespace TUM.CMS.VplControl.Core
                 {
                     vector = new Vector(0, -1);
                 }
+                    break;
+                case Key.LeftCtrl:
+                    HideElementsForTransformation();
+                    break;
+                case Key.RightCtrl:
+                    HideElementsForTransformation();
                     break;
             }
 

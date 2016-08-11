@@ -11,7 +11,7 @@
     <Grid>
         <TabControl>
             <TabItem Header="Project">
-                <core:VplControl Name="VplControl" />
+                <core:VplControl Name="VplControl" ClipToBounds="True" />
             </TabItem>
             <TabItem Header="Group_1">
                 <core:VplGroupControl Name="VplGroupControl"  />
