@@ -182,6 +182,8 @@ namespace TUM.CMS.VplControl.Core
         {
             if(HostCanvas.mouseMode== MouseMode.Zooming) return;
 
+            if (ActualWidth > 0)
+                HitTestBorder.Width = ActualWidth + 30;
 
             if (sizeChangedEventArgs.WidthChanged)
             {
