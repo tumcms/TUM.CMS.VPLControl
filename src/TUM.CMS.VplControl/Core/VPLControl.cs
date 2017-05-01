@@ -943,7 +943,8 @@ namespace TUM.CMS.VplControl.Core
                     break;
             }
 
-
+            if (vector.X == 0 && vector.Y == 0)
+                return;
             double factor = 5;
 
             foreach (var node in NodeCollection)
