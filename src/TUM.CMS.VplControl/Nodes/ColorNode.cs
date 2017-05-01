@@ -15,6 +15,10 @@ namespace TUM.CMS.VplControl.Nodes
         private readonly ColorCanvas cc;
         private readonly ExpanderColor expander;
 
+        /// <summary>
+        /// This is a color node, where you can pick colors from a color panel.
+        /// </summary>
+        /// <param name="hostCanvas"></param>
         public ColorNode(Core.VplControl hostCanvas)
             : base(hostCanvas)
         {
@@ -58,11 +62,11 @@ namespace TUM.CMS.VplControl.Nodes
         {
             base.SerializeNetwork(xmlWriter);
 
-
             var color = new Color();
             if (cc.SelectedColor != null)
                 color = cc.SelectedColor.Value;
 
+            //Here we convert 
             var drawingColor = System.Drawing.Color.FromArgb(color.A, color.R, color.G, color.B);
 
             xmlWriter.WriteStartAttribute("Color");

@@ -5,8 +5,6 @@ using System.Reflection;
 using System.Windows;
 using TUM.CMS.VplControl.Core;
 using TUM.CMS.VplControl.Utilities;
-using TUM.CMS.VplControl.Watch3D.Nodes;
-using TUM.CMS.VPL.Scripting.Nodes;
 
 namespace TUM.CMS.VplControl.Test
 {
@@ -31,17 +29,7 @@ namespace TUM.CMS.VplControl.Test
                 Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Test.Nodes")
                     .ToList());
 
-            VplGroupControl.MainVplControl.ExternalNodeTypes.AddRange(
-                Utilities.Utilities.GetTypesInNamespace(Assembly.GetExecutingAssembly(), "TUM.CMS.VplControl.Watch3D.Nodes")
-                    .ToList());
-
-            VplGroupControl.MainVplControl.ExternalNodeTypes.Add(typeof (ScriptingNode));
-            VplGroupControl.MainVplControl.ExternalNodeTypes.Add(typeof (Watch3DNode));
-
             VplGroupControl.MainVplControl.NodeTypeMode = NodeTypeModes.All;
-
-            //VplPropertyGrid.SelectedObject = VplControl;
-
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -50,7 +38,7 @@ namespace TUM.CMS.VplControl.Test
             if (File.Exists(filePath))
             {
                 VplControl.OpenFile(filePath);
-                VplGroupControl.MainVplControl.OpenFile(filePath);
+                //VplGroupControl.MainVplControl.OpenFile(filePath);
             }
         }
     }
